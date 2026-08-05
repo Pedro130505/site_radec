@@ -42,37 +42,37 @@ export default function ComparisonMatrix({ onOpenQuote }) {
             </thead>
             <tbody className="divide-y divide-slate-200 text-xs md:text-sm text-slate-700">
               <tr className="hover:bg-slate-50">
-                <td className="p-4 font-bold text-[#072752] bg-slate-50">Princípio Tecnológico</td>
+                <td className="p-4 font-bold text-[#072752] bg-slate-50 whitespace-nowrap">Princípio Tecnológico</td>
                 <td className="p-4 font-semibold text-[#0356c5]">Visão Computacional & IA (IP67)</td>
                 <td className="p-4 font-semibold text-blue-900">Análise Frequencial de Vibração</td>
                 <td className="p-4 text-slate-500">Contato mecânico por atrito</td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="p-4 font-bold text-[#072752] bg-slate-50">Detecção de Desalinhamento</td>
-                <td className="p-4 text-emerald-700 font-bold flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> Sim (Precisão milimétrica)</td>
+                <td className="p-4 font-bold text-[#072752] bg-slate-50 whitespace-nowrap">Detecção de Desalinhamento</td>
+                <td className="p-4 text-emerald-700 font-bold"><span className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> Sim (Precisão milimétrica)</span></td>
                 <td className="p-4 text-slate-600">Indireta</td>
-                <td className="p-4 text-rose-600 font-bold flex items-center gap-1.5"><X className="w-4 h-4 text-rose-600" /> Não detecta</td>
+                <td className="p-4 text-rose-600 font-bold"><span className="inline-flex items-center gap-1.5"><X className="w-4 h-4 text-rose-600 shrink-0" /> Não detecta</span></td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="p-4 font-bold text-[#072752] bg-slate-50">Detecção de Tira Solta</td>
+                <td className="p-4 font-bold text-[#072752] bg-slate-50 whitespace-nowrap">Detecção de Tira Solta</td>
                 <td className="p-4 text-slate-600">Secundária</td>
-                <td className="p-4 text-emerald-700 font-bold flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600" /> Sim (Especialidade)</td>
-                <td className="p-4 text-rose-600 font-bold flex items-center gap-1.5"><X className="w-4 h-4 text-rose-600" /> Não detecta</td>
+                <td className="p-4 text-emerald-700 font-bold"><span className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-600 shrink-0" /> Sim (Especialidade)</span></td>
+                <td className="p-4 text-rose-600 font-bold"><span className="inline-flex items-center gap-1.5"><X className="w-4 h-4 text-rose-600 shrink-0" /> Não detecta</span></td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="p-4 font-bold text-[#072752] bg-slate-50">Partes Móveis Mecânicas</td>
+                <td className="p-4 font-bold text-[#072752] bg-slate-50 whitespace-nowrap">Partes Móveis Mecânicas</td>
                 <td className="p-4 text-emerald-700 font-bold">Zero partes móveis</td>
                 <td className="p-4 text-emerald-700 font-bold">Zero partes móveis</td>
                 <td className="p-4 text-rose-600 font-bold">Partes móveis (emperramento frequente)</td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="p-4 font-bold text-[#072752] bg-slate-50">Níveis de Alerta Gradativos</td>
+                <td className="p-4 font-bold text-[#072752] bg-slate-50 whitespace-nowrap">Níveis de Alerta Gradativos</td>
                 <td className="p-4 text-emerald-700 font-bold">5 Níveis de Alerta (%)</td>
                 <td className="p-4 text-emerald-700 font-bold">Ajuste de Frequência Fina</td>
                 <td className="p-4 text-rose-600 font-bold">Sem níveis (Apenas relé liga/desliga)</td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="p-4 font-bold text-[#072752] bg-slate-50">Comunicação CLP / SCADA</td>
+                <td className="p-4 font-bold text-[#072752] bg-slate-50 whitespace-nowrap">Comunicação CLP / SCADA</td>
                 <td className="p-4 text-emerald-700 font-bold">Nativa (Modbus, TCP/IP, Relé)</td>
                 <td className="p-4 text-emerald-700 font-bold">Nativa (TCP/IP, Relé Digital)</td>
                 <td className="p-4 text-slate-500">Contato seco simples sem diagnóstico</td>
