@@ -17,7 +17,7 @@ export default function RoiCalculator({ onOpenQuote }) {
   };
 
   return (
-    <section id="calculadora-roi" className="py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
+    <section id="calculadora-roi" className="scroll-mt-24 py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Section Title */}

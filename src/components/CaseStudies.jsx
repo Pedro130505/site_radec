@@ -61,7 +61,7 @@ export default function CaseStudies({ onOpenQuote }) {
   ];
 
   return (
-    <section id="casos-reais" className="py-20 bg-white text-slate-800 border-b border-slate-200">
+    <section id="casos-reais" className="scroll-mt-24 py-20 bg-white text-slate-800 border-b border-slate-200">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Section Header */}

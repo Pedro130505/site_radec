@@ -17,7 +17,7 @@ export default function AboutLlk({ onOpenQuote }) {
   ];
 
   return (
-    <section id="sobre-llk" className="py-20 bg-slate-100 text-slate-800 border-b border-slate-200">
+    <section id="sobre-llk" className="scroll-mt-24 py-20 bg-slate-900 text-white border-b border-slate-800">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Company Overview */}

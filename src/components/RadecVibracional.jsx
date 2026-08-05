@@ -39,7 +39,7 @@ export default function RadecVibracional({ onOpenQuote }) {
   const currentPos = positionInfo[activePos];
 
   return (
-    <section id="radec-vibracional" className="py-20 bg-[#072752] text-white border-b border-blue-900/60">
+    <section id="radec-vibracional" className="scroll-mt-24 py-20 bg-[#072752] text-white border-b border-blue-900/60">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Section Header */}

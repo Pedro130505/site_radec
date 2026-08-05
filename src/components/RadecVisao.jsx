@@ -17,7 +17,7 @@ export default function RadecVisao({ onOpenQuote }) {
   const currentAlert = alertDetails[alertLevel];
 
   return (
-    <section id="radec-visao" className="py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
+    <section id="radec-visao" className="scroll-mt-24 py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Section Header */}

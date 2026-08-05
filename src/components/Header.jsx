@@ -24,22 +24,24 @@ export default function Header({ onOpenQuote }) {
   ];
 
   return (
-    <>
+    <header className="sticky top-0 z-50 shadow-md">
       {/* Top Utility Bar */}
-      <div className="bg-[#040d1a] text-slate-300 text-xs py-2 px-4 border-b border-slate-800/80 z-50 relative">
-        <div className="container mx-auto flex flex-wrap justify-between items-center gap-2">
-          <div className="flex items-center gap-4">
+      <div className={`bg-[#040d1a] text-slate-300 text-xs py-1.5 px-4 transition-all duration-300 border-b border-slate-800 ${
+        scrolled ? 'hidden md:block py-1 opacity-90' : 'block'
+      }`}>
+        <div className="container mx-auto flex justify-between items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="font-semibold text-white tracking-wide flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#0356c5]" />
               LLK SOLUÇÕES
             </span>
-            <span className="hidden md:inline text-slate-400">|</span>
-            <span className="hidden md:inline text-slate-300 font-medium">
-              Eficiência Operacional & Proteção de Ativos em Indústrias de Base
+            <span className="hidden md:inline text-slate-500">|</span>
+            <span className="hidden md:inline text-slate-300 text-[11px] font-medium">
+              Eficiência Operacional & Proteção de Ativos para a Indústria de Base
             </span>
           </div>
 
-          <div className="flex items-center gap-6 text-xs text-slate-300">
+          <div className="flex items-center gap-5 text-xs text-slate-300">
             <span className="hidden sm:inline-flex items-center gap-1">
               <Globe className="w-3.5 h-3.5 text-blue-400" />
               <span>PT | EN</span>
@@ -53,38 +55,38 @@ export default function Header({ onOpenQuote }) {
         </div>
       </div>
 
-      {/* Main Corporate Header */}
-      <header className={`fixed top-[37px] left-0 right-0 z-40 transition-all duration-300 ${
+      {/* Main Bar */}
+      <div className={`transition-all duration-300 border-b ${
         scrolled 
-          ? 'bg-white text-slate-900 shadow-md border-b border-slate-200 py-3' 
-          : 'bg-[#072752] text-white border-b border-blue-900/50 py-4'
+          ? 'bg-white text-slate-900 border-slate-200 py-2.5 shadow-md' 
+          : 'bg-[#072752] text-white border-blue-900/50 py-3.5'
       }`}>
         <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
           
-          {/* Official LLK Logo */}
-          <a href="#" className="flex items-center gap-3">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-3 shrink-0">
             <img 
               src={scrolled ? getAssetUrl('assets/Logotipos/blue/LLK-LOGO-A-BLUE.svg') : getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')}
               alt="LLK Soluções" 
-              className="h-9 md:h-11 w-auto transition-all"
+              className="h-8 md:h-10 w-auto transition-all"
             />
             <div className={`hidden sm:block border-l pl-3 py-0.5 ${scrolled ? 'border-slate-300' : 'border-blue-400/40'}`}>
-              <span className={`block font-extrabold text-base leading-tight font-['Outfit'] ${scrolled ? 'text-[#072752]' : 'text-white'}`}>
+              <span className={`block font-extrabold text-sm md:text-base leading-tight font-['Outfit'] ${scrolled ? 'text-[#072752]' : 'text-white'}`}>
                 RADEC®
               </span>
-              <span className={`block text-[10px] font-bold tracking-wider uppercase ${scrolled ? 'text-blue-600' : 'text-blue-200'}`}>
+              <span className={`block text-[9px] font-bold tracking-wider uppercase ${scrolled ? 'text-blue-600' : 'text-blue-200'}`}>
                 Proteção de Correias
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-6">
+          {/* Navigation Links */}
+          <nav className="hidden xl:flex items-center gap-5">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`text-sm font-semibold transition-colors duration-150 ${
+                className={`text-xs md:text-sm font-semibold transition-colors duration-150 whitespace-nowrap ${
                   scrolled 
                     ? 'text-slate-700 hover:text-[#0356c5]' 
                     : 'text-slate-200 hover:text-white'
@@ -96,13 +98,13 @@ export default function Header({ onOpenQuote }) {
           </nav>
 
           {/* Action Button */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3 shrink-0">
             <button
               onClick={onOpenQuote}
-              className={`px-5 py-2.5 rounded-lg font-bold text-sm transition-all duration-200 flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-lg font-bold text-xs md:text-sm transition-all duration-200 flex items-center gap-1.5 ${
                 scrolled
                   ? 'bg-[#0356c5] hover:bg-[#072752] text-white shadow-sm'
-                  : 'bg-white hover:bg-slate-100 text-[#072752] shadow-md'
+                  : 'bg-white hover:bg-slate-100 text-[#072752] shadow'
               }`}
             >
               <span>Falar com Engenheiro</span>
@@ -110,7 +112,7 @@ export default function Header({ onOpenQuote }) {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenu(!mobileMenu)}
             className={`xl:hidden p-2 rounded-lg border ${
@@ -119,40 +121,41 @@ export default function Header({ onOpenQuote }) {
                 : 'bg-[#031633] text-white border-blue-800'
             }`}
           >
-            {mobileMenu ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-        </div>
 
-        {/* Mobile Navigation Dropdown */}
-        {mobileMenu && (
-          <div className="xl:hidden bg-white text-slate-900 border-b border-slate-200 px-6 py-6 space-y-4 shadow-xl">
-            <div className="space-y-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenu(false)}
-                  className="block px-4 py-3 text-slate-800 hover:bg-slate-100 hover:text-[#0356c5] font-semibold rounded-lg transition"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
-            <div className="pt-4 border-t border-slate-200">
-              <button
-                onClick={() => {
-                  setMobileMenu(false);
-                  onOpenQuote();
-                }}
-                className="w-full bg-[#0356c5] text-white py-3 rounded-lg font-bold text-center flex justify-center items-center gap-2 shadow"
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenu && (
+        <div className="xl:hidden bg-white text-slate-900 border-b border-slate-200 px-6 py-5 space-y-3 shadow-xl">
+          <div className="space-y-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenu(false)}
+                className="block px-4 py-2.5 text-slate-800 hover:bg-slate-100 hover:text-[#0356c5] font-semibold text-sm rounded-lg transition"
               >
-                <span>Solicitar Proposta Técnica</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+                {link.name}
+              </a>
+            ))}
           </div>
-        )}
-      </header>
-    </>
+          <div className="pt-3 border-t border-slate-200">
+            <button
+              onClick={() => {
+                setMobileMenu(false);
+                onOpenQuote();
+              }}
+              className="w-full bg-[#0356c5] text-white py-3 rounded-lg font-bold text-center flex justify-center items-center gap-2 text-sm shadow"
+            >
+              <span>Solicitar Proposta Técnica</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

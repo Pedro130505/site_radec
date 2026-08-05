@@ -11,7 +11,7 @@ export default function Hero({ onOpenQuote }) {
   ];
 
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-[#072752] text-white overflow-hidden border-b border-blue-900/60">
+    <section className="relative pt-12 pb-16 md:pt-16 md:pb-24 bg-[#072752] text-white overflow-hidden border-b border-blue-900/60">
       
       {/* Background Industrial Overlay */}
       <div 

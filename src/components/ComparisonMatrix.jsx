@@ -13,7 +13,7 @@ export default function ComparisonMatrix({ onOpenQuote }) {
   };
 
   return (
-    <section id="comparativo" className="py-20 bg-slate-100 text-slate-800 border-b border-slate-200">
+    <section id="comparativo" className="scroll-mt-24 py-20 bg-white text-slate-800 border-b border-slate-200">
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Section Header */}
