@@ -16,7 +16,7 @@ export default function Hero({ onOpenQuote }) {
       {/* Background Industrial Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none"
-        style={{ backgroundImage: `url('${getAssetUrl('assets/photos/Apresentao_p2_3.jpg')}')` }}
+        style={{ backgroundImage: `url('${getAssetUrl('assets/photos/hero_plant_bg.jpg')}')` }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#072752] via-[#072752]/95 to-[#072752]/80 pointer-events-none" />
 
@@ -89,7 +89,7 @@ export default function Hero({ onOpenQuote }) {
               
               <div className="relative rounded-xl overflow-hidden mb-4 border border-slate-200">
                 <img 
-                  src={getAssetUrl('assets/photos/Apresentao_p6_32.jpg')} 
+                  src={getAssetUrl('assets/photos/radec_visao_field.jpg')} 
                   alt="RADEC Visão Instalado em Campo na Mineração" 
                   className="w-full h-64 object-cover"
                 />

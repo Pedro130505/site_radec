@@ -50,7 +50,7 @@ export default function RadecVisao({ onOpenQuote }) {
           <div className="lg:col-span-6 space-y-4">
             <div className="industrial-card p-4 rounded-2xl overflow-hidden">
               <img 
-                src={getAssetUrl('assets/photos/Apresentao_p8_38.png')} 
+                src={getAssetUrl('assets/photos/radec_visao_diagram.png')} 
                 alt="Desenho Esquemático do RADEC Visão" 
                 className="w-full h-auto rounded-xl object-contain bg-white border border-slate-200 p-2"
               />

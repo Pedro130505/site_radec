@@ -64,7 +64,7 @@ export default function Header({ onOpenQuote }) {
           {/* Official LLK Logo */}
           <a href="#" className="flex items-center gap-3">
             <img 
-              src={scrolled ? getAssetUrl('assets/Logotipos/1. Blue/LLK-LOGO-A-BLUE.svg') : getAssetUrl('assets/Logotipos/2. White/LLK-LOGO-A-WHITE.svg')}
+              src={scrolled ? getAssetUrl('assets/Logotipos/blue/LLK-LOGO-A-BLUE.svg') : getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')}
               alt="LLK Soluções" 
               className="h-9 md:h-11 w-auto transition-all"
             />

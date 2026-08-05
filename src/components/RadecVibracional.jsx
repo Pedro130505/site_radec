@@ -62,7 +62,7 @@ export default function RadecVibracional({ onOpenQuote }) {
           <div className="lg:col-span-5 space-y-4">
             <div className="bg-[#041d3d] p-4 rounded-2xl border border-blue-800 shadow-xl space-y-3">
               <img 
-                src={getAssetUrl('assets/photos/Apresentao_p8_163.png')} 
+                src={getAssetUrl('assets/photos/radec_vibracional_diagram.png')} 
                 alt="Posicionamento do RADEC Vibracional no Transportador" 
                 className="w-full h-auto rounded-lg object-contain bg-white p-2"
               />

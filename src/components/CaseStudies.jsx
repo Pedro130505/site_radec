@@ -10,7 +10,7 @@ export default function CaseStudies({ onOpenQuote }) {
       segment: 'Mineração de Ferro',
       solution: 'RADEC® Visão',
       details: 'Instalado em correia de peneiramento de minério de ferro para detecção contínua de rasgos e desalinhamentos severos em ambiente de alta poeira.',
-      image: getAssetUrl('assets/photos/Apresentao_p10_45.jpg'),
+      image: getAssetUrl('assets/photos/vale_caue.jpg'),
       badge: 'Mineração'
     },
     {
@@ -19,7 +19,7 @@ export default function CaseStudies({ onOpenQuote }) {
       segment: 'Terminal Portuário',
       solution: 'RADEC® Vibracional (Aço Inox)',
       details: 'Estrutura fabricada em Aço Inoxidável IP68 resistente à maresia de altíssima corrosividade marinha.',
-      image: getAssetUrl('assets/photos/Apresentao_p5_25.jpg'),
+      image: getAssetUrl('assets/photos/vale_mocambique.jpg'),
       badge: 'Portuário'
     },
     {
@@ -28,7 +28,7 @@ export default function CaseStudies({ onOpenQuote }) {
       segment: 'Siderurgia',
       solution: 'RADEC® Visão',
       details: 'Instalado na linha principal de alimentação da usina siderúrgica em correia singela inclinada crítica de grande extensão.',
-      image: getAssetUrl('assets/photos/Apresentao_p11_172.jpg'),
+      image: getAssetUrl('assets/photos/csn_field.jpg'),
       badge: 'Siderurgia'
     },
     {
@@ -37,7 +37,7 @@ export default function CaseStudies({ onOpenQuote }) {
       segment: 'Cimentos & Agregados',
       solution: 'RADEC® Vibracional',
       details: 'Instalação de alta complexidade em correia suspensa (Flying Belt) de longa distância.',
-      image: getAssetUrl('assets/photos/Apresentao_p5_26.jpg'),
+      image: getAssetUrl('assets/photos/holcim_barroso.jpg'),
       badge: 'Cimentos'
     },
     {
@@ -46,7 +46,7 @@ export default function CaseStudies({ onOpenQuote }) {
       segment: 'Siderurgia',
       solution: 'RADEC® Vibracional',
       details: 'Instalado no circuito das correias mais críticas da usina para garantir a máxima disponibilidade contínua de sinterização.',
-      image: getAssetUrl('assets/photos/Apresentao_p5_27.jpg'),
+      image: getAssetUrl('assets/photos/ternium_field.jpg'),
       badge: 'Siderurgia'
     },
     {
@@ -55,7 +55,7 @@ export default function CaseStudies({ onOpenQuote }) {
       segment: 'Mineração de Bauxita',
       solution: 'RADEC® Visão',
       details: 'Proteção direta do TCLD no sistema de britagem primária de bauxita sob umidade amazônica severa.',
-      image: getAssetUrl('assets/photos/Apresentao_p5_28.png'),
+      image: getAssetUrl('assets/photos/mrn_field.png'),
       badge: 'Mineração'
     }
   ];

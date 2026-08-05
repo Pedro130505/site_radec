@@ -16,7 +16,7 @@ export default function Footer({ onOpenQuote }) {
           {/* Col 1 */}
           <div className="lg:col-span-2 space-y-4">
             <img 
-              src={getAssetUrl('assets/Logotipos/2. White/LLK-LOGO-A-WHITE.svg')} 
+              src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} 
               alt="LLK Soluções" 
               className="h-10 w-auto"
             />
