@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Cpu, Zap, Activity, ChevronRight, Award, CheckCircle2 } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
 export default function Hero({ onOpenQuote }) {
   const stats = [
@@ -15,7 +16,7 @@ export default function Hero({ onOpenQuote }) {
       {/* Background Industrial Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none"
-        style={{ backgroundImage: "url('/assets/photos/Apresentao_p2_3.jpg')" }}
+        style={{ backgroundImage: `url('${getAssetUrl('assets/photos/Apresentao_p2_3.jpg')}')` }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#072752] via-[#072752]/95 to-[#072752]/80 pointer-events-none" />
 
@@ -23,7 +24,7 @@ export default function Hero({ onOpenQuote }) {
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Hero Copy */}
+          {/* Left Column */}
           <div className="lg:col-span-7 space-y-6 text-left">
             
             {/* Corporate Badge */}
@@ -82,13 +83,13 @@ export default function Hero({ onOpenQuote }) {
 
           </div>
 
-          {/* Right Column: Grounded Product Preview Card */}
+          {/* Right Column */}
           <div className="lg:col-span-5">
             <div className="bg-white text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl border border-slate-200">
               
               <div className="relative rounded-xl overflow-hidden mb-4 border border-slate-200">
                 <img 
-                  src="/assets/photos/Apresentao_p6_32.jpg" 
+                  src={getAssetUrl('assets/photos/Apresentao_p6_32.jpg')} 
                   alt="RADEC Visão Instalado em Campo na Mineração" 
                   className="w-full h-64 object-cover"
                 />
@@ -115,7 +116,7 @@ export default function Hero({ onOpenQuote }) {
 
         </div>
 
-        {/* Stats Strip (Sandvik / Sotreq Style Clean White Panel) */}
+        {/* Stats Strip */}
         <div className="mt-16 bg-white text-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, idx) => (
             <div key={idx} className="text-left space-y-1 border-l-4 border-[#0356c5] pl-4">

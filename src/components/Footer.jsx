@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, MapPin, Phone, Mail, Globe, ArrowUp } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
 export default function Footer({ onOpenQuote }) {
   const scrollToTop = () => {
@@ -12,10 +13,10 @@ export default function Footer({ onOpenQuote }) {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           
-          {/* Col 1: Logo & Company statement */}
+          {/* Col 1 */}
           <div className="lg:col-span-2 space-y-4">
             <img 
-              src="/assets/Logotipos/2. White/LLK-LOGO-A-WHITE.svg" 
+              src={getAssetUrl('assets/Logotipos/2. White/LLK-LOGO-A-WHITE.svg')} 
               alt="LLK Soluções" 
               className="h-10 w-auto"
             />
@@ -27,7 +28,7 @@ export default function Footer({ onOpenQuote }) {
             </span>
           </div>
 
-          {/* Col 2: Navigation */}
+          {/* Col 2 */}
           <div className="space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider font-['Outfit']">Navegação</h4>
             <ul className="space-y-2 text-xs">
@@ -40,7 +41,7 @@ export default function Footer({ onOpenQuote }) {
             </ul>
           </div>
 
-          {/* Col 3: Soluções */}
+          {/* Col 3 */}
           <div className="space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider font-['Outfit']">Outras Soluções</h4>
             <ul className="space-y-2 text-xs">
@@ -52,7 +53,7 @@ export default function Footer({ onOpenQuote }) {
             </ul>
           </div>
 
-          {/* Col 4: Corporate Contact */}
+          {/* Col 4 */}
           <div className="space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider font-['Outfit']">Contato Institucional</h4>
             <ul className="space-y-2.5 text-xs">
@@ -69,7 +70,7 @@ export default function Footer({ onOpenQuote }) {
                 <a href="mailto:contato@llk.com.br" className="hover:text-white transition">contato@llk.com.br</a>
               </li>
               <li className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-blue-400 shrink-0" />
+                <Globe className="w-4 h-4 text-[#0356c5] shrink-0" />
                 <span>www.llk.com.br</span>
               </li>
             </ul>

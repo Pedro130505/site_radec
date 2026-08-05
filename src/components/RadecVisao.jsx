@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, Shield, Camera, AlertTriangle, CheckCircle2, Sliders, Cpu, Activity, Info, Zap, ArrowRight } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
 export default function RadecVisao({ onOpenQuote }) {
   const [alertLevel, setAlertLevel] = useState(3);
@@ -45,11 +46,11 @@ export default function RadecVisao({ onOpenQuote }) {
         {/* Real Product Image & Feature Breakdown Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
           
-          {/* Real Diagram/Photo Column */}
+          {/* Real Diagram Column */}
           <div className="lg:col-span-6 space-y-4">
             <div className="industrial-card p-4 rounded-2xl overflow-hidden">
               <img 
-                src="/assets/photos/Apresentao_p8_38.png" 
+                src={getAssetUrl('assets/photos/Apresentao_p8_38.png')} 
                 alt="Desenho Esquemático do RADEC Visão" 
                 className="w-full h-auto rounded-xl object-contain bg-white border border-slate-200 p-2"
               />
@@ -92,7 +93,7 @@ export default function RadecVisao({ onOpenQuote }) {
                   <Zap className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-[#072752]">5 Níveis de Alerta Configuráveis</h3>
-                </div>
+              </div>
               <p className="text-slate-600 text-sm leading-relaxed">
                 Algoritmo de mensuração da largura crítica (%) para evitar disparos falsos e permitir atuação preventiva da equipe de manutenção.
               </p>
@@ -208,7 +209,6 @@ export default function RadecVisao({ onOpenQuote }) {
             {/* Industrial SCADA Visualizer Display */}
             <div className="lg:col-span-7 scada-screen p-6 rounded-xl text-slate-200 flex flex-col justify-between relative overflow-hidden font-mono text-xs">
               
-              {/* Header SCADA status */}
               <div className="flex justify-between items-center border-b border-slate-800 pb-3">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -217,18 +217,13 @@ export default function RadecVisao({ onOpenQuote }) {
                 <span className="text-slate-400">STATUS: CAM_OK | FPS: 60</span>
               </div>
 
-              {/* Simulation Canvas area */}
               <div className="my-8 relative h-48 flex items-center justify-center scada-grid border border-slate-800 rounded">
-                
-                {/* Conveyor Graphic representation */}
                 <div className="w-full max-w-md h-32 bg-slate-900 border-2 border-slate-700 relative overflow-hidden flex items-center justify-center shadow-inner">
                   <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,#1e293b_0px,#1e293b_15px,#0f172a_15px,#0f172a_30px)] opacity-70 animate-belt" />
 
-                  {/* Top and Bottom conveyor edges */}
                   <div className="absolute top-0 inset-x-0 h-2 bg-slate-600" />
                   <div className="absolute bottom-0 inset-x-0 h-2 bg-slate-600" />
 
-                  {/* Defect Graphic Overlay */}
                   {defectType === 'abertura' && (
                     <div className="relative z-10 flex flex-col items-center">
                       <div 
@@ -267,10 +262,8 @@ export default function RadecVisao({ onOpenQuote }) {
                   )}
 
                 </div>
-
               </div>
 
-              {/* HMI Footer Bar */}
               <div className="flex justify-between items-center border-t border-slate-800 pt-3 text-[11px] text-slate-400">
                 <span>RESOLUÇÃO: HD INDUSTRIAL</span>
                 <span>COMUNICAÇÃO: MODBUS TCP</span>

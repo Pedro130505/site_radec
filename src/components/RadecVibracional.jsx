@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Activity, ShieldCheck, Cpu, Anchor, ArrowDownRight, Layers, CheckCircle2, ChevronRight } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
 export default function RadecVibracional({ onOpenQuote }) {
   const [activePos, setActivePos] = useState('tambor');
@@ -57,11 +58,11 @@ export default function RadecVibracional({ onOpenQuote }) {
         {/* Product Photo & Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
           
-          {/* Real Diagram/Photo Left Column */}
+          {/* Real Diagram Left Column */}
           <div className="lg:col-span-5 space-y-4">
             <div className="bg-[#041d3d] p-4 rounded-2xl border border-blue-800 shadow-xl space-y-3">
               <img 
-                src="/assets/photos/Apresentao_p8_163.png" 
+                src={getAssetUrl('assets/photos/Apresentao_p8_163.png')} 
                 alt="Posicionamento do RADEC Vibracional no Transportador" 
                 className="w-full h-auto rounded-lg object-contain bg-white p-2"
               />

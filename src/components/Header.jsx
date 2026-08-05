@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Eye, Activity, Cpu, Award, DollarSign, Phone, Menu, X, ArrowRight, Globe, ChevronRight } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
 export default function Header({ onOpenQuote }) {
   const [scrolled, setScrolled] = useState(false);
@@ -24,7 +25,7 @@ export default function Header({ onOpenQuote }) {
 
   return (
     <>
-      {/* Top Utility Bar (Sotreq / Sandvik B2B Corporate Style) */}
+      {/* Top Utility Bar */}
       <div className="bg-[#040d1a] text-slate-300 text-xs py-2 px-4 border-b border-slate-800/80 z-50 relative">
         <div className="container mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-4">
@@ -63,7 +64,7 @@ export default function Header({ onOpenQuote }) {
           {/* Official LLK Logo */}
           <a href="#" className="flex items-center gap-3">
             <img 
-              src={scrolled ? "/assets/Logotipos/1. Blue/LLK-LOGO-A-BLUE.svg" : "/assets/Logotipos/2. White/LLK-LOGO-A-WHITE.svg"}
+              src={scrolled ? getAssetUrl('assets/Logotipos/1. Blue/LLK-LOGO-A-BLUE.svg') : getAssetUrl('assets/Logotipos/2. White/LLK-LOGO-A-WHITE.svg')}
               alt="LLK Soluções" 
               className="h-9 md:h-11 w-auto transition-all"
             />
@@ -94,7 +95,7 @@ export default function Header({ onOpenQuote }) {
             ))}
           </nav>
 
-          {/* Contact Action Button */}
+          {/* Action Button */}
           <div className="hidden md:flex items-center gap-3">
             <button
               onClick={onOpenQuote}
