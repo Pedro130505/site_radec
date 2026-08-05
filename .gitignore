@@ -1,0 +1,7 @@
+node_modules
+dist
+.DS_Store
+*.log
+*.pdf
+extracted_pdf_contents.txt
+extracted_images

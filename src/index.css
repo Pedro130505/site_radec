@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1e293b;
+    background-color: #f8fafc;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Grounded Industrial B2B Palette */
+.bg-llk-navy {
+  background-color: #072752;
+}
+
+.bg-llk-blue {
+  background-color: #0356c5;
+}
+
+.text-llk-navy {
+  color: #072752;
+}
+
+.text-llk-blue {
+  color: #0356c5;
+}
+
+/* Professional Card Styling (Sandvik/Sotreq style) */
+.industrial-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.industrial-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 25px -5px rgba(7, 39, 82, 0.08);
+  transform: translateY(-2px);
+}
+
+.industrial-card-navy {
+  background-color: #072752;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.industrial-card-navy:hover {
+  border-color: rgba(21, 164, 245, 0.4);
+}
+
+/* SCADA HMI Screen Effect for Simulator */
+.scada-screen {
+  background: #020712;
+  border: 2px solid #1e293b;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.scada-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #072752;
+}
