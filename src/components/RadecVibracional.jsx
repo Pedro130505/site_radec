@@ -1,182 +1,252 @@
 import React, { useState } from 'react';
-import { Activity, ShieldCheck, Cpu, Anchor, ArrowDownRight, Layers, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Activity, CheckCircle, Info, ArrowRight } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
+const scenarios = {
+  normal: {
+    name: 'Correia Normal',
+    eventType: 'Vibração padrão da estrutura sem choques de impacto.',
+    detection: 'Operação dentro do envelope de frequências normais.',
+    status: 'Normal', statusType: 'ok',
+    plcSignal: 'Sinal Digital 1 (Normalidade) enviado ao PLC',
+    action: 'Supervisão sem intervenção.',
+  },
+  queda: {
+    name: 'Queda de Material',
+    eventType: 'Impacto rítmico de blocos soltos na calha ou mesa.',
+    detection: 'Picos frequenciais de choque mecânico captados pelos sensores.',
+    status: 'Alerta de Impacto', statusType: 'warn',
+    plcSignal: 'Bit de Alerta de Impacto enviado ao Sistema de Controle',
+    action: 'Disparo de aviso sonoro/visual na sala de controle.',
+  },
+  tira: {
+    name: 'Tira Solta',
+    eventType: 'Batimento cíclico de alta frequência de aba descolada.',
+    detection: 'Frequência característica de impacto de tira solta identificada.',
+    status: 'Proteção Ativa', statusType: 'alert',
+    plcSignal: 'Sinal de Desarme por Relé Digital enviado ao PLC',
+    action: 'Intertravamento automático para evitar arraste da camada.',
+  },
+  impacto: {
+    name: 'Impacto Severo',
+    eventType: 'Perfuração de bloco de rocha de grande porte na lona.',
+    detection: 'Choque transiente de alta amplitude energética captado.',
+    status: 'Proteção Ativa (Trip)', statusType: 'alert',
+    plcSignal: 'Abertura imediata do contato de intertravamento',
+    action: 'Parada instantânea do acionamento principal.',
+  },
+  sem_evento: {
+    name: 'Sem Evento Mecânico',
+    eventType: 'Avaria puramente óptica sem componente de impacto.',
+    detection: 'Não — danos sem manifestação vibracional são cobertos pelo RADEC® Visão.',
+    status: 'Sem Disparo Vibracional', statusType: 'neutral',
+    plcSignal: 'Sem alteração no relé vibracional',
+    action: 'Monitoramento complementar efetuado pelo RADEC® Visão.',
+  },
+};
+
+const statusStyle = {
+  ok:      { background: '#DCFCE7', color: '#14532D' },
+  warn:    { background: '#FEF3C7', color: '#78350F' },
+  alert:   { background: '#FEE2E2', color: '#7F1D1D' },
+  neutral: { background: '#F1F5F9', color: '#475569' },
+};
+
 export default function RadecVibracional({ onOpenQuote }) {
-  const [activePos, setActivePos] = useState('tambor');
-
-  const positionInfo = {
-    tambor: {
-      title: 'RADEC® Vibracional Tambor',
-      location: 'Instalado nos tambores de acionamento e retorno',
-      desc: 'Proteção crítica nos pontos de maior tensão e dobramento da correia transportadora, onde objetos perfurantes presos provocam cortes contínuos.',
-      advantage: 'Alta sensibilidade a choques bruscos e atritos atípicos.',
-      badge: 'Posição Primária'
-    },
-    retorno: {
-      title: 'RADEC® Vibracional Retorno',
-      location: 'Instalado na mesa de retorno descarregada',
-      desc: 'Monitora a correia em sua fase de retorno, identificando descolamentos da borracha (tiras soltas) ou rasgos antes do reuso.',
-      advantage: 'Substitui com 100% de eficácia as frágeis cordas mecânicas e bandejas.',
-      badge: 'Elimina Cordas Mecânicas'
-    },
-    carga: {
-      title: 'RADEC® Vibracional Carga',
-      location: 'Sob a calha de carregamento e mesas de impacto',
-      desc: 'Capta a vibração provocada pela queda e travamento de blocos de rocha pontiagudos perfurando o chassi da correia.',
-      advantage: 'Impede a propagação do rasgo por centenas de metros.',
-      badge: 'Proteção de Impacto'
-    },
-    inox: {
-      title: 'Estrutura Especial em Aço Inox (IP68)',
-      location: 'Desenvolvido para terminais marinhos (Ex.: Porto de Nacala - Moçambique)',
-      desc: 'Gabinete reforçado em Aço Inoxidável resistente à maresia extrema, névoa salina e intempéries em ambiente offshore.',
-      advantage: 'Durabilidade de longo prazo contra oxidação severa.',
-      badge: 'Ambiente Marinho'
-    }
-  };
-
-  const currentPos = positionInfo[activePos];
+  const [selected, setSelected] = useState('normal');
+  const current = scenarios[selected];
 
   return (
-    <section id="radec-vibracional" className="scroll-mt-24 py-20 bg-[#072752] text-white border-b border-blue-900/60">
-      <div className="container mx-auto px-4 md:px-8">
-        
+    <section id="radec-vibracional" style={{
+      background: 'var(--c-gray-00)',
+      borderBottom: '1px solid var(--c-gray-01)',
+      padding: 'var(--section-y) 0',
+      scrollMarginTop: '80px',
+    }}>
+      <div className="container">
+
         {/* Section Header */}
-        <div className="max-w-3xl mb-16 space-y-4">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-cyan-300 bg-cyan-950 px-3 py-1 rounded border border-cyan-800">
-            Sensoriamento de Vibração & IoT Industrial
-          </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold font-['Outfit']">
+        <div style={{ marginBottom: '3.5rem', maxWidth: '680px' }}>
+          <div className="eyebrow">Sensoriamento Frequencial de Choque Mecânico</div>
+          <h2 className="title-h2" style={{ marginBottom: '1rem' }}>
             RADEC® Vibracional
           </h2>
-          <p className="text-slate-300 text-base md:text-lg">
-            Substitui definitivamente os frágeis sistemas mecânicos de cordas e bandejas. Resposta imediata por análise frequencial de sensores inteligentes.
+          <p className="lead" style={{ fontSize: '1rem' }}>
+            Detecta manifestações mecânicas associadas a rasgos, queda de material e tiras soltas, complementando a proteção óptica.
           </p>
         </div>
 
-        {/* Product Photo & Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
-          
-          {/* Real Diagram Left Column */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="bg-[#041d3d] p-4 rounded-2xl border border-blue-800 shadow-xl space-y-3">
-              <img 
-                src={getAssetUrl('assets/photos/radec_vibracional_diagram.png')} 
-                alt="Posicionamento do RADEC Vibracional no Transportador" 
-                className="w-full h-auto rounded-lg object-contain bg-white p-2"
-              />
-              <div className="text-xs text-slate-300 font-medium">
-                Desenho Esquemático: Posicionamento no Tambor, Retorno e Carga
-              </div>
+        {/* Product Overview + Capabilities */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '3rem',
+        }}>
+          {/* Left: Overview */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div style={{
+              width: '44px', height: '44px', background: 'var(--c-navy)',
+              borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <Activity size={20} color="white" />
             </div>
-
-            <div className="bg-[#041d3d] p-5 rounded-2xl border border-blue-800 space-y-2 text-xs">
-              <span className="font-bold text-cyan-300 uppercase block">Principais Falhas Detectadas:</span>
-              <ul className="space-y-1.5 text-slate-200">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Descolamento de Camada / Tira Solta</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Rasgo Central com Queda de Material</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Danificação da Carcaça Interna da Correia</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Interactive Position Tab Column */}
-          <div className="lg:col-span-7 bg-[#041d3d] p-6 md:p-8 rounded-2xl border border-blue-800 flex flex-col justify-between shadow-2xl">
             <div>
-              <span className="text-xs font-bold text-blue-300 uppercase tracking-widest block mb-2">
-                Arquitetura de Aplicação em Campo
-              </span>
-              <h3 className="text-2xl font-extrabold font-['Outfit'] mb-6">
-                Posicionamento Personalizado no Transportador
+              <h3 style={{
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.125rem', fontWeight: 700,
+                color: 'var(--c-navy)', marginBottom: '0.5rem',
+              }}>
+                Substituição Definitiva de Cordas e Bandejas
               </h3>
-
-              {/* Position Tabs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
-                <button
-                  onClick={() => setActivePos('tambor')}
-                  className={`py-2.5 px-3 rounded-lg text-xs font-bold transition border ${
-                    activePos === 'tambor'
-                      ? 'bg-[#0356c5] text-white border-blue-400 shadow'
-                      : 'bg-[#072752] text-slate-300 border-blue-900 hover:bg-[#031633]'
-                  }`}
-                >
-                  1. Tambor
-                </button>
-                <button
-                  onClick={() => setActivePos('retorno')}
-                  className={`py-2.5 px-3 rounded-lg text-xs font-bold transition border ${
-                    activePos === 'retorno'
-                      ? 'bg-[#0356c5] text-white border-blue-400 shadow'
-                      : 'bg-[#072752] text-slate-300 border-blue-900 hover:bg-[#031633]'
-                  }`}
-                >
-                  2. Retorno
-                </button>
-                <button
-                  onClick={() => setActivePos('carga')}
-                  className={`py-2.5 px-3 rounded-lg text-xs font-bold transition border ${
-                    activePos === 'carga'
-                      ? 'bg-[#0356c5] text-white border-blue-400 shadow'
-                      : 'bg-[#072752] text-slate-300 border-blue-900 hover:bg-[#031633]'
-                  }`}
-                >
-                  3. Carga
-                </button>
-                <button
-                  onClick={() => setActivePos('inox')}
-                  className={`py-2.5 px-3 rounded-lg text-xs font-bold transition border ${
-                    activePos === 'inox'
-                      ? 'bg-emerald-600 text-white border-emerald-400 shadow'
-                      : 'bg-[#072752] text-slate-300 border-blue-900 hover:bg-[#031633]'
-                  }`}
-                >
-                  4. Aço Inox
-                </button>
-              </div>
-
-              {/* Detail Card */}
-              <div className="bg-[#072752] p-6 rounded-xl border border-blue-700/60 space-y-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <span className="text-xs font-bold text-cyan-300 bg-blue-950 px-2.5 py-1 rounded border border-blue-800 inline-block mb-2">
-                      {currentPos.badge}
-                    </span>
-                    <h4 className="text-xl font-bold text-white">{currentPos.title}</h4>
-                    <p className="text-xs text-slate-300 font-mono mt-1">{currentPos.location}</p>
-                  </div>
-                </div>
-
-                <p className="text-slate-200 text-sm leading-relaxed">
-                  {currentPos.desc}
-                </p>
-
-                <div className="p-3.5 rounded-lg bg-blue-950/80 border border-blue-800 text-xs text-blue-200 flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <div>
-                    <span className="font-bold text-white">Vantagem Operacional: </span>
-                    {currentPos.advantage}
-                  </div>
-                </div>
-              </div>
+              <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)', lineHeight: 1.7 }}>
+                Supera as limitações dos sistemas mecânicos tradicionais. Sensores IP69K instalados nos pontos de travamento reduzem falsas paradas e garantem atuação direta.
+              </p>
             </div>
-
-            <div className="mt-6 pt-4 border-t border-blue-800 flex items-center justify-between text-xs text-slate-300 font-mono">
-              <span>Sinal Digital: TCP/IP & Relé Desarme</span>
-              <span className="text-emerald-400 font-bold">Tempo de Resposta: &lt; 50ms</span>
-            </div>
-
           </div>
 
+          {/* Right: Capabilities */}
+          <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{
+              fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+              textTransform: 'uppercase', color: 'var(--c-gray-03)',
+            }}>
+              Capacidades de Detecção
+            </div>
+            {[
+              'Queda de material e atritos anômalos',
+              'Tiras soltas em alta velocidade',
+              'Choque por travamento de rocha perfurante',
+            ].map((item, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                <CheckCircle size={15} color="var(--c-green)" />
+                <span style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--c-gray-05)' }}>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Interactive Scenario Simulator */}
+        <div style={{
+          border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-xl)', overflow: 'hidden',
+          boxShadow: 'var(--shadow-sm)',
+        }}>
+          {/* Simulator Header */}
+          <div style={{
+            padding: '1.5rem 2rem',
+            borderBottom: '1px solid var(--c-gray-01)',
+            background: 'var(--c-white)',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem',
+          }}>
+            <div>
+              <div style={{
+                fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'var(--c-gray-03)', marginBottom: '0.25rem',
+              }}>
+                Demonstração Conceitual Interativa
+              </div>
+              <h3 style={{
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.125rem', fontWeight: 700,
+                color: 'var(--c-navy)', letterSpacing: '-0.015em',
+              }}>
+                Simule como o RADEC® Vibracional responde a eventos mecânicos
+              </h3>
+            </div>
+            <span style={{
+              fontSize: '0.6875rem', fontWeight: 600, color: 'var(--c-gray-03)',
+              background: 'var(--c-gray-00)', border: '1px solid var(--c-gray-01)',
+              borderRadius: '4px', padding: '0.375rem 0.75rem',
+            }}>
+              Fins ilustrativos
+            </span>
+          </div>
+
+          {/* Scenario Tabs */}
+          <div style={{
+            display: 'flex', flexWrap: 'wrap',
+            borderBottom: '1px solid var(--c-gray-01)',
+            background: 'var(--c-white)',
+          }}>
+            {Object.entries(scenarios).map(([key, sc]) => (
+              <button
+                key={key}
+                onClick={() => setSelected(key)}
+                style={{
+                  padding: '0.875rem 1.25rem',
+                  fontSize: '0.8125rem', fontWeight: selected === key ? 600 : 500,
+                  color: selected === key ? 'var(--c-navy)' : 'var(--c-gray-04)',
+                  background: 'transparent', border: 'none',
+                  borderBottom: selected === key ? '2px solid var(--c-blue)' : '2px solid transparent',
+                  cursor: 'pointer', transition: 'all 0.15s', whiteSpace: 'nowrap',
+                }}
+              >
+                {sc.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Output Panel */}
+          <div style={{ padding: '2rem', background: 'var(--c-white)' }}>
+            <div style={{
+              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem',
+            }}>
+              <div style={{
+                padding: '1.5rem', background: 'var(--c-gray-00)',
+                border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
+              }}>
+                <div style={{
+                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  textTransform: 'uppercase', color: 'var(--c-gray-03)', marginBottom: '0.625rem',
+                }}>Tipo de Evento Mecânico</div>
+                <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-05)', lineHeight: 1.65, marginBottom: '0.625rem' }}>
+                  {current.eventType}
+                </p>
+                <p style={{ fontSize: '0.8125rem', color: 'var(--c-green)', fontWeight: 600 }}>
+                  {current.detection}
+                </p>
+              </div>
+              <div style={{
+                padding: '1.5rem', background: 'var(--c-gray-00)',
+                border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
+              }}>
+                <div style={{
+                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  textTransform: 'uppercase', color: 'var(--c-gray-03)', marginBottom: '0.625rem',
+                }}>Enviado ao Sistema de Controle</div>
+                <p style={{
+                  fontSize: '0.875rem', fontFamily: 'IBM Plex Mono, monospace',
+                  color: 'var(--c-navy)', lineHeight: 1.65, fontWeight: 600,
+                }}>
+                  {current.plcSignal}
+                </p>
+              </div>
+            </div>
+
+            {/* Status Row */}
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '1rem 1.25rem', background: 'var(--c-gray-00)',
+              border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
+              gap: '1rem', flexWrap: 'wrap',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+                <span style={{
+                  ...statusStyle[current.statusType],
+                  fontSize: '0.6875rem', fontWeight: 700,
+                  letterSpacing: '0.06em', textTransform: 'uppercase',
+                  padding: '0.375rem 0.875rem', borderRadius: '4px',
+                }}>
+                  {current.status}
+                </span>
+                <span style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)' }}>
+                  {current.action}
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                <Info size={13} color="var(--c-gray-03)" />
+                <span style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)' }}>
+                  Demonstração interativa com fins ilustrativos.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

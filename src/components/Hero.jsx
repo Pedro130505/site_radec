@@ -1,135 +1,218 @@
 import React from 'react';
-import { ShieldCheck, Cpu, Zap, Activity, ChevronRight, Award, CheckCircle2 } from 'lucide-react';
+import { ChevronRight, ShieldCheck, ArrowRight } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
-export default function Hero({ onOpenQuote }) {
-  const stats = [
-    { label: 'Anos de Mercado', value: '17+', desc: 'Tradição e Inovação em IndTech' },
-    { label: 'Patentes Registradas', value: '28', desc: 'Propriedade Intelectual Própria' },
-    { label: 'Principais Clientes', value: '+50', desc: 'Vale, CSN, Ternium, Holcim, Samarco' },
-    { label: 'Prêmios de Inovação', value: '15', desc: 'Top 10 IndTechs (4x Seguidas)' },
-  ];
+const stats = [
+  { value: '14 min', label: 'Tempo médio evitado de parada não programada por evento' },
+  { value: '+45h', label: 'De paradas evitadas — Vale Mina de Cauê (out/24–abr/26)' },
+  { value: 'R$ 15M', label: 'Retorno financeiro estimado nas operações monitoradas' },
+];
 
+export default function Hero({ onOpenQuote, onNavigate }) {
   return (
-    <section className="relative pt-12 pb-16 md:pt-16 md:pb-24 bg-[#072752] text-white overflow-hidden border-b border-blue-900/60">
-      
-      {/* Background Industrial Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none"
-        style={{ backgroundImage: `url('${getAssetUrl('assets/photos/hero_plant_bg.jpg')}')` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#072752] via-[#072752]/95 to-[#072752]/80 pointer-events-none" />
+    <section style={{
+      background: 'var(--c-navy)',
+      position: 'relative',
+      overflow: 'hidden',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+    }}>
 
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            
-            {/* Corporate Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-[#0356c5] text-white text-xs font-bold uppercase tracking-wider shadow">
-              <Award className="w-4 h-4 text-amber-300" />
-              <span>LLK Soluções • Boas Práticas na Mineração 2024</span>
+      {/* Background texture */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: `url('${getAssetUrl('assets/photos/hero_plant_bg.jpg')}')`,
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        opacity: 0.08,
+      }} />
+
+      {/* Gradient left-to-right */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(105deg, var(--c-navy) 40%, rgba(10,31,68,0.6) 75%, transparent 100%)',
+      }} />
+
+      {/* Bottom accent line */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px',
+        background: 'linear-gradient(to right, var(--c-blue) 0%, rgba(21,87,212,0.3) 50%, transparent 100%)',
+      }} />
+
+      <div className="container" style={{ position: 'relative', zIndex: 2, padding: '7rem 1.5rem 6rem' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.1fr 0.9fr',
+          gap: '5rem',
+          alignItems: 'center',
+        }}
+          className="hero-grid"
+        >
+
+          {/* LEFT: Main copy */}
+          <div>
+            {/* Tag line */}
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              marginBottom: '2rem',
+              padding: '0.5rem 1rem',
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '100px',
+            }}>
+              <ShieldCheck size={13} color="rgba(255,255,255,0.5)" />
+              <span style={{
+                fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)',
+              }}>
+                Sistema de Proteção para Correias Transportadoras
+              </span>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight font-['Outfit'] leading-[1.15]">
-              RADEC®: Detecção Automática de Rasgos e Desalinhamento
+            {/* Main Headline */}
+            <h1 style={{
+              fontFamily: 'Outfit, sans-serif',
+              fontSize: 'clamp(3.5rem, 6vw, 5.5rem)',
+              fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.95,
+              color: 'white', marginBottom: '1.5rem',
+            }}>
+              RADEC®
             </h1>
+            <h2 style={{
+              fontFamily: 'Outfit, sans-serif',
+              fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
+              fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.35,
+              color: 'rgba(255,255,255,0.75)', marginBottom: '2rem',
+            }}>
+              Proteção inteligente contra rasgos,<br />
+              desalinhamentos e eventos críticos
+            </h2>
 
-            {/* Subtitle */}
-            <p className="text-slate-200 text-base sm:text-lg max-w-2xl leading-relaxed font-normal">
-              Monitoramento contínuo em tempo real para correias transportadoras. Proteção de ativos de alta disponibilidade utilizando <strong className="text-white font-semibold">Visão Computacional (IA)</strong> e <strong className="text-white font-semibold">Análise de Vibração</strong>.
+            <p style={{
+              fontSize: '1.0625rem', color: 'rgba(255,255,255,0.55)',
+              lineHeight: 1.75, marginBottom: '2.5rem', maxWidth: '480px',
+            }}>
+              Visão computacional e sensoriamento de choque mecânico integrados ao sistema de controle da planta para proteção ativa de correias transportadoras.
             </p>
 
-            {/* Feature Bullet Points */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-sm text-slate-200">
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                <span>Desarme automático do CLP em ms</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                <span>Gabinetes industriais IP67 sem partes móveis</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                <span>Instalável em qualquer trecho do transportador</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0" />
-                <span>Comunicação Modbus, TCP/IP e Relé</span>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+            {/* CTA Row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
               <button
-                onClick={onOpenQuote}
-                className="bg-[#0356c5] hover:bg-[#02449e] text-white px-8 py-4 rounded-lg font-bold text-base shadow-lg transition-all flex items-center justify-center gap-2 group"
+                onClick={() => onNavigate('familia-radec')}
+                className="btn btn-primary btn-lg"
               >
-                <span>Solicitar Proposta Técnica</span>
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Conheça o RADEC®
+                <ChevronRight size={18} />
               </button>
-
-              <a
-                href="#radec-visao"
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-7 py-4 rounded-lg font-semibold text-base transition-all text-center"
+              <button
+                onClick={() => onNavigate('avaliacao-correia')}
+                className="btn btn-secondary btn-lg"
               >
-                Conhecer Tecnologias RADEC®
-              </a>
+                Falar com Engenharia
+              </button>
             </div>
-
           </div>
 
-          {/* Right Column */}
-          <div className="lg:col-span-5">
-            <div className="bg-white text-slate-900 p-4 md:p-6 rounded-2xl shadow-2xl border border-slate-200">
-              
-              <div className="relative rounded-xl overflow-hidden mb-4 border border-slate-200">
-                <img 
-                  src={getAssetUrl('assets/photos/radec_visao_field.jpg')} 
-                  alt="RADEC Visão Instalado em Campo na Mineração" 
-                  className="w-full h-64 object-cover"
+          {/* RIGHT: Proof card */}
+          <div>
+            {/* Main proof card */}
+            <div style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.09)',
+              borderRadius: 'var(--r-xl)',
+              overflow: 'hidden',
+              marginBottom: '1rem',
+            }}>
+              <div style={{
+                background: 'rgba(0,0,0,0.25)', aspectRatio: '16/9',
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <img
+                  src={getAssetUrl('assets/photos/radec_visao_field.jpg')}
+                  alt="RADEC instalado em operação"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
                 />
-                <div className="absolute top-3 left-3 bg-[#072752] text-white text-[11px] font-bold px-3 py-1 rounded shadow">
-                  Instalação em Campo • Mineração
+                {/* Overlay tag */}
+                <div style={{
+                  position: 'absolute', top: '0.875rem', left: '0.875rem',
+                  background: 'var(--c-navy)', borderRadius: '4px',
+                  padding: '0.375rem 0.75rem',
+                  fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(255,255,255,0.7)',
+                  letterSpacing: '0.06em', textTransform: 'uppercase',
+                }}>
+                  Operação em Campo
                 </div>
               </div>
-
-              <div className="space-y-3">
-                <h3 className="text-lg font-bold text-[#072752] font-['Outfit']">
-                  RADEC® Visão em Operação Real
-                </h3>
-                <p className="text-slate-600 text-xs leading-relaxed">
-                  Sistema de alta resistência (IP67) projetado para operar com confiabilidade extrema em atmosferas de alta poeira e umidade.
-                </p>
-                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-700">
-                  <span>Tecnologia de IA Patenteada</span>
-                  <span className="text-[#0356c5]">100% Projetado no Brasil</span>
+              <div style={{ padding: '1.25rem 1.5rem' }}>
+                <div style={{
+                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)',
+                  marginBottom: '0.4rem',
+                }}>
+                  Validado com a Vale · Mina de Cauê, Itabira/MG
+                </div>
+                <div style={{
+                  fontFamily: 'Outfit, sans-serif', fontSize: '0.9375rem', fontWeight: 600,
+                  color: 'rgba(255,255,255,0.8)', lineHeight: 1.45,
+                }}>
+                  Do laboratório ao intertravamento em operação real
                 </div>
               </div>
+            </div>
 
+            {/* Stats row */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+              {stats.map((s, i) => (
+                <div key={i} style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  borderRadius: 'var(--r-lg)', padding: '1rem 0.875rem',
+                  textAlign: 'center',
+                }}>
+                  <div style={{
+                    fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800,
+                    color: 'white', letterSpacing: '-0.025em', lineHeight: 1.1,
+                    marginBottom: '0.375rem',
+                  }}>
+                    {s.value}
+                  </div>
+                  <div style={{
+                    fontSize: '0.6875rem', color: 'rgba(255,255,255,0.4)',
+                    lineHeight: 1.5, fontWeight: 400,
+                  }}>
+                    {s.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
         </div>
-
-        {/* Stats Strip */}
-        <div className="mt-16 bg-white text-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border border-slate-200 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, idx) => (
-            <div key={idx} className="text-left space-y-1 border-l-4 border-[#0356c5] pl-4">
-              <span className="text-3xl md:text-4xl font-extrabold text-[#072752] font-['Outfit'] block">
-                {stat.value}
-              </span>
-              <p className="text-sm font-bold text-slate-800">{stat.label}</p>
-              <p className="text-xs text-slate-500">{stat.desc}</p>
-            </div>
-          ))}
-        </div>
-
       </div>
+
+      {/* Scroll indicator */}
+      <div style={{
+        position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
+        animation: 'bounce 2s infinite',
+      }}>
+        <span style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          Explore o menu acima
+        </span>
+      </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 3rem !important;
+          }
+        }
+        @keyframes bounce {
+          0%, 100% { transform: translateX(-50%) translateY(0); }
+          50% { transform: translateX(-50%) translateY(6px); }
+        }
+      `}</style>
     </section>
   );
 }

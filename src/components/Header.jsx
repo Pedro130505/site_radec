@@ -1,161 +1,318 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, Eye, Activity, Cpu, Award, DollarSign, Phone, Menu, X, ArrowRight, Globe, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Phone, Menu, X, ChevronRight, ChevronDown } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
-export default function Header({ onOpenQuote }) {
+// ─────────────────────────────────────────────
+// Navigation groups matching the page groupings in App.jsx
+// ─────────────────────────────────────────────
+const navGroups = [
+  {
+    label: 'Produto',
+    items: [
+      { id: 'produto',           name: 'Visão geral', desc: 'Família RADEC®, matriz de detecção e proteção ativa' },
+      { id: 'radec-visao',       name: 'RADEC® Visão', desc: 'Inspeção óptica e video analytics' },
+      { id: 'radec-vibracional', name: 'RADEC® Vibracional', desc: 'Sensoriamento de choque mecânico' },
+    ],
+  },
+  {
+    label: 'Resultados',
+    items: [
+      { id: 'resultados',        name: 'Case & ROI', desc: 'Case Vale Cauê e calculadora de impacto financeiro' },
+      { id: 'especificacoes',    name: 'Especificações', desc: 'Ficha técnica oficial — IP, alimentação, comunicação' },
+    ],
+  },
+  {
+    label: 'Empresa',
+    items: [
+      { id: 'sobre-llk',         name: 'Sobre a LLK', desc: '17 anos, 28 patentes, premiações e parcerias' },
+      { id: 'contato',           name: 'Fale com a Engenharia', desc: 'Avaliação técnica sem compromisso' },
+    ],
+  },
+];
+
+// ─────────────────────────────────────────────
+function Dropdown({ group, activePage, onNavigate, isDark, onClose }) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top: 'calc(100% + 10px)',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: 'var(--c-white)',
+        border: '1px solid var(--c-gray-01)',
+        borderRadius: 'var(--r-xl)',
+        boxShadow: '0 16px 40px rgba(10,31,68,0.14), 0 4px 12px rgba(10,31,68,0.06)',
+        minWidth: '300px',
+        padding: '0.625rem',
+        zIndex: 300,
+        animation: 'ddEnter 0.18s ease both',
+      }}
+      onClick={e => e.stopPropagation()}
+    >
+      {group.items.map((item) => {
+        const isActive = activePage === item.id;
+        return (
+          <button
+            key={item.id}
+            onClick={() => { onNavigate(item.id); onClose(); }}
+            style={{
+              display: 'block', width: '100%', textAlign: 'left',
+              padding: '0.75rem 1rem',
+              background: isActive ? 'rgba(21,87,212,0.06)' : 'transparent',
+              border: 'none',
+              borderLeft: isActive ? '2px solid var(--c-blue)' : '2px solid transparent',
+              borderRadius: 'var(--r-md)',
+              cursor: 'pointer',
+              marginBottom: '2px',
+              transition: 'all 0.12s',
+            }}
+            onMouseEnter={e => {
+              if (!isActive) {
+                e.currentTarget.style.background = 'var(--c-gray-00)';
+                e.currentTarget.style.borderLeftColor = 'var(--c-gray-02)';
+              }
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = isActive ? 'rgba(21,87,212,0.06)' : 'transparent';
+              e.currentTarget.style.borderLeftColor = isActive ? 'var(--c-blue)' : 'transparent';
+            }}
+          >
+            <div style={{
+              fontSize: '0.9rem', fontWeight: isActive ? 700 : 600,
+              color: isActive ? 'var(--c-blue)' : 'var(--c-navy)',
+              marginBottom: '0.2rem',
+            }}>
+              {item.name}
+            </div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)', fontWeight: 400, lineHeight: 1.4 }}>
+              {item.desc}
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+export default function Header({ activePage, onNavigate, onOpenQuote }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState(null);
+  const navRef = useRef(null);
+
+  const isHome = activePage === 'home';
+  const darkMode = isHome && !scrolled;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'RADEC® Visão', href: '#radec-visao' },
-    { name: 'RADEC® Vibracional', href: '#radec-vibracional' },
-    { name: 'Comparativo Técnico', href: '#comparativo' },
-    { name: 'Calculadora de ROI', href: '#calculadora-roi' },
-    { name: 'Casos Reais', href: '#casos-reais' },
-    { name: 'Sobre a LLK', href: '#sobre-llk' },
-  ];
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const onOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenGroup(null);
+      }
+    };
+    window.addEventListener('mousedown', onOutside);
+    return () => window.removeEventListener('mousedown', onOutside);
+  }, []);
+
+  const handleNav = (id) => {
+    onNavigate(id);
+    setMobileOpen(false);
+    setOpenGroup(null);
+  };
 
   return (
-    <header className="sticky top-0 z-50 shadow-md">
-      {/* Top Utility Bar */}
-      <div className={`bg-[#040d1a] text-slate-300 text-xs py-1.5 px-4 transition-all duration-300 border-b border-slate-800 ${
-        scrolled ? 'hidden md:block py-1 opacity-90' : 'block'
-      }`}>
-        <div className="container mx-auto flex justify-between items-center gap-2">
-          <div className="flex items-center gap-3">
-            <span className="font-semibold text-white tracking-wide flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#0356c5]" />
-              LLK SOLUÇÕES
-            </span>
-            <span className="hidden md:inline text-slate-500">|</span>
-            <span className="hidden md:inline text-slate-300 text-[11px] font-medium">
-              Eficiência Operacional & Proteção de Ativos para a Indústria de Base
-            </span>
-          </div>
+    <header style={{
+      position: 'sticky', top: 0, zIndex: 100,
+      background: darkMode ? 'var(--c-navy)' : 'var(--c-white)',
+      borderBottom: `1px solid ${darkMode ? 'rgba(255,255,255,0.06)' : 'var(--c-gray-01)'}`,
+      boxShadow: !darkMode ? 'var(--shadow-sm)' : 'none',
+      transition: 'background 0.25s ease, box-shadow 0.25s ease',
+    }}>
 
-          <div className="flex items-center gap-5 text-xs text-slate-300">
-            <span className="hidden sm:inline-flex items-center gap-1">
-              <Globe className="w-3.5 h-3.5 text-blue-400" />
-              <span>PT | EN</span>
+      {/* Utility bar (only on dark/home) */}
+      {darkMode && (
+        <div style={{ background: 'rgba(0,0,0,0.2)', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '5px 0' }}>
+          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontSize: '0.625rem', color: 'rgba(255,255,255,0.35)', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+              LLK Soluções Industriais · Belo Horizonte, MG
             </span>
-            <a href="tel:+553133333333" className="hover:text-white font-medium transition flex items-center gap-1">
-              <Phone className="w-3.5 h-3.5 text-blue-400" />
-              <span>Comercial: (31) 3333-3333</span>
+            <a href="tel:+553133333333" style={{ fontSize: '0.625rem', color: 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '0.375rem', textDecoration: 'none' }}>
+              <Phone size={10} />
+              Comercial: (31) 3333-3333
             </a>
-            <span className="hidden lg:inline text-slate-400">Belo Horizonte - MG</span>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Main Bar */}
-      <div className={`transition-all duration-300 border-b ${
-        scrolled 
-          ? 'bg-white text-slate-900 border-slate-200 py-2.5 shadow-md' 
-          : 'bg-[#072752] text-white border-blue-900/50 py-3.5'
-      }`}>
-        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
-          
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-3 shrink-0">
-            <img 
-              src={scrolled ? getAssetUrl('assets/Logotipos/blue/LLK-LOGO-A-BLUE.svg') : getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')}
-              alt="LLK Soluções" 
-              className="h-8 md:h-10 w-auto transition-all"
-            />
-            <div className={`hidden sm:block border-l pl-3 py-0.5 ${scrolled ? 'border-slate-300' : 'border-blue-400/40'}`}>
-              <span className={`block font-extrabold text-sm md:text-base leading-tight font-['Outfit'] ${scrolled ? 'text-[#072752]' : 'text-white'}`}>
-                RADEC®
-              </span>
-              <span className={`block text-[9px] font-bold tracking-wider uppercase ${scrolled ? 'text-blue-600' : 'text-blue-200'}`}>
-                Proteção de Correias
-              </span>
-            </div>
-          </a>
+      {/* Main bar */}
+      <div className="container" style={{ height: '62px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
 
-          {/* Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-5">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-xs md:text-sm font-semibold transition-colors duration-150 whitespace-nowrap ${
-                  scrolled 
-                    ? 'text-slate-700 hover:text-[#0356c5]' 
-                    : 'text-slate-200 hover:text-white'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Action Button */}
-          <div className="hidden md:flex items-center gap-3 shrink-0">
-            <button
-              onClick={onOpenQuote}
-              className={`px-4 py-2 rounded-lg font-bold text-xs md:text-sm transition-all duration-200 flex items-center gap-1.5 ${
-                scrolled
-                  ? 'bg-[#0356c5] hover:bg-[#072752] text-white shadow-sm'
-                  : 'bg-white hover:bg-slate-100 text-[#072752] shadow'
-              }`}
-            >
-              <span>Falar com Engenheiro</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
+        {/* Logo */}
+        <button
+          onClick={() => handleNav('home')}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0, flexShrink: 0 }}
+        >
+          <img
+            src={darkMode ? getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg') : getAssetUrl('assets/Logotipos/blue/LLK-LOGO-A-BLUE.svg')}
+            alt="LLK Soluções"
+            style={{ height: '32px', width: 'auto' }}
+          />
+          <div style={{ borderLeft: `1px solid ${darkMode ? 'rgba(255,255,255,0.15)' : 'var(--c-gray-02)'}`, paddingLeft: '0.875rem' }}>
+            <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '0.9375rem', letterSpacing: '-0.02em', lineHeight: 1.1, color: darkMode ? 'white' : 'var(--c-navy)' }}>RADEC®</div>
+            <div style={{ fontSize: '0.5625rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '1px', color: darkMode ? 'rgba(255,255,255,0.4)' : 'var(--c-blue)' }}>Proteção de Correias</div>
           </div>
+        </button>
 
-          {/* Mobile Menu Toggle */}
+        {/* Desktop Nav */}
+        <nav ref={navRef} style={{ display: 'flex', alignItems: 'center', gap: '0' }} className="nav-desktop">
+          {navGroups.map((group) => {
+            const isGroupActive = group.items.some(i => i.id === activePage);
+            const isOpen = openGroup === group.label;
+
+            return (
+              <div key={group.label} style={{ position: 'relative' }}>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenGroup(isOpen ? null : group.label);
+                  }}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '0.3rem',
+                    padding: '0.5rem 1rem', height: '62px',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    fontSize: '0.875rem', fontWeight: isGroupActive ? 700 : 500,
+                    color: darkMode
+                      ? (isGroupActive ? 'white' : 'rgba(255,255,255,0.65)')
+                      : (isGroupActive ? 'var(--c-navy)' : 'var(--c-gray-04)'),
+                    borderBottom: isGroupActive
+                      ? `2px solid ${darkMode ? 'white' : 'var(--c-blue)'}`
+                      : '2px solid transparent',
+                    transition: 'all 0.15s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = darkMode ? 'white' : 'var(--c-navy)'; }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = darkMode
+                      ? (isGroupActive ? 'white' : 'rgba(255,255,255,0.65)')
+                      : (isGroupActive ? 'var(--c-navy)' : 'var(--c-gray-04)');
+                  }}
+                >
+                  {group.label}
+                  <ChevronDown size={13} style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.18s' }} />
+                </button>
+
+                {isOpen && (
+                  <Dropdown
+                    group={group}
+                    activePage={activePage}
+                    onNavigate={handleNav}
+                    isDark={darkMode}
+                    onClose={() => setOpenGroup(null)}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </nav>
+
+        {/* CTA + Mobile toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
           <button
-            onClick={() => setMobileMenu(!mobileMenu)}
-            className={`xl:hidden p-2 rounded-lg border ${
-              scrolled 
-                ? 'bg-slate-100 text-slate-800 border-slate-300' 
-                : 'bg-[#031633] text-white border-blue-800'
-            }`}
+            onClick={() => handleNav('contato')}
+            className="btn btn-sm nav-desktop"
+            style={{
+              background: darkMode ? 'var(--c-white)' : 'var(--c-blue)',
+              color: darkMode ? 'var(--c-navy)' : 'white',
+              border: 'none',
+              display: 'flex', alignItems: 'center', gap: '0.375rem',
+            }}
           >
-            {mobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            Falar com Engenharia
+            <ChevronRight size={14} />
           </button>
 
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="nav-mobile"
+            style={{
+              background: 'transparent',
+              border: `1px solid ${darkMode ? 'rgba(255,255,255,0.2)' : 'var(--c-gray-02)'}`,
+              borderRadius: 'var(--r-md)', padding: '0.5rem', cursor: 'pointer',
+              color: darkMode ? 'white' : 'var(--c-gray-05)',
+              display: 'none',
+            }}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileMenu && (
-        <div className="xl:hidden bg-white text-slate-900 border-b border-slate-200 px-6 py-5 space-y-3 shadow-xl">
-          <div className="space-y-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenu(false)}
-                className="block px-4 py-2.5 text-slate-800 hover:bg-slate-100 hover:text-[#0356c5] font-semibold text-sm rounded-lg transition"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-          <div className="pt-3 border-t border-slate-200">
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div style={{
+          background: 'var(--c-white)', borderTop: '1px solid var(--c-gray-01)',
+          padding: '1rem 0 1.5rem', maxHeight: '80vh', overflowY: 'auto',
+        }}>
+          {navGroups.map(group => (
+            <div key={group.label} style={{ marginBottom: '1.25rem' }}>
+              <div style={{
+                padding: '0.25rem 1.5rem 0.5rem',
+                fontSize: '0.625rem', fontWeight: 700, letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'var(--c-gray-03)',
+              }}>
+                {group.label}
+              </div>
+              {group.items.map(item => (
+                <button
+                  key={item.id}
+                  onClick={() => handleNav(item.id)}
+                  style={{
+                    display: 'block', width: '100%', textAlign: 'left',
+                    padding: '0.75rem 1.5rem',
+                    background: activePage === item.id ? 'rgba(21,87,212,0.05)' : 'none',
+                    border: 'none', cursor: 'pointer',
+                    borderLeft: activePage === item.id ? '3px solid var(--c-blue)' : '3px solid transparent',
+                  }}
+                >
+                  <div style={{ fontSize: '0.9rem', fontWeight: 600, color: activePage === item.id ? 'var(--c-blue)' : 'var(--c-gray-05)' }}>
+                    {item.name}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)', marginTop: '1px' }}>
+                    {item.desc}
+                  </div>
+                </button>
+              ))}
+            </div>
+          ))}
+          <div style={{ padding: '1rem 1.5rem 0', borderTop: '1px solid var(--c-gray-01)' }}>
             <button
-              onClick={() => {
-                setMobileMenu(false);
-                onOpenQuote();
-              }}
-              className="w-full bg-[#0356c5] text-white py-3 rounded-lg font-bold text-center flex justify-center items-center gap-2 text-sm shadow"
+              onClick={() => handleNav('contato')}
+              className="btn btn-primary"
+              style={{ width: '100%', justifyContent: 'center' }}
             >
-              <span>Solicitar Proposta Técnica</span>
-              <ArrowRight className="w-4 h-4" />
+              Falar com Engenharia
             </button>
           </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes ddEnter {
+          from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        @media (max-width: 900px) {
+          .nav-desktop { display: none !important; }
+          .nav-mobile  { display: flex !important; }
+        }
+      `}</style>
     </header>
   );
 }

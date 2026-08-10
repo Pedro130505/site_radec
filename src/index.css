@@ -1,83 +1,511 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
-@layer base {
-  html {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: #1e293b;
-    background-color: #f8fafc;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', sans-serif;
-    letter-spacing: -0.02em;
-  }
+/* ============================================
+   LLK / RADEC® — DESIGN SYSTEM GLOBAL
+   Inspiração: Vale, Sandvik, Sotreq, Samarco
+   ============================================ */
+
+:root {
+  /* Brand Colors — Manual de Marca LLK */
+  --c-navy:       #0A1F44;   /* Marinho Institucional Principal */
+  --c-navy-mid:   #122B5A;   /* Marinho Médio */
+  --c-navy-light: #1A3A72;   /* Marinho Claro para hover */
+  --c-blue:       #1557D4;   /* Azul Corporativo */
+  --c-blue-dark:  #0F3FA6;   /* Azul Escuro */
+
+  /* Neutrals — High Contrast */
+  --c-white:      #FFFFFF;
+  --c-gray-00:    #F7F8FA;   /* Background de seção clara */
+  --c-gray-01:    #EEF0F4;   /* Divisoras e bordas */
+  --c-gray-02:    #D6DAE3;   /* Bordas mais fortes */
+  --c-gray-03:    #9AA3B2;   /* Texto secundário */
+  --c-gray-04:    #6B7282;   /* Texto auxiliar */
+  --c-gray-05:    #374151;   /* Corpo de texto */
+  --c-gray-06:    #111827;   /* Título escuro */
+
+  /* Semantic */
+  --c-green:      #16A34A;
+  --c-green-light:#DCFCE7;
+  --c-amber:      #D97706;
+  --c-amber-light:#FEF3C7;
+  --c-red:        #DC2626;
+  --c-red-light:  #FEE2E2;
+
+  /* Typography Scale */
+  --f-display:    clamp(2.5rem, 5vw, 4rem);
+  --f-h1:         clamp(2rem, 4vw, 3rem);
+  --f-h2:         clamp(1.6rem, 3vw, 2.25rem);
+  --f-h3:         clamp(1.2rem, 2vw, 1.5rem);
+  --f-body:       1rem;
+  --f-small:      0.875rem;
+  --f-xs:         0.75rem;
+
+  /* Spacing */
+  --section-y:    5rem;
+  --container-x:  1.5rem;
+
+  /* Radius */
+  --r-sm:  4px;
+  --r-md:  8px;
+  --r-lg:  12px;
+  --r-xl:  16px;
+
+  /* Shadows — Professional Depth */
+  --shadow-sm:  0 1px 3px rgba(10, 31, 68, 0.06), 0 1px 2px rgba(10, 31, 68, 0.04);
+  --shadow-md:  0 4px 12px rgba(10, 31, 68, 0.08), 0 2px 4px rgba(10, 31, 68, 0.04);
+  --shadow-lg:  0 8px 24px rgba(10, 31, 68, 0.10), 0 4px 8px rgba(10, 31, 68, 0.06);
 }
 
-/* Grounded Industrial B2B Palette */
-.bg-llk-navy {
-  background-color: #072752;
+/* ============================================
+   BASE RESET & GLOBAL TYPOGRAPHY
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.bg-llk-blue {
-  background-color: #0356c5;
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
 
-.text-llk-navy {
-  color: #072752;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  color: var(--c-gray-05);
+  background-color: var(--c-white);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.text-llk-blue {
-  color: #0356c5;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--c-gray-06);
+  font-weight: 700;
 }
 
-/* Professional Card Styling (Sandvik/Sotreq style) */
-.industrial-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease-in-out;
+p {
+  color: var(--c-gray-04);
+  line-height: 1.75;
 }
 
-.industrial-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 10px 25px -5px rgba(7, 39, 82, 0.08);
-  transform: translateY(-2px);
+img, svg {
+  display: block;
+  max-width: 100%;
 }
 
-.industrial-card-navy {
-  background-color: #072752;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.industrial-card-navy:hover {
-  border-color: rgba(21, 164, 245, 0.4);
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-x);
+  padding-right: var(--container-x);
 }
 
-/* SCADA HMI Screen Effect for Simulator */
-.scada-screen {
-  background: #020712;
-  border: 2px solid #1e293b;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+.section {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 
-.scada-grid {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
+.section-header {
+  margin-bottom: 3.5rem;
 }
 
-/* Clean Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+.section-header.center {
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
+
+/* ============================================
+   TYPOGRAPHY COMPONENTS
+   ============================================ */
+
+.eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-blue);
+  background: transparent;
+  border-bottom: 2px solid var(--c-blue);
+  padding-bottom: 2px;
+  margin-bottom: 1rem;
 }
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+
+.eyebrow-white {
+  color: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.title-display {
+  font-size: var(--f-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.title-h1 {
+  font-size: var(--f-h1);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.title-h2 {
+  font-size: var(--f-h2);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.title-h3 {
+  font-size: var(--f-h3);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.lead {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--c-gray-04);
+  line-height: 1.75;
+}
+
+.lead-white {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.body-text {
+  font-size: var(--f-body);
+  color: var(--c-gray-05);
+  line-height: 1.75;
+}
+
+.small-text {
+  font-size: var(--f-small);
+  color: var(--c-gray-04);
+  line-height: 1.6;
+}
+
+.caption {
+  font-size: var(--f-xs);
+  color: var(--c-gray-03);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ============================================
+   BUTTON SYSTEM
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  border: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--c-blue);
+  color: white;
+  padding: 0.875rem 1.75rem;
+  box-shadow: 0 1px 2px rgba(21, 87, 212, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--c-blue-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21, 87, 212, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  padding: 0.875rem 1.75rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--c-blue);
+  padding: 0.875rem 1.75rem;
+  border: 1.5px solid var(--c-blue);
+}
+
+.btn-outline:hover {
+  background: var(--c-blue);
+  color: white;
+}
+
+.btn-sm {
+  font-size: var(--f-small);
+  padding: 0.6rem 1.25rem;
+}
+
+.btn-lg {
+  font-size: 1.0625rem;
+  padding: 1rem 2rem;
+}
+
+/* ============================================
+   CARD SYSTEM
+   ============================================ */
+
+/* Light Card (white bg) */
+.card {
+  background: var(--c-white);
+  border: 1px solid var(--c-gray-01);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-gray-02);
+}
+
+/* Dark Card (navy bg) */
+.card-dark {
+  background: var(--c-navy-mid);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+}
+
+/* ============================================
+   SECTION BACKGROUNDS
+   ============================================ */
+
+.bg-navy { background-color: var(--c-navy); }
+.bg-navy-mid { background-color: var(--c-navy-mid); }
+.bg-white { background-color: var(--c-white); }
+.bg-gray { background-color: var(--c-gray-00); }
+
+/* ============================================
+   ICON BADGES
+   ============================================ */
+
+.icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-md);
+  flex-shrink: 0;
+}
+
+.icon-badge-sm { width: 36px; height: 36px; }
+.icon-badge-md { width: 44px; height: 44px; }
+.icon-badge-lg { width: 56px; height: 56px; }
+
+.icon-badge-blue {
+  background: rgba(21, 87, 212, 0.1);
+  color: var(--c-blue);
+}
+
+.icon-badge-navy {
+  background: var(--c-blue);
+  color: white;
+}
+
+.icon-badge-green {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--c-green);
+}
+
+/* ============================================
+   STATUS BADGES
+   ============================================ */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.375rem 0.875rem;
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #072752;
+
+.status-ok     { background: var(--c-green-light); color: #14532D; }
+.status-warn   { background: var(--c-amber-light); color: #78350F; }
+.status-alert  { background: var(--c-red-light);   color: #7F1D1D; }
+.status-neutral{ background: var(--c-gray-01);     color: var(--c-gray-05); }
+
+/* ============================================
+   TABLE SYSTEM
+   ============================================ */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--f-small);
+}
+
+.data-table th {
+  font-size: var(--f-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-gray-04);
+  background: var(--c-gray-00);
+  padding: 0.875rem 1.25rem;
+  border-bottom: 2px solid var(--c-gray-01);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--c-gray-01);
+  color: var(--c-gray-05);
+  font-size: var(--f-small);
+}
+
+.data-table tr:hover td {
+  background: var(--c-gray-00);
+}
+
+/* ============================================
+   FORM SYSTEM
+   ============================================ */
+
+.form-label {
+  display: block;
+  font-size: var(--f-xs);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--c-gray-05);
+  margin-bottom: 0.375rem;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--c-white);
+  border: 1.5px solid var(--c-gray-02);
+  border-radius: var(--r-md);
+  padding: 0.75rem 1rem;
+  font-size: var(--f-small);
+  font-family: 'Inter', sans-serif;
+  color: var(--c-gray-06);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--c-blue);
+  box-shadow: 0 0 0 3px rgba(21, 87, 212, 0.08);
+}
+
+.form-input::placeholder {
+  color: var(--c-gray-03);
+}
+
+/* ============================================
+   DIVIDER / SEPARATOR
+   ============================================ */
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--c-gray-01);
+}
+
+.divider-navy {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ============================================
+   STEP/FLOW NUMBERS
+   ============================================ */
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--c-blue);
+  color: white;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--f-xs);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-number-sm {
+  width: 26px;
+  height: 26px;
+  font-size: 0.6875rem;
+}
+
+/* ============================================
+   MONO / CODE ELEMENTS
+   ============================================ */
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-gray-00); }
+::-webkit-scrollbar-thumb { background: var(--c-gray-02); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-navy); }
+
+/* ============================================
+   SELECTION
+   ============================================ */
+
+::selection {
+  background: var(--c-blue);
+  color: white;
 }

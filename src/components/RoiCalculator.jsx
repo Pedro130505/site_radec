@@ -1,186 +1,193 @@
 import React, { useState } from 'react';
-import { DollarSign, TrendingUp, AlertOctagon, CheckCircle, ArrowRight, Calculator } from 'lucide-react';
+import { Calculator, ArrowRight, Info } from 'lucide-react';
+
+const fmt = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(v);
 
 export default function RoiCalculator({ onOpenQuote }) {
-  const [downtimeHours, setDowntimeHours] = useState(12);
-  const [hourlyCost, setHourlyCost] = useState(45000);
-  const [beltMeters, setBeltMeters] = useState(150);
-  const [meterCost, setMeterCost] = useState(650);
-  const [incidentsYear, setIncidentsYear] = useState(2);
+  const [cost, setCost] = useState(50000);
+  const [hours, setHours] = useState(12);
+  const [repair, setRepair] = useState(150000);
+  const [count, setCount] = useState(2);
 
-  const downtimeLoss = downtimeHours * hourlyCost * incidentsYear;
-  const beltReplacementCost = beltMeters * meterCost * incidentsYear;
-  const totalAnnualLoss = downtimeLoss + beltReplacementCost;
+  const perEvent = (cost * hours) + repair;
+  const annual = perEvent * count;
+  const saving = annual * 0.85;
 
-  const formatCurrency = (val) => {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val);
-  };
+  const sliders = [
+    { label: 'Custo da parada por hora', min: 10000, max: 200000, step: 5000, value: cost, onChange: setCost, display: `${fmt(cost)}/h` },
+    { label: 'Horas de parada por ocorrência', min: 2, max: 48, step: 1, value: hours, onChange: setHours, display: `${hours} horas` },
+    { label: 'Custo estimado de reparo / correia', min: 20000, max: 500000, step: 10000, value: repair, onChange: setRepair, display: fmt(repair) },
+    { label: 'Ocorrências por ano', min: 1, max: 10, step: 1, value: count, onChange: setCount, display: `${count} ocorrência${count > 1 ? 's' : ''}` },
+  ];
 
   return (
-    <section id="calculadora-roi" className="scroll-mt-24 py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
-      <div className="container mx-auto px-4 md:px-8">
-        
-        {/* Section Title */}
-        <div className="max-w-3xl mb-16 space-y-3">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded border border-emerald-200">
-            Análise Financeira & Retorno de Investimento (ROI)
-          </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-[#072752] font-['Outfit']">
-            Calculadora de Prejuízo Evitado
+    <section id="calculadora-roi" style={{
+      background: 'var(--c-gray-00)',
+      borderBottom: '1px solid var(--c-gray-01)',
+      padding: 'var(--section-y) 0',
+      scrollMarginTop: '80px',
+    }}>
+      <div className="container">
+
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3.5rem' }}>
+          <div className="eyebrow">Estimativa Comercial Ilustrativa</div>
+          <h2 className="title-h2" style={{ marginBottom: '1rem' }}>
+            Estimativa de impacto financeiro
           </h2>
-          <p className="text-slate-600 text-base md:text-lg">
-            Estime o impacto financeiro de paradas não programadas provocadas por rasgos na correia transportadora da sua unidade.
+          <p className="lead" style={{ fontSize: '1rem' }}>
+            Avalie o prejuízo financeiro causado por rasgos e paradas não programadas no seu transportador.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          {/* Slider Controls Container */}
-          <div className="lg:col-span-7 industrial-card p-6 md:p-8 rounded-2xl space-y-6">
-            <div className="flex items-center gap-2 text-[#072752] font-bold text-sm uppercase border-b border-slate-200 pb-3">
-              <Calculator className="w-5 h-5 text-[#0356c5]" />
-              <span>Parâmetros de Operação da Sua Planta</span>
-            </div>
+        {/* Calculator Layout */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', maxWidth: '960px', margin: '0 auto',
+        }}>
 
-            {/* Slider 1 */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-slate-700">
-                <span>Horas Médias de Parada por Incidente:</span>
-                <span className="text-[#0356c5] font-mono text-sm">{downtimeHours} horas</span>
+          {/* Inputs */}
+          <div className="card">
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '0.75rem',
+              paddingBottom: '1.25rem', marginBottom: '1.5rem',
+              borderBottom: '1px solid var(--c-gray-01)',
+            }}>
+              <div style={{
+                width: '40px', height: '40px', background: 'rgba(21,87,212,0.08)',
+                borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+                justifyContent: 'center', flexShrink: 0,
+              }}>
+                <Calculator size={18} color="var(--c-blue)" />
               </div>
-              <input
-                type="range"
-                min="2"
-                max="48"
-                step="1"
-                value={downtimeHours}
-                onChange={(e) => setDowntimeHours(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
-              />
+              <h3 style={{
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.0625rem', fontWeight: 700,
+                color: 'var(--c-navy)',
+              }}>
+                Parâmetros da Operação
+              </h3>
             </div>
 
-            {/* Slider 2 */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-slate-700">
-                <span>Custo por Hora de Planta Parada:</span>
-                <span className="text-emerald-700 font-mono text-sm">{formatCurrency(hourlyCost)}/h</span>
-              </div>
-              <input
-                type="range"
-                min="5000"
-                max="200000"
-                step="5000"
-                value={hourlyCost}
-                onChange={(e) => setHourlyCost(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
-              />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {sliders.map((s, i) => (
+                <div key={i}>
+                  <div style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    marginBottom: '0.5rem',
+                  }}>
+                    <label style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--c-gray-05)' }}>
+                      {s.label}
+                    </label>
+                    <span style={{
+                      fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.8125rem',
+                      fontWeight: 700, color: 'var(--c-blue)',
+                    }}>
+                      {s.display}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={s.min} max={s.max} step={s.step} value={s.value}
+                    onChange={e => s.onChange(Number(e.target.value))}
+                    style={{
+                      width: '100%', height: '4px', appearance: 'none',
+                      background: `linear-gradient(to right, var(--c-blue) ${((s.value - s.min) / (s.max - s.min)) * 100}%, var(--c-gray-01) 0%)`,
+                      borderRadius: '2px', outline: 'none', cursor: 'pointer',
+                    }}
+                  />
+                </div>
+              ))}
             </div>
-
-            {/* Slider 3 */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-slate-700">
-                <span>Metros de Correia Danificados por Evento:</span>
-                <span className="text-[#0356c5] font-mono text-sm">{beltMeters} metros</span>
-              </div>
-              <input
-                type="range"
-                min="20"
-                max="800"
-                step="10"
-                value={beltMeters}
-                onChange={(e) => setBeltMeters(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
-              />
-            </div>
-
-            {/* Slider 4 */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-slate-700">
-                <span>Custo por Metro de Correia:</span>
-                <span className="text-[#0356c5] font-mono text-sm">{formatCurrency(meterCost)}/m</span>
-              </div>
-              <input
-                type="range"
-                min="200"
-                max="3000"
-                step="50"
-                value={meterCost}
-                onChange={(e) => setMeterCost(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
-              />
-            </div>
-
-            {/* Slider 5 */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-bold text-slate-700">
-                <span>Frequência Estimada de Incidentes por Ano sem RADEC®:</span>
-                <span className="text-amber-700 font-mono text-sm">{incidentsYear} acidentes / ano</span>
-              </div>
-              <input
-                type="range"
-                min="1"
-                max="6"
-                step="1"
-                value={incidentsYear}
-                onChange={(e) => setIncidentsYear(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
-              />
-            </div>
-
           </div>
 
-          {/* Results Container */}
-          <div className="lg:col-span-5 bg-[#072752] text-white p-6 md:p-8 rounded-2xl shadow-xl flex flex-col justify-between space-y-6">
-            <div className="space-y-6">
-              <div>
-                <span className="text-xs font-bold text-rose-300 uppercase tracking-widest block mb-1">
-                  Risco Financeiro Total
-                </span>
-                <h3 className="text-2xl font-extrabold font-['Outfit']">
-                  Perda Potencial sem Proteção
-                </h3>
+          {/* Results */}
+          <div style={{
+            background: 'var(--c-navy)', borderRadius: 'var(--r-xl)', padding: '2rem',
+            display: 'flex', flexDirection: 'column',
+          }}>
+            <div style={{
+              fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)',
+              marginBottom: '0.5rem',
+            }}>
+              Resultado da Estimativa
+            </div>
+            <h3 style={{
+              fontFamily: 'Outfit, sans-serif', fontSize: '1.125rem', fontWeight: 700,
+              color: 'white', marginBottom: '2rem',
+            }}>
+              Impacto Estimado na Planta
+            </h3>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
+              <div style={{
+                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 'var(--r-lg)', padding: '1.25rem',
+              }}>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginBottom: '0.375rem' }}>
+                  Impacto estimado por ocorrência
+                </div>
+                <div style={{
+                  fontFamily: 'Outfit, sans-serif', fontSize: '1.75rem', fontWeight: 800,
+                  color: '#FCD34D', letterSpacing: '-0.02em',
+                }}>
+                  {fmt(perEvent)}
+                </div>
               </div>
 
-              {/* Total Display */}
-              <div className="bg-[#041d3d] p-6 rounded-xl border border-rose-500/40 text-center space-y-1">
-                <span className="text-xs font-bold text-slate-300 uppercase">Prejuízo Anual Estimado:</span>
-                <p className="text-3xl md:text-4xl font-extrabold text-rose-400 font-['Outfit']">
-                  {formatCurrency(totalAnnualLoss)}
+              <div style={{
+                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 'var(--r-lg)', padding: '1.25rem',
+              }}>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginBottom: '0.375rem' }}>
+                  Impacto estimado por ano
+                </div>
+                <div style={{
+                  fontFamily: 'Outfit, sans-serif', fontSize: '2rem', fontWeight: 800,
+                  color: '#FCA5A5', letterSpacing: '-0.02em',
+                }}>
+                  {fmt(annual)}
+                </div>
+              </div>
+
+              <div style={{
+                background: 'rgba(22, 163, 74, 0.12)', border: '1px solid rgba(22, 163, 74, 0.2)',
+                borderRadius: 'var(--r-lg)', padding: '1.25rem',
+              }}>
+                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.375rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  Comparativo com RADEC®
+                </div>
+                <div style={{
+                  fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
+                  color: '#4ADE80', letterSpacing: '-0.02em', marginBottom: '0.375rem',
+                }}>
+                  ~{fmt(saving)} economizados/ano
+                </div>
+                <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
+                  Via desarme automático e proteção ativa de correias.
                 </p>
-                <span className="text-[11px] text-slate-400 font-mono block">
-                  (Lucro Cessante + Custo de Substituição de Material)
-                </span>
-              </div>
-
-              <div className="space-y-2 text-xs font-medium">
-                <div className="flex justify-between p-3 rounded bg-[#041d3d] border border-blue-900">
-                  <span className="text-slate-300">Custo com Planta Parada:</span>
-                  <span className="font-bold text-amber-300 font-mono">{formatCurrency(downtimeLoss)}</span>
-                </div>
-                <div className="flex justify-between p-3 rounded bg-[#041d3d] border border-blue-900">
-                  <span className="text-slate-300">Custo de Correias Danificadas:</span>
-                  <span className="font-bold text-cyan-300 font-mono">{formatCurrency(beltReplacementCost)}</span>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs flex items-center gap-3">
-                <TrendingUp className="w-5 h-5 text-emerald-400 shrink-0" />
-                <div>
-                  <span className="font-bold text-white block">Payback Estimado:</span>
-                  <span>O investimento no RADEC® é amortizado no primeiro evento grave evitado.</span>
-                </div>
               </div>
             </div>
 
             <button
               onClick={onOpenQuote}
-              className="w-full bg-[#0356c5] hover:bg-[#02449e] text-white font-bold py-4 rounded-lg shadow transition flex items-center justify-center gap-2"
+              className="btn btn-primary"
+              style={{ marginTop: '1.5rem', width: '100%', justifyContent: 'center', background: 'var(--c-blue)' }}
             >
-              <span>Solicitar Estudo Financeiro Personalizado</span>
-              <ArrowRight className="w-4 h-4" />
+              Solicitar Estudo para Minha Planta
+              <ArrowRight size={16} />
             </button>
           </div>
+        </div>
 
+        {/* Disclaimer */}
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+          marginTop: '1.5rem',
+        }}>
+          <Info size={13} color="var(--c-gray-03)" />
+          <span style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)' }}>
+            Cálculo ilustrativo, baseado em valores informados pelo usuário.
+          </span>
         </div>
 
       </div>

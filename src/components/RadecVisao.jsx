@@ -1,279 +1,303 @@
 import React, { useState } from 'react';
-import { Eye, Shield, Camera, AlertTriangle, CheckCircle2, Sliders, Cpu, Activity, Info, Zap, ArrowRight } from 'lucide-react';
+import { Eye, Shield, Cpu, CheckCircle, Info, ArrowRight, Zap } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
+const differentials = [
+  {
+    Icon: Eye,
+    title: 'Visão computacional',
+    desc: 'Monitora continuamente manifestações geométricas da correia por sensores de imagem de alta definição.',
+  },
+  {
+    Icon: Shield,
+    title: 'Monitoramento sem contato',
+    desc: 'Não depende de contato mecânico com a correia, eliminando desgaste e risco de quebra física.',
+  },
+  {
+    Icon: Cpu,
+    title: 'Integração industrial',
+    desc: 'Informações de diagnóstico, alarme e proteção disponíveis via Modbus TCP e Relé ao sistema de controle.',
+  },
+];
+
+const scenarios = {
+  normal: {
+    name: 'Correia Normal',
+    manifestation: 'Superfície e bordas com geometria preservada, sem anomalias ópticas.',
+    status: 'Normal', statusType: 'ok',
+    plcSignal: 'Sinal OK — Relé Fechado / Modbus Bit 0: Normal',
+    action: 'Monitoramento contínuo sem necessidade de intervenção.',
+  },
+  borda: {
+    name: 'Rasgo de Borda',
+    manifestation: 'Descontinuidade ou fratura observada na borda lateral da correia.',
+    status: 'Alerta de Borda', statusType: 'warn',
+    plcSignal: 'Alarme Borda + Bit de Proteção Nível 2 enviado ao PLC',
+    action: 'Notificação no SCADA e preparação para intertravamento.',
+  },
+  abertura: {
+    name: 'Rasgo com Abertura',
+    manifestation: 'Abertura longitudinal visível com separação das faces da lona.',
+    status: 'Proteção Ativa', statusType: 'alert',
+    plcSignal: 'Comando de Intertravamento Imediato enviado ao PLC',
+    action: 'Desarme automático do motor para conter o avanço do rasgo.',
+  },
+  sobreposicao: {
+    name: 'Rasgo com Sobreposição',
+    manifestation: 'Superposição de abas da borracha na linha de corte.',
+    status: 'Alerta Nível 3', statusType: 'warn',
+    plcSignal: 'Alarme de Geometria enviado ao Sistema de Controle',
+    action: 'Sinalização para inspeção preventiva na próxima parada.',
+  },
+  central: {
+    name: 'Rasgo Central',
+    manifestation: 'Linha de fratura central identificada pelas câmeras ópticas.',
+    status: 'Proteção Ativa (Crítico)', statusType: 'alert',
+    plcSignal: 'Comando de Parada de Emergência enviado ao PLC',
+    action: 'Interrupção imediata da alimentação do transportador.',
+  },
+  desalinhamento: {
+    name: 'Desalinhamento',
+    manifestation: 'Deslocamento lateral do eixo da correia em relação aos roletes.',
+    status: 'Alerta de Deslocamento', statusType: 'warn',
+    plcSignal: 'Registro de Tendência de Desalinhamento enviado ao SCADA',
+    action: 'Alerta para atuação dos dispositivos de alinhamento.',
+  },
+};
+
 export default function RadecVisao({ onOpenQuote }) {
-  const [alertLevel, setAlertLevel] = useState(3);
-  const [defectType, setDefectType] = useState('abertura');
+  const [selected, setSelected] = useState('normal');
+  const current = scenarios[selected];
 
-  const alertDetails = {
-    1: { level: 'Nível 1', range: '50% - 62,5% da Largura Crítica', severity: 'Alerta Inicial (Informativo)', color: 'bg-yellow-500', text: 'text-yellow-700', border: 'border-yellow-300' },
-    2: { level: 'Nível 2', range: '62,5% - 75,0% da Largura Crítica', severity: 'Atenção Operacional', color: 'bg-amber-500', text: 'text-amber-700', border: 'border-amber-300' },
-    3: { level: 'Nível 3', range: '75,0% - 87,5% da Largura Crítica', severity: 'Alerta de Manutenção', color: 'bg-orange-500', text: 'text-orange-700', border: 'border-orange-300' },
-    4: { level: 'Nível 4', range: '87,5% - 100% da Largura Crítica', severity: 'Alerta Crítico Pré-Desarme', color: 'bg-red-500', text: 'text-red-700', border: 'border-red-300' },
-    5: { level: 'Nível 5', range: 'Acima de 100% da Largura Crítica', severity: 'DESARME IMEDIATO DO CLP!', color: 'bg-rose-700', text: 'text-rose-700', border: 'border-rose-500' },
+  const statusStyle = {
+    ok:    { background: '#DCFCE7', color: '#14532D' },
+    warn:  { background: '#FEF3C7', color: '#78350F' },
+    alert: { background: '#FEE2E2', color: '#7F1D1D' },
   };
-
-  const currentAlert = alertDetails[alertLevel];
+  const st = statusStyle[current.statusType];
 
   return (
-    <section id="radec-visao" className="scroll-mt-24 py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
-      <div className="container mx-auto px-4 md:px-8">
-        
+    <section id="radec-visao" style={{
+      background: 'var(--c-white)',
+      borderBottom: '1px solid var(--c-gray-01)',
+      padding: 'var(--section-y) 0',
+      scrollMarginTop: '80px',
+    }}>
+      <div className="container">
+
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 border-b border-slate-200 pb-8">
-          <div className="space-y-3 max-w-2xl">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-[#0356c5] bg-blue-50 px-3 py-1 rounded border border-blue-200">
-              Visão Computacional & Video Analytics
-            </span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#072752] font-['Outfit']">
-              RADEC® Visão
-            </h2>
-            <p className="text-slate-600 text-base md:text-lg">
-              Sistema patenteado de monitoramento óptico contínuo por inteligência artificial para detecção precoce de rasgos longitudinais e desalinhamento de correias.
+        <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
+          <div className="eyebrow">Visão Computacional & Video Analytics</div>
+          <h2 className="title-h2" style={{ marginBottom: '1rem' }}>
+            RADEC® Visão — A correia é monitorada diretamente
+          </h2>
+          <p className="lead" style={{ fontSize: '1rem' }}>
+            Sistema de inspeção óptica contínua para detecção precoce de alterações geométricas e danos estruturais na correia transportadora.
+          </p>
+        </div>
+
+        {/* Differentials Grid */}
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '1px', background: 'var(--c-gray-01)',
+          border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-xl)',
+          overflow: 'hidden', marginBottom: '3rem',
+        }}>
+          {differentials.map((d, i) => {
+            const Icon = d.Icon;
+            return (
+              <div key={i} style={{
+                background: 'var(--c-white)', padding: '2rem',
+              }}>
+                <div style={{
+                  width: '44px', height: '44px', background: 'rgba(21, 87, 212, 0.08)',
+                  borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', marginBottom: '1.25rem',
+                }}>
+                  <Icon size={20} color="var(--c-blue)" />
+                </div>
+                <h3 style={{
+                  fontFamily: 'Outfit, sans-serif', fontSize: '1rem', fontWeight: 600,
+                  color: 'var(--c-navy)', marginBottom: '0.5rem',
+                }}>
+                  {d.title}
+                </h3>
+                <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)', lineHeight: 1.65 }}>
+                  {d.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* AI Validation Banner */}
+        <div style={{
+          background: 'var(--c-navy)', borderRadius: 'var(--r-xl)',
+          padding: '2rem 2.5rem', marginBottom: '3rem',
+          display: 'grid', gridTemplateColumns: '1fr auto', gap: '2rem', alignItems: 'center',
+        }}>
+          <div>
+            <div style={{
+              fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)', marginBottom: '0.625rem',
+            }}>
+              Algoritmo de Filtragem Inteligente
+            </div>
+            <h3 style={{
+              fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 700,
+              color: 'white', marginBottom: '0.75rem', letterSpacing: '-0.02em',
+            }}>
+              Validação por Inteligência Artificial
+            </h3>
+            <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, maxWidth: '560px' }}>
+              Uma camada de IA auxilia na validação das condições ópticas observadas, aumentando a robustez frente a interferências ambientais como variações de iluminação e presença de poeira suspensa.
             </p>
           </div>
-
-          <button
-            onClick={onOpenQuote}
-            className="bg-[#072752] hover:bg-[#0356c5] text-white px-6 py-3 rounded-lg font-bold transition shadow flex items-center gap-2"
-          >
-            <span>Solicitar Catálogo Técnico</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div style={{
+            background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 'var(--r-lg)', padding: '1.25rem 1.5rem', minWidth: '220px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              <Zap size={14} color="#FCD34D" />
+              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>
+                Robustez Operacional
+              </span>
+            </div>
+            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.6 }}>
+              Distingue sombras, sujeira inofensiva e vibrações normais de rasgos e desgarres estruturais reais.
+            </p>
+          </div>
         </div>
 
-        {/* Real Product Image & Feature Breakdown Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
-          
-          {/* Real Diagram Column */}
-          <div className="lg:col-span-6 space-y-4">
-            <div className="industrial-card p-4 rounded-2xl overflow-hidden">
-              <img 
-                src={getAssetUrl('assets/photos/radec_visao_diagram.png')} 
-                alt="Desenho Esquemático do RADEC Visão" 
-                className="w-full h-auto rounded-xl object-contain bg-white border border-slate-200 p-2"
-              />
-              <div className="mt-3 flex items-center justify-between text-xs font-semibold text-slate-600 px-1">
-                <span>Esquema de Posicionamento Câmeras Face e Contraface</span>
-                <span className="text-[#0356c5]">Gabinete Robusto IP67</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Feature List Column */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="industrial-card p-6 rounded-xl space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#0356c5] flex items-center justify-center font-bold">
-                  <Camera className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-[#072752]">Inspeção Dupla Face & Contraface</h3>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Monitora tanto a superfície carregada (Face) quanto o dorso inferior da correia (Contraface) utilizando iluminação laser dedicada.
-              </p>
-            </div>
-
-            <div className="industrial-card p-6 rounded-xl space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#0356c5] flex items-center justify-center font-bold">
-                  <Shield className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-[#072752]">Estrutura IP67 Sem Partes Móveis</h3>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Desenvolvido para ambientes severos com alta poeira, vibração e umidade. Dispensa manutenção mecânica periódica.
-              </p>
-            </div>
-
-            <div className="industrial-card p-6 rounded-xl space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-blue-50 text-[#0356c5] flex items-center justify-center font-bold">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-[#072752]">5 Níveis de Alerta Configuráveis</h3>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Algoritmo de mensuração da largura crítica (%) para evitar disparos falsos e permitir atuação preventiva da equipe de manutenção.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Industrial HMI / SCADA Interactive Simulator */}
-        <div className="industrial-card p-6 md:p-8 rounded-2xl border-2 border-slate-300">
-          
-          <div className="border-b border-slate-200 pb-4 mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        {/* Interactive Scenario Simulator */}
+        <div style={{
+          border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-xl)', overflow: 'hidden',
+          boxShadow: 'var(--shadow-sm)',
+        }}>
+          {/* Simulator Header */}
+          <div style={{
+            padding: '1.5rem 2rem',
+            borderBottom: '1px solid var(--c-gray-01)',
+            background: 'var(--c-gray-00)',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem',
+          }}>
             <div>
-              <span className="text-xs font-bold text-[#0356c5] uppercase tracking-wider">Painel de Supervisão Industrial SCADA</span>
-              <h3 className="text-2xl font-extrabold text-[#072752] font-['Outfit']">Simulador HMI do Algoritmo RADEC® Visão</h3>
+              <div style={{
+                fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'var(--c-gray-03)', marginBottom: '0.25rem',
+              }}>
+                Demonstração Conceitual Interativa
+              </div>
+              <h3 style={{
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.125rem', fontWeight: 700,
+                color: 'var(--c-navy)', letterSpacing: '-0.015em',
+              }}>
+                Simule como o RADEC® Visão interpreta a condição da correia
+              </h3>
             </div>
-            <span className="text-xs font-mono font-bold bg-slate-100 text-slate-700 px-3 py-1 rounded border border-slate-300">
-              CLP MODBUS TCP: ONLINE
+            <span style={{
+              fontSize: '0.6875rem', fontWeight: 600, color: 'var(--c-gray-03)',
+              background: 'var(--c-white)', border: '1px solid var(--c-gray-01)',
+              borderRadius: '4px', padding: '0.375rem 0.75rem',
+            }}>
+              Fins ilustrativos
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            {/* Control Column */}
-            <div className="lg:col-span-5 space-y-6">
-              
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-700 uppercase">Selecione o Tipo de Anomalia:</label>
-                <div className="grid grid-cols-3 gap-2">
-                  <button
-                    onClick={() => setDefectType('abertura')}
-                    className={`py-2 px-3 text-xs font-bold rounded border transition ${
-                      defectType === 'abertura'
-                        ? 'bg-[#072752] text-white border-[#072752]'
-                        : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    Rasgo Abertura
-                  </button>
-                  <button
-                    onClick={() => setDefectType('sobreposicao')}
-                    className={`py-2 px-3 text-xs font-bold rounded border transition ${
-                      defectType === 'sobreposicao'
-                        ? 'bg-[#072752] text-white border-[#072752]'
-                        : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    Sobreposição
-                  </button>
-                  <button
-                    onClick={() => setDefectType('desalinhamento')}
-                    className={`py-2 px-3 text-xs font-bold rounded border transition ${
-                      defectType === 'desalinhamento'
-                        ? 'bg-[#072752] text-white border-[#072752]'
-                        : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    Desalinhado
-                  </button>
-                </div>
-              </div>
-
-              {/* Slider */}
-              <div className="space-y-3 bg-slate-100 p-4 rounded-xl border border-slate-200">
-                <div className="flex justify-between items-center text-xs font-bold">
-                  <span className="text-slate-700">Severidade do Danos (% Largura Crítica):</span>
-                  <span className={`px-2 py-0.5 rounded text-white ${currentAlert.color}`}>
-                    {currentAlert.level}
-                  </span>
-                </div>
-
-                <input
-                  type="range"
-                  min="1"
-                  max="5"
-                  value={alertLevel}
-                  onChange={(e) => setAlertLevel(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-300 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
-                />
-
-                <div className="flex justify-between text-[11px] text-slate-600 font-mono">
-                  <span>50%</span>
-                  <span>75%</span>
-                  <span>&gt;100%</span>
-                </div>
-
-                <div className="pt-2 border-t border-slate-200 text-xs">
-                  <span className="text-slate-500 block">Faixa de Tolerância:</span>
-                  <span className="font-bold text-[#072752]">{currentAlert.range}</span>
-                </div>
-              </div>
-
-              {/* Status Relay Card */}
-              <div className={`p-4 rounded-xl border ${currentAlert.border} bg-white shadow-sm space-y-2`}>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-600 uppercase">Sinal de Intertravamento:</span>
-                  <span className={`text-xs font-bold uppercase px-2.5 py-0.5 rounded ${alertLevel === 5 ? 'bg-red-600 text-white animate-pulse' : 'bg-blue-100 text-[#0356c5]'}`}>
-                    {alertLevel === 5 ? 'RELÉ TRIP ATIVADO' : 'SINAL NORMAL'}
-                  </span>
-                </div>
-                <p className="text-sm font-extrabold text-slate-800">
-                  {currentAlert.severity}
-                </p>
-                <p className="text-xs text-slate-600">
-                  {alertLevel === 5 
-                    ? 'Comando de parada de emergência do motor enviado ao CLP em menos de 50 milissegundos.'
-                    : 'Monitoramento contínuo sem necessidade de intervenção operacional.'}
-                </p>
-              </div>
-
-            </div>
-
-            {/* Industrial SCADA Visualizer Display */}
-            <div className="lg:col-span-7 scada-screen p-6 rounded-xl text-slate-200 flex flex-col justify-between relative overflow-hidden font-mono text-xs">
-              
-              <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-emerald-400 font-bold">RADEC_CAM_FACE_01</span>
-                </div>
-                <span className="text-slate-400">STATUS: CAM_OK | FPS: 60</span>
-              </div>
-
-              <div className="my-8 relative h-48 flex items-center justify-center scada-grid border border-slate-800 rounded">
-                <div className="w-full max-w-md h-32 bg-slate-900 border-2 border-slate-700 relative overflow-hidden flex items-center justify-center shadow-inner">
-                  <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,#1e293b_0px,#1e293b_15px,#0f172a_15px,#0f172a_30px)] opacity-70 animate-belt" />
-
-                  <div className="absolute top-0 inset-x-0 h-2 bg-slate-600" />
-                  <div className="absolute bottom-0 inset-x-0 h-2 bg-slate-600" />
-
-                  {defectType === 'abertura' && (
-                    <div className="relative z-10 flex flex-col items-center">
-                      <div 
-                        className={`h-2 transition-all duration-300 rounded ${currentAlert.color}`}
-                        style={{ width: `${alertLevel * 35}px`, height: `${alertLevel * 5}px` }}
-                      />
-                      <span className="text-[10px] text-red-400 mt-2 bg-black/90 px-2 py-0.5 rounded border border-red-500/50">
-                        ANOMALIA: RASGO CENTRAL (A={alertLevel * 15}mm)
-                      </span>
-                    </div>
-                  )}
-
-                  {defectType === 'sobreposicao' && (
-                    <div className="relative z-10 flex flex-col items-center">
-                      <div 
-                        className="h-3 border-2 border-amber-400 bg-amber-500/50 rounded"
-                        style={{ width: `${alertLevel * 40}px` }}
-                      />
-                      <span className="text-[10px] text-amber-300 mt-2 bg-black/90 px-2 py-0.5 rounded border border-amber-500/50">
-                        ANOMALIA: SOBREPOSIÇÃO
-                      </span>
-                    </div>
-                  )}
-
-                  {defectType === 'desalinhamento' && (
-                    <div 
-                      className="relative z-10 transition-all duration-300 flex flex-col items-center"
-                      style={{ transform: `translateY(${alertLevel * 8}px)` }}
-                    >
-                      <div className="w-48 h-20 border border-rose-500 bg-rose-500/10 rounded flex items-center justify-center">
-                        <span className="text-[10px] text-rose-400 bg-black/90 px-2 py-0.5 rounded border border-rose-500">
-                          DESALINHAMENTO LATERAL (+{alertLevel * 12}mm)
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-              </div>
-
-              <div className="flex justify-between items-center border-t border-slate-800 pt-3 text-[11px] text-slate-400">
-                <span>RESOLUÇÃO: HD INDUSTRIAL</span>
-                <span>COMUNICAÇÃO: MODBUS TCP</span>
-                <span className="text-emerald-400 font-bold">LATÊNCIA: &lt; 15ms</span>
-              </div>
-
-            </div>
-
+          {/* Scenario Tabs */}
+          <div style={{
+            display: 'flex', flexWrap: 'wrap', gap: '0',
+            borderBottom: '1px solid var(--c-gray-01)',
+            background: 'var(--c-white)',
+          }}>
+            {Object.entries(scenarios).map(([key, sc]) => (
+              <button
+                key={key}
+                onClick={() => setSelected(key)}
+                style={{
+                  padding: '0.875rem 1.25rem',
+                  fontSize: '0.8125rem', fontWeight: selected === key ? 600 : 500,
+                  color: selected === key ? 'var(--c-navy)' : 'var(--c-gray-04)',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: selected === key ? '2px solid var(--c-blue)' : '2px solid transparent',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {sc.name}
+              </button>
+            ))}
           </div>
 
+          {/* Output Panel */}
+          <div style={{ padding: '2rem', background: 'var(--c-white)' }}>
+            <div style={{
+              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem',
+              marginBottom: '1.5rem',
+            }}>
+              <div style={{
+                padding: '1.5rem', background: 'var(--c-gray-00)',
+                border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
+              }}>
+                <div style={{
+                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  textTransform: 'uppercase', color: 'var(--c-gray-03)', marginBottom: '0.625rem',
+                }}>
+                  Manifestação Observada
+                </div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--c-gray-05)', lineHeight: 1.65 }}>
+                  {current.manifestation}
+                </p>
+              </div>
+              <div style={{
+                padding: '1.5rem', background: 'var(--c-gray-00)',
+                border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
+              }}>
+                <div style={{
+                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  textTransform: 'uppercase', color: 'var(--c-gray-03)', marginBottom: '0.625rem',
+                }}>
+                  Informação Enviada ao Sistema de Controle
+                </div>
+                <p style={{
+                  fontSize: '0.875rem', fontFamily: 'IBM Plex Mono, monospace',
+                  color: 'var(--c-navy)', lineHeight: 1.65, fontWeight: 600,
+                }}>
+                  {current.plcSignal}
+                </p>
+              </div>
+            </div>
+
+            {/* Status + Action Row */}
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '1rem 1.25rem', background: 'var(--c-gray-00)',
+              border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
+              gap: '1rem', flexWrap: 'wrap',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+                <span style={{
+                  ...statusStyle[current.statusType],
+                  fontSize: '0.6875rem', fontWeight: 700,
+                  letterSpacing: '0.06em', textTransform: 'uppercase',
+                  padding: '0.375rem 0.875rem', borderRadius: '4px',
+                }}>
+                  {current.status}
+                </span>
+                <span style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)' }}>
+                  {current.action}
+                </span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                <Info size={13} color="var(--c-gray-03)" />
+                <span style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)' }}>
+                  Demonstração interativa com fins ilustrativos.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

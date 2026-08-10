@@ -1,96 +1,129 @@
 import React from 'react';
-import { Shield, MapPin, Phone, Mail, Globe, ArrowUp } from 'lucide-react';
+import { MapPin, Phone, Mail, Globe, ArrowUp } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
-export default function Footer({ onOpenQuote }) {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+const navCols = [
+  {
+    title: 'Produto',
+    items: [
+      { id: 'produto',           label: 'Visão Geral RADEC®' },
+      { id: 'radec-visao',       label: 'RADEC® Visão' },
+      { id: 'radec-vibracional', label: 'RADEC® Vibracional' },
+    ],
+  },
+  {
+    title: 'Resultados & Empresa',
+    items: [
+      { id: 'resultados',        label: 'Case Vale & ROI' },
+      { id: 'especificacoes',    label: 'Especificações Técnicas' },
+      { id: 'sobre-llk',        label: 'Sobre a LLK' },
+      { id: 'contato',          label: 'Fale com a Engenharia' },
+    ],
+  },
+];
+
+const solutions = ['SHM® — Integridade Estrutural', 'Teor Online — Fe/SiO₂', 'V-Scan® — Balança Óptica', 'V-Count® — Corpos Moedores'];
+
+export default function Footer({ onNavigate }) {
+  const linkStyle = {
+    fontSize: '0.875rem',
+    color: 'rgba(255,255,255,0.45)',
+    background: 'none', border: 'none',
+    cursor: 'pointer', padding: 0,
+    textAlign: 'left', display: 'block',
+    transition: 'color 0.15s',
+    fontFamily: 'inherit',
   };
 
   return (
-    <footer className="bg-[#072752] text-slate-300 border-t border-blue-900 pt-16 pb-12">
-      <div className="container mx-auto px-4 md:px-8">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-          
-          {/* Col 1 */}
-          <div className="lg:col-span-2 space-y-4">
-            <img 
-              src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} 
-              alt="LLK Soluções" 
-              className="h-10 w-auto"
-            />
-            <p className="text-xs text-slate-300 max-w-sm leading-relaxed">
-              LLK Soluções Industriais — Especialistas em eficiência operacional, visão computacional, inteligência artificial e proteção de ativos para as Indústrias de Base.
+    <footer style={{
+      background: 'var(--c-navy)',
+      color: 'rgba(255,255,255,0.55)',
+      borderTop: '1px solid rgba(255,255,255,0.06)',
+    }}>
+      <div className="container" style={{ padding: '4rem 1.5rem 3rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1.5fr', gap: '3rem', marginBottom: '3rem' }}>
+
+          {/* Brand */}
+          <div>
+            <button onClick={() => onNavigate('home')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.25rem', display: 'block' }}>
+              <img src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} alt="LLK Soluções" style={{ height: '34px', opacity: 0.85 }} />
+            </button>
+            <p style={{ fontSize: '0.875rem', lineHeight: 1.75, maxWidth: '300px', marginBottom: '1.5rem' }}>
+              LLK Soluções Industriais — Especialistas em eficiência operacional, visão computacional e proteção de ativos para as Indústrias de Base.
             </p>
-            <span className="text-xs font-semibold text-blue-200 block font-mono">
-              INNOVATION STARTS HERE
+            <span style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', fontFamily: 'IBM Plex Mono, monospace' }}>
+              Innovation Starts Here
             </span>
           </div>
 
-          {/* Col 2 */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider font-['Outfit']">Navegação</h4>
-            <ul className="space-y-2 text-xs">
-              <li><a href="#radec-visao" className="hover:text-white transition">RADEC® Visão</a></li>
-              <li><a href="#radec-vibracional" className="hover:text-white transition">RADEC® Vibracional</a></li>
-              <li><a href="#comparativo" className="hover:text-white transition">Comparativo Técnico</a></li>
-              <li><a href="#calculadora-roi" className="hover:text-white transition">Calculadora de ROI</a></li>
-              <li><a href="#casos-reais" className="hover:text-white transition">Casos em Campo</a></li>
-              <li><a href="#sobre-llk" className="hover:text-white transition">Sobre a LLK</a></li>
-            </ul>
-          </div>
+          {/* Nav cols */}
+          {navCols.map(col => (
+            <div key={col.title}>
+              <h4 style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)', marginBottom: '1.25rem' }}>
+                {col.title}
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                {col.items.map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => onNavigate(item.id)}
+                    style={linkStyle}
+                    onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
 
-          {/* Col 3 */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider font-['Outfit']">Outras Soluções</h4>
-            <ul className="space-y-2 text-xs">
-              <li><span className="text-white font-semibold">SHM®</span> — Integridade Estrutural</li>
-              <li><span className="text-white font-semibold">Teor Online</span> — Análise Fe/SiO₂ (60s)</li>
-              <li><span className="text-white font-semibold">V-Scan®</span> — Balança Volumétrica</li>
-              <li><span className="text-white font-semibold">V-Count®</span> — Corpos Moedores</li>
-              <li><span className="text-white font-semibold">Colorímetro®</span> — Dosagem Reagentes</li>
-            </ul>
-          </div>
-
-          {/* Col 4 */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider font-['Outfit']">Contato Institucional</h4>
-            <ul className="space-y-2.5 text-xs">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                <span>Belo Horizonte / MG — BHTec (Parque Tecnológico)</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-blue-400 shrink-0" />
-                <a href="tel:+553133333333" className="hover:text-white transition">(31) 3333-3333</a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-blue-400 shrink-0" />
-                <a href="mailto:contato@llk.com.br" className="hover:text-white transition">contato@llk.com.br</a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-[#0356c5] shrink-0" />
-                <span>www.llk.com.br</span>
-              </li>
-            </ul>
+          {/* Contact */}
+          <div>
+            <h4 style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)', marginBottom: '1.25rem' }}>
+              Contato
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+              {[
+                { Icon: MapPin, text: 'Belo Horizonte / MG — BHTec' },
+                { Icon: Phone, text: '(31) 3333-3333', href: 'tel:+553133333333' },
+                { Icon: Mail, text: 'contato@llk.com.br', href: 'mailto:contato@llk.com.br' },
+                { Icon: Globe, text: 'www.llk.com.br' },
+              ].map(({ Icon, text, href }, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                  <Icon size={13} color="rgba(255,255,255,0.3)" style={{ marginTop: '2px', flexShrink: 0 }} />
+                  {href
+                    ? <a href={href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{text}</a>
+                    : <span style={{ fontSize: '0.875rem' }}>{text}</span>
+                  }
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
+      </div>
 
-        {/* Bottom Rights */}
-        <div className="pt-8 border-t border-blue-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <span>© {new Date().getFullYear()} LLK Soluções Industriais Ltda. Todos os direitos reservados. RADEC® é marca registrada.</span>
-
+      {/* Bottom bar */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+          <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)' }}>
+            © {new Date().getFullYear()} LLK Soluções Industriais Ltda. Todos os direitos reservados. RADEC® é marca registrada.
+          </span>
           <button
-            onClick={scrollToTop}
-            className="px-4 py-2 rounded bg-white/10 text-white hover:bg-white/20 transition flex items-center gap-1.5 font-semibold"
+            onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            style={{
+              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: 'var(--r-md)', padding: '0.5rem 0.875rem',
+              fontSize: '0.75rem', fontWeight: 600, color: 'rgba(255,255,255,0.45)',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.375rem',
+            }}
           >
-            <span>Voltar ao Topo</span>
-            <ArrowUp className="w-4 h-4" />
+            <ArrowUp size={13} />
+            Voltar ao início
           </button>
         </div>
-
       </div>
     </footer>
   );
