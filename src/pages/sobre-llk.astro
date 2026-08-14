@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import AboutLlk from '../components/AboutLlk';
+---
+
+<Layout title="Sobre a LLK Soluções Industriais">
+  <AppShell client:load activePage="sobre-llk">
+    <AboutLlk client:load />
+  </AppShell>
+</Layout>

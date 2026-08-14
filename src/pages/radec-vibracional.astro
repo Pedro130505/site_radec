@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import RadecVibracional from '../components/RadecVibracional';
+import SelfDiagnosisSection from '../components/SelfDiagnosisSection';
+---
+
+<Layout title="RADEC® Vibracional | Sensoriamento Mecânico">
+  <AppShell client:load activePage="radec-vibracional">
+    <RadecVibracional client:load />
+    <SelfDiagnosisSection client:load />
+  </AppShell>
+</Layout>

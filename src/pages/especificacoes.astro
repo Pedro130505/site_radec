@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import TechSpecs from '../components/TechSpecs';
+---
+
+<Layout title="Especificações Técnicas | RADEC® LLK">
+  <AppShell client:load activePage="especificacoes">
+    <TechSpecs client:load />
+  </AppShell>
+</Layout>

@@ -30,6 +30,17 @@ const navGroups = [
   },
 ];
 
+const ITEM_URLS = {
+  home: '/',
+  produto: '/produto',
+  'radec-visao': '/radec-visao',
+  'radec-vibracional': '/radec-vibracional',
+  resultados: '/resultados',
+  especificacoes: '/especificacoes',
+  'sobre-llk': '/sobre-llk',
+  contato: '/contato',
+};
+
 // ─────────────────────────────────────────────
 function Dropdown({ group, activePage, onNavigate, isDark, onClose }) {
   return (
@@ -52,10 +63,18 @@ function Dropdown({ group, activePage, onNavigate, isDark, onClose }) {
     >
       {group.items.map((item) => {
         const isActive = activePage === item.id;
+        const targetUrl = ITEM_URLS[item.id] || '/';
         return (
-          <button
+          <a
             key={item.id}
-            onClick={() => { onNavigate(item.id); onClose(); }}
+            href={targetUrl}
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate(item.id);
+              }
+              onClose();
+            }}
             style={{
               display: 'block', width: '100%', textAlign: 'left',
               padding: '0.75rem 1rem',
@@ -66,6 +85,7 @@ function Dropdown({ group, activePage, onNavigate, isDark, onClose }) {
               cursor: 'pointer',
               marginBottom: '2px',
               transition: 'all 0.12s',
+              textDecoration: 'none',
             }}
             onMouseEnter={e => {
               if (!isActive) {
@@ -88,7 +108,7 @@ function Dropdown({ group, activePage, onNavigate, isDark, onClose }) {
             <div style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)', fontWeight: 400, lineHeight: 1.4 }}>
               {item.desc}
             </div>
-          </button>
+          </a>
         );
       })}
     </div>
@@ -100,9 +120,22 @@ export default function Header({ activePage, onNavigate, onOpenQuote }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
+  const [currentPath, setCurrentPath] = useState('');
   const navRef = useRef(null);
 
-  const isHome = activePage === 'home';
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentPath(window.location.pathname);
+    }
+  }, []);
+
+  const pageKey = activePage || (() => {
+    if (!currentPath || currentPath === '/' || currentPath === '') return 'home';
+    const clean = currentPath.replace(/\/$/, '').split('/').pop();
+    return clean || 'home';
+  })();
+
+  const isHome = pageKey === 'home';
   const darkMode = isHome && !scrolled;
 
   useEffect(() => {
@@ -123,7 +156,11 @@ export default function Header({ activePage, onNavigate, onOpenQuote }) {
   }, []);
 
   const handleNav = (id) => {
-    onNavigate(id);
+    if (onNavigate) {
+      onNavigate(id);
+    } else {
+      window.location.href = ITEM_URLS[id] || '/';
+    }
     setMobileOpen(false);
     setOpenGroup(null);
   };

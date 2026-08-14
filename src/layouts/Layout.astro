@@ -1,0 +1,31 @@
+---
+import '../index.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "RADEC® LLK | Proteção Inteligente em Correias Transportadoras",
+  description = "Linha RADEC® da LLK Soluções: Visão Computacional com IA e Análise de Vibração para Detecção Contínua de Rasgos e Desalinhamentos em Correias Transportadoras na Indústria 4.0."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/Logotipos/blue/LLK-LOGO-A-BLUE.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-800 font-['Plus_Jakarta_Sans',sans-serif] antialiased selection:bg-[#0356c5] selection:text-white overflow-x-hidden">
+    <slot />
+  </body>
+</html>

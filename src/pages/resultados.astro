@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import TimelineAndValeCase from '../components/TimelineAndValeCase';
+import RoiCalculator from '../components/RoiCalculator';
+---
+
+<Layout title="Resultados & ROI | RADEC® LLK">
+  <AppShell client:load activePage="resultados">
+    <TimelineAndValeCase client:load />
+    <RoiCalculator client:load />
+  </AppShell>
+</Layout>

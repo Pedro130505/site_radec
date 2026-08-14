@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import Hero from '../components/Hero';
+import TrustBar from '../components/TrustBar';
+---
+
+<Layout title="RADEC® LLK | Proteção Inteligente em Correias Transportadoras">
+  <AppShell client:load activePage="home">
+    <Hero client:load />
+    <TrustBar client:load />
+  </AppShell>
+</Layout>

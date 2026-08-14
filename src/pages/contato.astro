@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import ContactEvaluationSection from '../components/ContactEvaluationSection';
+---
+
+<Layout title="Contato e Avaliação Técnica | LLK Soluções">
+  <AppShell client:load activePage="contato">
+    <ContactEvaluationSection client:load />
+  </AppShell>
+</Layout>

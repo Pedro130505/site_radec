@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import RadecVisao from '../components/RadecVisao';
+---
+
+<Layout title="RADEC® Visão | Proteção por Visão Computacional">
+  <AppShell client:load activePage="radec-visao">
+    <RadecVisao client:load />
+  </AppShell>
+</Layout>

@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import RadecFamilyOverview from '../components/RadecFamilyOverview';
+import FailureEvolutionSection from '../components/FailureEvolutionSection';
+import ActiveProtectionSection from '../components/ActiveProtectionSection';
+---
+
+<Layout title="O Produto | RADEC® LLK">
+  <AppShell client:load activePage="produto">
+    <RadecFamilyOverview client:load />
+    <FailureEvolutionSection client:load />
+    <ActiveProtectionSection client:load />
+  </AppShell>
+</Layout>

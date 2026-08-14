@@ -24,6 +24,17 @@ const navCols = [
 
 const solutions = ['SHM® — Integridade Estrutural', 'Teor Online — Fe/SiO₂', 'V-Scan® — Balança Óptica', 'V-Count® — Corpos Moedores'];
 
+const ITEM_URLS = {
+  home: '/',
+  produto: '/produto',
+  'radec-visao': '/radec-visao',
+  'radec-vibracional': '/radec-vibracional',
+  resultados: '/resultados',
+  especificacoes: '/especificacoes',
+  'sobre-llk': '/sobre-llk',
+  'contato': '/contato',
+};
+
 export default function Footer({ onNavigate }) {
   const linkStyle = {
     fontSize: '0.875rem',
@@ -33,6 +44,15 @@ export default function Footer({ onNavigate }) {
     textAlign: 'left', display: 'block',
     transition: 'color 0.15s',
     fontFamily: 'inherit',
+    textDecoration: 'none',
+  };
+
+  const handleNav = (id) => {
+    if (onNavigate) {
+      onNavigate(id);
+    } else {
+      window.location.href = ITEM_URLS[id] || '/';
+    }
   };
 
   return (
@@ -46,9 +66,9 @@ export default function Footer({ onNavigate }) {
 
           {/* Brand */}
           <div>
-            <button onClick={() => onNavigate('home')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.25rem', display: 'block' }}>
+            <a href="/" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home'); } }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.25rem', display: 'block' }}>
               <img src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} alt="LLK Soluções" style={{ height: '34px', opacity: 0.85 }} />
-            </button>
+            </a>
             <p style={{ fontSize: '0.875rem', lineHeight: 1.75, maxWidth: '300px', marginBottom: '1.5rem' }}>
               LLK Soluções Industriais — Especialistas em eficiência operacional, visão computacional e proteção de ativos para as Indústrias de Base.
             </p>
@@ -65,15 +85,21 @@ export default function Footer({ onNavigate }) {
               </h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
                 {col.items.map(item => (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => onNavigate(item.id)}
+                    href={ITEM_URLS[item.id] || '/'}
+                    onClick={(e) => {
+                      if (onNavigate) {
+                        e.preventDefault();
+                        onNavigate(item.id);
+                      }
+                    }}
                     style={linkStyle}
                     onMouseEnter={e => e.currentTarget.style.color = 'white'}
                     onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
                   >
                     {item.label}
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
