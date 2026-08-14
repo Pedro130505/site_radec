@@ -24,15 +24,17 @@ const navCols = [
 
 const solutions = ['SHM® — Integridade Estrutural', 'Teor Online — Fe/SiO₂', 'V-Scan® — Balança Óptica', 'V-Count® — Corpos Moedores'];
 
+const BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
 const ITEM_URLS = {
-  home: '/',
-  produto: '/produto',
-  'radec-visao': '/radec-visao',
-  'radec-vibracional': '/radec-vibracional',
-  resultados: '/resultados',
-  especificacoes: '/especificacoes',
-  'sobre-llk': '/sobre-llk',
-  'contato': '/contato',
+  home: `${BASE}/`,
+  produto: `${BASE}/produto`,
+  'radec-visao': `${BASE}/radec-visao`,
+  'radec-vibracional': `${BASE}/radec-vibracional`,
+  resultados: `${BASE}/resultados`,
+  especificacoes: `${BASE}/especificacoes`,
+  'sobre-llk': `${BASE}/sobre-llk`,
+  'contato': `${BASE}/contato`,
 };
 
 export default function Footer({ onNavigate }) {
