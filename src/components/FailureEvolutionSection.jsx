@@ -97,13 +97,13 @@ export default function FailureEvolutionSection() {
       <div className="container">
 
         {/* Header */}
-        <div ref={headerRef} style={{ marginBottom: '3rem', maxWidth: '680px', ...revealStyle(headerVisible) }}>
-          <div className="eyebrow">Matriz de Detecção</div>
+        <div ref={headerRef} style={{ marginBottom: '3rem', maxWidth: '780px', ...revealStyle(headerVisible) }}>
+          <div className="eyebrow">Matriz de Detecção & Princípios Físicos</div>
           <h2 className="title-h2" style={{ marginBottom: '1rem' }}>
             Um rasgo não começa necessariamente com uma correia destruída
           </h2>
-          <p className="lead" style={{ fontSize: '1rem' }}>
-            Diferentes falhas produzem diferentes manifestações físicas. A solução de proteção eficaz precisa cobrir os modos de falha específicos da sua aplicação.
+          <p className="lead" style={{ fontSize: '1rem', lineHeight: 1.7, color: 'var(--c-gray-05)' }}>
+            Diferentes falhas produzem diferentes manifestações ao longo de sua evolução. Alterações geométricas, abertura de rasgos, tiras soltas, queda de material e desalinhamento podem surgir em momentos diferentes. Por isso, diferentes tecnologias de proteção dependem de diferentes condições físicas para detectar ou atuar.
           </p>
         </div>
 
@@ -188,15 +188,23 @@ export default function FailureEvolutionSection() {
         </div>
 
         {/* Closing statement */}
-        <p style={{
-          marginTop: '2rem',
-          fontSize: '0.9375rem',
-          fontWeight: 600,
-          color: 'var(--c-gray-05)',
-          textAlign: 'center',
-        }}>
-          A família RADEC® combina diferentes princípios de detecção para ampliar a proteção da correia.
-        </p>
+        <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+          <p style={{
+            fontSize: '1rem',
+            fontWeight: 700,
+            color: 'var(--c-navy-deep)',
+            marginBottom: '0.5rem',
+          }}>
+            A família RADEC® combina diferentes princípios de detecção para ampliar a proteção da correia.
+          </p>
+          <p style={{
+            fontSize: '0.8125rem',
+            color: 'var(--c-gray-04)',
+            fontStyle: 'italic',
+          }}>
+            Esquema conceitual. A detecção depende da manifestação física da falha e da configuração de instalação.
+          </p>
+        </div>
 
       </div>
     </section>

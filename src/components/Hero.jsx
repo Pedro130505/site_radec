@@ -1,184 +1,171 @@
 import React from 'react';
-import { ChevronRight, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ChevronRight, ShieldCheck, ArrowRight, Activity, Zap } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
 const stats = [
   { value: '14 min', label: 'Tempo médio evitado de parada não programada por evento' },
-  { value: '+45h', label: 'De paradas evitadas — Vale Mina de Cauê (out/24–abr/26)' },
+  { value: '+45h', label: 'De paradas evitadas na Vale Mina de Cauê (out/24–abr/26)' },
   { value: 'R$ 15M', label: 'Retorno financeiro estimado nas operações monitoradas' },
 ];
 
 export default function Hero({ onOpenQuote, onNavigate }) {
   return (
-    <section style={{
-      background: 'var(--c-navy)',
+    <section id="hero" style={{
+      background: 'linear-gradient(135deg, var(--c-navy-deep) 0%, #0A192F 100%)',
       position: 'relative',
       overflow: 'hidden',
-      minHeight: '100vh',
+      minHeight: '90vh',
       display: 'flex',
       alignItems: 'center',
+      borderBottom: '1px solid rgba(255,255,255,0.08)',
     }}>
 
-      {/* Background texture */}
+      {/* Background texture overlay - Exact Photo Requested by User */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: `url('${getAssetUrl('assets/photos/hero_plant_bg.jpg')}')`,
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        opacity: 0.08,
+        backgroundImage: `url('${getAssetUrl('assets/photos/radec_cover_tunnel_plant.jpg')}')`,
+        backgroundSize: 'cover', backgroundPosition: 'center 35%',
+        opacity: 0.22, filter: 'contrast(115%) brightness(90%)',
       }} />
 
-      {/* Gradient left-to-right */}
+      {/* Gradient Overlay */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(105deg, var(--c-navy) 40%, rgba(10,31,68,0.6) 75%, transparent 100%)',
+        background: 'radial-gradient(circle at 20% 40%, rgba(37, 99, 235, 0.15) 0%, transparent 60%)',
       }} />
 
-      {/* Bottom accent line */}
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px',
-        background: 'linear-gradient(to right, var(--c-blue) 0%, rgba(21,87,212,0.3) 50%, transparent 100%)',
-      }} />
-
-      <div className="container" style={{ position: 'relative', zIndex: 2, padding: '7rem 1.5rem 6rem' }}>
+      <div className="container" style={{ position: 'relative', zIndex: 2, padding: '6rem 2rem 5rem' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1.1fr 0.9fr',
-          gap: '5rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+          gap: '4rem',
           alignItems: 'center',
-        }}
-          className="hero-grid"
-        >
+        }}>
 
-          {/* LEFT: Main copy */}
+          {/* LEFT: Main Copy */}
           <div>
-            {/* Tag line */}
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              marginBottom: '2rem',
-              padding: '0.5rem 1rem',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '100px',
-            }}>
-              <ShieldCheck size={13} color="rgba(255,255,255,0.5)" />
-              <span style={{
-                fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em',
-                textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)',
-              }}>
-                Sistema de Proteção para Correias Transportadoras
-              </span>
+            <div className="eyebrow eyebrow-dark">
+              <ShieldCheck size={15} />
+              Sistema Integrado de Proteção de Correias Transportadoras
             </div>
 
-            {/* Main Headline */}
             <h1 style={{
               fontFamily: 'Outfit, sans-serif',
-              fontSize: 'clamp(3.5rem, 6vw, 5.5rem)',
-              fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.95,
-              color: 'white', marginBottom: '1.5rem',
+              fontSize: 'clamp(3.25rem, 5.5vw, 5.25rem)',
+              fontWeight: 900, letterSpacing: '-0.035em', lineHeight: 0.98,
+              color: 'white', marginBottom: '1.25rem',
             }}>
               RADEC®
             </h1>
+
             <h2 style={{
               fontFamily: 'Outfit, sans-serif',
-              fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
-              fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.35,
-              color: 'rgba(255,255,255,0.75)', marginBottom: '2rem',
+              fontSize: 'clamp(1.375rem, 2.5vw, 1.875rem)',
+              fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.35,
+              color: 'rgba(255,255,255,0.85)', marginBottom: '1.75rem',
             }}>
               Proteção inteligente contra rasgos,<br />
-              desalinhamentos e eventos críticos
+              desalinhamentos e choques estruturais
             </h2>
 
             <p style={{
-              fontSize: '1.0625rem', color: 'rgba(255,255,255,0.55)',
-              lineHeight: 1.75, marginBottom: '2.5rem', maxWidth: '480px',
+              fontSize: '1.125rem', color: 'rgba(255,255,255,0.65)',
+              lineHeight: 1.75, marginBottom: '2.5rem', maxWidth: '580px',
             }}>
-              Visão computacional e sensoriamento de choque mecânico integrados ao sistema de controle da planta para proteção ativa de correias transportadoras.
+              Visão computacional de alta definição e sensoriamento de choque mecânico integrados diretamente ao sistema de controle (CLP) da planta para intertravamento ativo.
             </p>
 
-            {/* CTA Row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+            {/* CTA Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
               <button
                 onClick={() => onNavigate('familia-radec')}
                 className="btn btn-primary btn-lg"
               >
-                Conheça o RADEC®
-                <ChevronRight size={18} />
+                Conheça a Arquitetura RADEC®
+                <ChevronRight size={20} />
               </button>
+
               <button
-                onClick={() => onNavigate('avaliacao-correia')}
+                onClick={() => onNavigate('contato')}
                 className="btn btn-secondary btn-lg"
               >
-                Falar com Engenharia
+                Falar com Engenharia LLK
               </button>
             </div>
           </div>
 
-          {/* RIGHT: Proof card */}
+          {/* RIGHT: Proof Card */}
           <div>
-            {/* Main proof card */}
-            <div style={{
-              background: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.09)',
-              borderRadius: 'var(--r-xl)',
-              overflow: 'hidden',
-              marginBottom: '1rem',
-            }}>
+            <div className="card-dark" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
               <div style={{
-                background: 'rgba(0,0,0,0.25)', aspectRatio: '16/9',
-                position: 'relative', overflow: 'hidden',
+                borderRadius: 'var(--r-lg)', overflow: 'hidden',
+                position: 'relative', height: '280px', marginBottom: '1.25rem',
+                border: '1px solid rgba(255,255,255,0.15)',
+                boxShadow: '0 12px 30px rgba(0,0,0,0.5)',
               }}>
                 <img
-                  src={getAssetUrl('assets/photos/radec_visao_field.jpg')}
-                  alt="RADEC instalado em operação"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+                  src={getAssetUrl('assets/photos/Apresentao_p10_170.png')}
+                  alt="Painel de Controle SCADA & Telemetria em Tempo Real RADEC"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                {/* Overlay tag */}
                 <div style={{
-                  position: 'absolute', top: '0.875rem', left: '0.875rem',
-                  background: 'var(--c-navy)', borderRadius: '4px',
-                  padding: '0.375rem 0.75rem',
-                  fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(255,255,255,0.7)',
-                  letterSpacing: '0.06em', textTransform: 'uppercase',
+                  position: 'absolute', top: '1rem', left: '1rem',
+                  background: 'var(--c-blue)', color: 'white',
+                  padding: '0.4rem 0.85rem', borderRadius: '6px',
+                  fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em',
+                  textTransform: 'uppercase', boxShadow: '0 4px 12px rgba(21, 87, 212, 0.4)',
                 }}>
-                  Operação em Campo
+                  TELEMETRIA EM CAMPO REAL
+                </div>
+
+                <div style={{
+                  position: 'absolute', bottom: '0.85rem', right: '0.85rem',
+                  background: 'rgba(6, 19, 41, 0.85)', backdropFilter: 'blur(6px)',
+                  color: 'var(--c-cyan-glow)', padding: '0.35rem 0.75rem', borderRadius: '4px',
+                  fontSize: '0.6875rem', fontFamily: 'IBM Plex Mono, monospace', fontWeight: 800,
+                }}>
+                  SISTEMA RADEC® ATIVO · VALE CAUÊ
                 </div>
               </div>
-              <div style={{ padding: '1.25rem 1.5rem' }}>
-                <div style={{
-                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
-                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)',
-                  marginBottom: '0.4rem',
-                }}>
-                  Validado com a Vale · Mina de Cauê, Itabira/MG
-                </div>
-                <div style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: '0.9375rem', fontWeight: 600,
-                  color: 'rgba(255,255,255,0.8)', lineHeight: 1.45,
-                }}>
-                  Do laboratório ao intertravamento em operação real
-                </div>
+
+              <div style={{
+                fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em',
+                textTransform: 'uppercase', color: 'var(--c-cyan-glow)', marginBottom: '0.5rem',
+              }}>
+                VALIDADO EM OPERAÇÃO CONTÍNUA — VALE CAUÊ, MG
               </div>
+
+              <h3 style={{
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
+                color: 'white', lineHeight: 1.3, marginBottom: '0.75rem',
+              }}>
+                Intertravamento automático comprovado no sistema de controle da mina
+              </h3>
+
+              <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
+                Integração nativa de alta velocidade com o CLP principal para desarme do acionamento em menos de 1 segundo diante de falhas críticas.
+              </p>
             </div>
 
-            {/* Stats row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+            {/* Stats Bar */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
               {stats.map((s, i) => (
                 <div key={i} style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  borderRadius: 'var(--r-lg)', padding: '1rem 0.875rem',
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: 'var(--r-lg)', padding: '1.25rem 1rem',
                   textAlign: 'center',
                 }}>
                   <div style={{
-                    fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800,
-                    color: 'white', letterSpacing: '-0.025em', lineHeight: 1.1,
-                    marginBottom: '0.375rem',
+                    fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 900,
+                    color: 'white', letterSpacing: '-0.03em', lineHeight: 1.1,
+                    marginBottom: '0.35rem',
                   }}>
                     {s.value}
                   </div>
                   <div style={{
-                    fontSize: '0.6875rem', color: 'rgba(255,255,255,0.4)',
-                    lineHeight: 1.5, fontWeight: 400,
+                    fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)',
+                    lineHeight: 1.4, fontWeight: 500,
                   }}>
                     {s.label}
                   </div>
@@ -189,30 +176,7 @@ export default function Hero({ onOpenQuote, onNavigate }) {
 
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div style={{
-        position: 'absolute', bottom: '2rem', left: '50%', transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
-        animation: 'bounce 2s infinite',
-      }}>
-        <span style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          Explore o menu acima
-        </span>
-      </div>
-
-      <style>{`
-        @media (max-width: 900px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            gap: 3rem !important;
-          }
-        }
-        @keyframes bounce {
-          0%, 100% { transform: translateX(-50%) translateY(0); }
-          50% { transform: translateX(-50%) translateY(6px); }
-        }
-      `}</style>
     </section>
   );
 }
+

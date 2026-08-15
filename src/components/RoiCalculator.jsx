@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, ArrowRight, Info } from 'lucide-react';
+import { Calculator, ArrowRight, Info, DollarSign } from 'lucide-react';
 
 const fmt = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(v);
 
@@ -14,72 +14,70 @@ export default function RoiCalculator({ onOpenQuote }) {
   const saving = annual * 0.85;
 
   const sliders = [
-    { label: 'Custo da parada por hora', min: 10000, max: 200000, step: 5000, value: cost, onChange: setCost, display: `${fmt(cost)}/h` },
-    { label: 'Horas de parada por ocorrência', min: 2, max: 48, step: 1, value: hours, onChange: setHours, display: `${hours} horas` },
-    { label: 'Custo estimado de reparo / correia', min: 20000, max: 500000, step: 10000, value: repair, onChange: setRepair, display: fmt(repair) },
-    { label: 'Ocorrências por ano', min: 1, max: 10, step: 1, value: count, onChange: setCount, display: `${count} ocorrência${count > 1 ? 's' : ''}` },
+    { label: 'Custo estimado da parada por hora', min: 10000, max: 200000, step: 5000, value: cost, onChange: setCost, display: `${fmt(cost)}/h` },
+    { label: 'Horas médias de parada por evento', min: 2, max: 48, step: 1, value: hours, onChange: setHours, display: `${hours} horas` },
+    { label: 'Custo estimado de reparo / emenda de correia', min: 20000, max: 500000, step: 10000, value: repair, onChange: setRepair, display: fmt(repair) },
+    { label: 'Ocorrências estimadas por ano', min: 1, max: 10, step: 1, value: count, onChange: setCount, display: `${count} ocorrência${count > 1 ? 's' : ''}` },
   ];
 
   return (
-    <section id="calculadora-roi" style={{
-      background: 'var(--c-gray-00)',
-      borderBottom: '1px solid var(--c-gray-01)',
-      padding: 'var(--section-y) 0',
-      scrollMarginTop: '80px',
-    }}>
+    <section id="calculadora-roi" className="section-wrapper-light">
       <div className="container">
 
         {/* Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3.5rem' }}>
-          <div className="eyebrow">Estimativa Comercial Ilustrativa</div>
-          <h2 className="title-h2" style={{ marginBottom: '1rem' }}>
-            Estimativa de impacto financeiro
+        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 4rem' }}>
+          <div className="eyebrow" style={{ margin: '0 auto 1.25rem' }}>
+            <DollarSign size={14} />
+            Estimativa Comercial Ilustrativa
+          </div>
+          <h2 className="title-h1" style={{ marginBottom: '1rem', color: 'var(--c-gray-06)' }}>
+            Calculadora de Retorno & Impacto Financeiro
           </h2>
-          <p className="lead" style={{ fontSize: '1rem' }}>
-            Avalie o prejuízo financeiro causado por rasgos e paradas não programadas no seu transportador.
+          <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)' }}>
+            Calcule o prejuízo financeiro direto provocado por rasgos de correia e paradas não programadas no seu fluxo de produção.
           </p>
         </div>
 
         {/* Calculator Layout */}
         <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', maxWidth: '960px', margin: '0 auto',
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', maxWidth: '1200px', margin: '0 auto',
         }}>
 
           {/* Inputs */}
-          <div className="card">
+          <div className="card-light" style={{ padding: '2.5rem' }}>
             <div style={{
-              display: 'flex', alignItems: 'center', gap: '0.75rem',
-              paddingBottom: '1.25rem', marginBottom: '1.5rem',
+              display: 'flex', alignItems: 'center', gap: '0.875rem',
+              paddingBottom: '1.5rem', marginBottom: '2rem',
               borderBottom: '1px solid var(--c-gray-01)',
             }}>
               <div style={{
-                width: '40px', height: '40px', background: 'rgba(21,87,212,0.08)',
+                width: '44px', height: '44px', background: 'rgba(21,87,212,0.1)',
                 borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
                 justifyContent: 'center', flexShrink: 0,
               }}>
-                <Calculator size={18} color="var(--c-blue)" />
+                <Calculator size={20} color="var(--c-blue)" />
               </div>
               <h3 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1.0625rem', fontWeight: 700,
-                color: 'var(--c-navy)',
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
+                color: 'var(--c-navy-deep)',
               }}>
-                Parâmetros da Operação
+                Parâmetros da Operação da Planta
               </h3>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
               {sliders.map((s, i) => (
                 <div key={i}>
                   <div style={{
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    marginBottom: '0.5rem',
+                    marginBottom: '0.625rem',
                   }}>
-                    <label style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--c-gray-05)' }}>
+                    <label style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--c-gray-05)' }}>
                       {s.label}
                     </label>
                     <span style={{
-                      fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.8125rem',
-                      fontWeight: 700, color: 'var(--c-blue)',
+                      fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.9375rem',
+                      fontWeight: 800, color: 'var(--c-blue)',
                     }}>
                       {s.display}
                     </span>
@@ -89,9 +87,9 @@ export default function RoiCalculator({ onOpenQuote }) {
                     min={s.min} max={s.max} step={s.step} value={s.value}
                     onChange={e => s.onChange(Number(e.target.value))}
                     style={{
-                      width: '100%', height: '4px', appearance: 'none',
+                      width: '100%', height: '6px', appearance: 'none',
                       background: `linear-gradient(to right, var(--c-blue) ${((s.value - s.min) / (s.max - s.min)) * 100}%, var(--c-gray-01) 0%)`,
-                      borderRadius: '2px', outline: 'none', cursor: 'pointer',
+                      borderRadius: '3px', outline: 'none', cursor: 'pointer',
                     }}
                   />
                 </div>
@@ -100,81 +98,80 @@ export default function RoiCalculator({ onOpenQuote }) {
           </div>
 
           {/* Results */}
-          <div style={{
-            background: 'var(--c-navy)', borderRadius: 'var(--r-xl)', padding: '2rem',
-            display: 'flex', flexDirection: 'column',
-          }}>
-            <div style={{
-              fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)',
-              marginBottom: '0.5rem',
-            }}>
-              Resultado da Estimativa
-            </div>
-            <h3 style={{
-              fontFamily: 'Outfit, sans-serif', fontSize: '1.125rem', fontWeight: 700,
-              color: 'white', marginBottom: '2rem',
-            }}>
-              Impacto Estimado na Planta
-            </h3>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
+          <div className="card-dark" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
               <div style={{
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 'var(--r-lg)', padding: '1.25rem',
+                fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
+                textTransform: 'uppercase', color: 'var(--c-cyan-glow)',
+                marginBottom: '0.5rem',
               }}>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginBottom: '0.375rem' }}>
-                  Impacto estimado por ocorrência
-                </div>
-                <div style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: '1.75rem', fontWeight: 800,
-                  color: '#FCD34D', letterSpacing: '-0.02em',
-                }}>
-                  {fmt(perEvent)}
-                </div>
+                Resultado da Estimativa
               </div>
-
-              <div style={{
-                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 'var(--r-lg)', padding: '1.25rem',
+              <h3 style={{
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 800,
+                color: 'white', marginBottom: '2rem', letterSpacing: '-0.02em',
               }}>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', marginBottom: '0.375rem' }}>
-                  Impacto estimado por ano
-                </div>
-                <div style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: '2rem', fontWeight: 800,
-                  color: '#FCA5A5', letterSpacing: '-0.02em',
-                }}>
-                  {fmt(annual)}
-                </div>
-              </div>
+                Impacto Estimado na Produção
+              </h3>
 
-              <div style={{
-                background: 'rgba(22, 163, 74, 0.12)', border: '1px solid rgba(22, 163, 74, 0.2)',
-                borderRadius: 'var(--r-lg)', padding: '1.25rem',
-              }}>
-                <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.375rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                  Comparativo com RADEC®
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
                 <div style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
-                  color: '#4ADE80', letterSpacing: '-0.02em', marginBottom: '0.375rem',
+                  background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
                 }}>
-                  ~{fmt(saving)} economizados/ano
+                  <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem', fontWeight: 600 }}>
+                    Prejuízo estimado por ocorrência
+                  </div>
+                  <div style={{
+                    fontFamily: 'Outfit, sans-serif', fontSize: '2rem', fontWeight: 900,
+                    color: '#FCD34D', letterSpacing: '-0.02em',
+                  }}>
+                    {fmt(perEvent)}
+                  </div>
                 </div>
-                <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5 }}>
-                  Via desarme automático e proteção ativa de correias.
-                </p>
+
+                <div style={{
+                  background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
+                }}>
+                  <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem', fontWeight: 600 }}>
+                    Impacto acumulado por ano
+                  </div>
+                  <div style={{
+                    fontFamily: 'Outfit, sans-serif', fontSize: '2.25rem', fontWeight: 900,
+                    color: '#FCA5A5', letterSpacing: '-0.02em',
+                  }}>
+                    {fmt(annual)}
+                  </div>
+                </div>
+
+                <div style={{
+                  background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.25)',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
+                }}>
+                  <div style={{ fontSize: '0.75rem', color: '#34D399', marginBottom: '0.4rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    Economia Estimada com RADEC®
+                  </div>
+                  <div style={{
+                    fontFamily: 'Outfit, sans-serif', fontSize: '1.875rem', fontWeight: 900,
+                    color: '#34D399', letterSpacing: '-0.02em', marginBottom: '0.35rem',
+                  }}>
+                    ~{fmt(saving)} economizados/ano
+                  </div>
+                  <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>
+                    Obtida pelo desarme automático em menos de 1 segundo e contenção de avanço do rasgo.
+                  </p>
+                </div>
               </div>
             </div>
 
             <button
               onClick={onOpenQuote}
-              className="btn btn-primary"
-              style={{ marginTop: '1.5rem', width: '100%', justifyContent: 'center', background: 'var(--c-blue)' }}
+              className="btn btn-primary btn-lg"
+              style={{ width: '100%', justifyContent: 'center' }}
             >
-              Solicitar Estudo para Minha Planta
-              <ArrowRight size={16} />
+              Solicitar Estudo de Viabilidade para Minha Planta
+              <ArrowRight size={18} />
             </button>
           </div>
         </div>
@@ -182,10 +179,10 @@ export default function RoiCalculator({ onOpenQuote }) {
         {/* Disclaimer */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-          marginTop: '1.5rem',
+          marginTop: '2.5rem',
         }}>
-          <Info size={13} color="var(--c-gray-03)" />
-          <span style={{ fontSize: '0.75rem', color: 'var(--c-gray-03)' }}>
+          <Info size={14} color="var(--c-gray-03)" />
+          <span style={{ fontSize: '0.8125rem', color: 'var(--c-gray-03)', fontWeight: 500 }}>
             Cálculo ilustrativo, baseado em valores informados pelo usuário.
           </span>
         </div>
@@ -194,3 +191,4 @@ export default function RoiCalculator({ onOpenQuote }) {
     </section>
   );
 }
+
