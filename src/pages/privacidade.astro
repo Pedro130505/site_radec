@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AppShell from '../components/AppShell';
+import { ShieldCheck, Mail, MapPin, Building2, Calendar, FileText } from 'lucide-react';
+---
+
+<Layout title="Política de Privacidade | LLK Engenharia e Inovação" description="Política de Proteção de Dados Pessoais Externa da LLK Engenharia Indústria Comércio e Representações Ltda. em conformidade com a LGPD (Lei 13.709/2018).">
+  <AppShell client:load activePage="privacidade">
+    <section style={{ background: 'var(--c-navy)', padding: '5rem 1.5rem 4rem', color: 'white', position: 'relative' }}>
+      <div className="container" style={{ maxWidth: '900px' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '100px', padding: '0.375rem 0.875rem', marginBottom: '1.5rem' }}>
+          <ShieldCheck size={14} color="var(--c-blue)" />
+          <span style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)' }}>
+            Conformidade LGPD (Lei 13.709/2018)
+          </span>
+        </div>
+        <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, color: 'white', lineHeight: 1.15, marginBottom: '1rem' }}>
+          Política de Proteção de Dados Pessoais Externa
+        </h1>
+        <p style={{ fontSize: '1.0625rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.6, maxWidth: '720px', marginBottom: '2rem' }}>
+          LLK Engenharia e Inovação — Compromisso com a transparência, segurança e privacidade dos titulares de dados pessoais em nossas operações industriais e comerciais.
+        </p>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: '0.8125rem', color: 'rgba(255,255,255,0.55)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+            <Calendar size={14} color="#60A5FA" />
+            <span>Última atualização: 17 de junho de 2025</span>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+            <FileText size={14} color="#60A5FA" />
+            <span>Versão 1.0 — Aprovada em 20/06/2025</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="section" style={{ background: 'var(--c-white)', padding: '4rem 1.5rem 6rem' }}>
+      <div className="container" style={{ maxWidth: '900px', lineHeight: 1.8, color: 'var(--c-gray-05)' }}>
+        
+        {/* DPO Highlight Box */}
+        <div style={{ background: 'var(--c-gray-00)', border: '1px solid var(--c-gray-02)', borderLeft: '4px solid var(--c-blue)', borderRadius: 'var(--r-lg)', padding: '1.5rem 1.75rem', marginBottom: '3rem' }}>
+          <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Mail size={18} color="var(--c-blue)" />
+            Canal de Atendimento ao Titular e DPO
+          </div>
+          <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)', margin: 0 }}>
+            Para exercer seus direitos de confirmação, acesso, correção ou exclusão de dados pessoais, entre em contato com a nossa Encarregada pela Proteção de Dados (DPO), <strong>Luiza Farias Santos Motta</strong>, pelo e-mail:{' '}
+            <a href="mailto:lgpd@llk.com.br" style={{ color: 'var(--c-blue)', fontWeight: 700, textDecoration: 'underline' }}>
+              lgpd@llk.com.br
+            </a>.
+          </p>
+        </div>
+
+        {/* Content Body */}
+        <article style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              1. Propósito e escopo desta Política de Proteção de Dados
+            </h2>
+            <p style={{ marginBottom: '0.875rem' }}>
+              1.1. A <strong>LLK Engenharia e Inovação</strong> se preocupa em cumprir as leis e regulamentos aplicáveis relacionados à Proteção de Dados Pessoais no Brasil e em outros países em que eventualmente atuar.
+            </p>
+            <p style={{ marginBottom: '0.875rem' }}>
+              1.2. Esta Política de Privacidade indica a forma pela qual a <strong>LLK ENGENHARIA INDÚSTRIA COMÉRCIO E REPRESENTAÇÕES LTDA.</strong>, pessoa jurídica de direito privado, inscrita no CNPJ sob o nº <strong>10.521.728/0001-12</strong>, com sede na Rua Professor José Viera de Mendonça, nº 770, Sala 501A, Bairro Engenho Nogueira, em Belo Horizonte/MG, CEP 31.310-260, doravante designada “LLK”, realiza o Tratamento dos Dados Pessoais dos representantes de seus clientes, fornecedores, colaboradores e outras pessoas físicas que com ela se relacionam.
+            </p>
+            <p>
+              1.3. Caso tenha qualquer questão ou dúvida em relação à forma como tratamos os seus Dados, entre em contato pelo e-mail <a href="mailto:lgpd@llk.com.br" style={{ color: 'var(--c-blue)', fontWeight: 600 }}>lgpd@llk.com.br</a>.
+            </p>
+          </div>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              2. Definições dos termos usados nesta Política
+            </h2>
+            <p style={{ marginBottom: '1rem' }}>As seguintes definições foram extraídas do artigo 5º da Lei Geral de Proteção de Dados (LGPD):</p>
+            <ul style={{ paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <li><strong>Titular de Dados:</strong> Pessoa natural a quem se referem os dados pessoais objeto de tratamento;</li>
+              <li><strong>Dados Pessoais:</strong> Informação relacionada a pessoa natural identificada ou identificável;</li>
+              <li><strong>Dados Pessoais Sensíveis:</strong> Dados sobre origem racial/étnica, convicção religiosa, opinião política, filiação a sindicato, dados referentes à saúde ou vida sexual, dado genético ou biométrico;</li>
+              <li><strong>Tratamento:</strong> Toda operação realizada com dados pessoais (coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, armazenamento, eliminação, modificação);</li>
+              <li><strong>Controladora:</strong> Pessoa jurídica a quem competem as decisões referentes ao tratamento de dados pessoais (LLK);</li>
+              <li><strong>ANPD:</strong> Autoridade Nacional de Proteção de Dados.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              3. Coleta de Dados pela LLK
+            </h2>
+            <p style={{ marginBottom: '0.875rem' }}>3.1. Todos os dados coletados pela LLK são necessários e adequados para a oferta, prestação e desenvolvimento de seus produtos e serviços industriais, bem como para a gestão interna de colaboradores e fornecedores.</p>
+            <p style={{ marginBottom: '0.875rem' }}>3.2. A LLK coleta dados das seguintes formas:</p>
+            <ul style={{ paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <li>Quando o Titular, representando uma empresa, entra em contato manifestando interesse em contratar os produtos e serviços LLK;</li>
+              <li>Em bancos de dados públicos quando há potencial interesse de empresas representadas;</li>
+              <li>Quando designado por cliente/fornecedor para conduzir a relação contratual;</li>
+              <li>No envio de currículos para processos seletivos;</li>
+              <li>No recrutamento, admissão e gestão contratual de colaboradores e parceiros.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              4. Dados Coletados
+            </h2>
+            <p style={{ marginBottom: '0.875rem' }}>4.1. A LLK pode coletar os seguintes dados:</p>
+            <ul style={{ paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <li><strong>Dados de identificação pessoal:</strong> Nome completo, e-mail, telefone, RG, CPF, cargo, empresa, endereço profissional;</li>
+              <li><strong>Dados financeiros:</strong> Dados bancários para faturamento e pagamentos de fornecedores/parceiros;</li>
+              <li><strong>Dados de autenticação e contato:</strong> E-mail corporativo, telefone, perfis profissionais, assinaturas físicas ou digitais.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              5. Finalidade e Base Legal para o Tratamento de Dados
+            </h2>
+            <p style={{ marginBottom: '0.875rem' }}>5.1. O tratamento é realizado sob as seguintes hipóteses legais da LGPD:</p>
+            <div style={{ display: 'grid', gap: '0.75rem', marginTop: '0.5rem' }}>
+              <div style={{ background: 'var(--c-gray-00)', padding: '0.875rem 1rem', borderRadius: 'var(--r-md)', border: '1px solid var(--c-gray-01)' }}>
+                <strong>Prospecção e Contato Comercial:</strong> Legítimo Interesse (Art. 7º, IX, LGPD).
+              </div>
+              <div style={{ background: 'var(--c-gray-00)', padding: '0.875rem 1rem', borderRadius: 'var(--r-md)', border: '1px solid var(--c-gray-01)' }}>
+                <strong>Atendimento a Solicitações de Orçamento e Avaliação Técnica:</strong> Procedimentos preliminares à execução do contrato (Art. 7º, V, LGPD).
+              </div>
+              <div style={{ background: 'var(--c-gray-00)', padding: '0.875rem 1rem', borderRadius: 'var(--r-md)', border: '1px solid var(--c-gray-01)' }}>
+                <strong>Execução dos Serviços e Garantia dos Produtos Contratados:</strong> Execução de Contrato (Art. 7º, V, LGPD).
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              6. Cookies e Tecnologias de Rastreamento
+            </h2>
+            <p>
+              11.1. Para garantir uma navegação fluida e eficiente no site da LLK, são utilizados cookies essenciais e analíticos. O usuário pode gerenciar e alterar suas preferências de consentimento a qualquer momento no rodapé do site.
+            </p>
+          </div>
+
+          <div>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 700, color: 'var(--c-navy)', marginBottom: '1rem' }}>
+              7. Direitos dos Titulares de Dados
+            </h2>
+            <p style={{ marginBottom: '0.875rem' }}>Conforme o Art. 18 da LGPD, você possui o direito de solicitar a confirmação do tratamento, acesso aos dados, correção de dados incompletos/inexatos e a eliminação dos dados tratados mediante consentimento.</p>
+            <p>
+              As solicitações devem ser enviadas diretamente para a Encarregada de Dados pelo e-mail <a href="mailto:lgpd@llk.com.br" style={{ color: 'var(--c-blue)', fontWeight: 700 }}>lgpd@llk.com.br</a>.
+            </p>
+          </div>
+
+        </article>
+      </div>
+    </section>
+  </AppShell>
+</Layout>

@@ -154,7 +154,7 @@ export default function ContactEvaluationSection() {
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '1.5rem' }}>
+                <div style={{ marginBottom: '1.25rem' }}>
                   <label style={labelStyle}>Mensagem / Especificações Adicionais</label>
                   <textarea
                     rows={3}
@@ -162,6 +162,20 @@ export default function ContactEvaluationSection() {
                     value={form.mensagem} onChange={set('mensagem')}
                     style={{ ...inputStyle, resize: 'vertical' }} className="form-input"
                   />
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '1.5rem' }}>
+                  <input
+                    type="checkbox"
+                    id="sectionLgpdConsent"
+                    required
+                    checked={form.lgpdConsent || false}
+                    onChange={(e) => setForm(p => ({ ...p, lgpdConsent: e.target.checked }))}
+                    style={{ marginTop: '3px', width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--c-blue)' }}
+                  />
+                  <label htmlFor="sectionLgpdConsent" style={{ fontSize: '0.75rem', color: 'var(--c-gray-04)', lineHeight: 1.5, cursor: 'pointer' }}>
+                    Li e aceito a <a href={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/privacidade`} target="_blank" rel="noreferrer" style={{ color: 'var(--c-blue)', fontWeight: 600, textDecoration: 'underline' }}>Política de Privacidade</a> da LLK Engenharia e autorizo o tratamento dos dados informados. *
+                  </label>
                 </div>
 
                 <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>

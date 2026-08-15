@@ -156,6 +156,20 @@ export default function ContactModal({ isOpen, onClose }) {
                 ></textarea>
               </div>
 
+              <div className="flex items-start gap-2 pt-2 pb-1">
+                <input
+                  type="checkbox"
+                  id="modalLgpdConsent"
+                  required
+                  checked={formData.lgpdConsent || false}
+                  onChange={(e) => setFormData({ ...formData, lgpdConsent: e.target.checked })}
+                  className="mt-1 w-4 h-4 text-[#0356c5] border-slate-300 rounded focus:ring-[#0356c5]"
+                />
+                <label htmlFor="modalLgpdConsent" className="text-xs text-slate-600 leading-snug cursor-pointer">
+                  Li e aceito a <a href={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/privacidade`} target="_blank" rel="noreferrer" className="text-[#0356c5] font-semibold underline">Política de Privacidade</a> da LLK Engenharia e autorizo o tratamento dos dados para esta solicitação. *
+                </label>
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-[#0356c5] hover:bg-[#072752] text-white font-bold py-3.5 rounded-lg shadow transition flex items-center justify-center gap-2"

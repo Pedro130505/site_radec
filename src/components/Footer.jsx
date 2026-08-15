@@ -20,6 +20,14 @@ const navCols = [
       { id: 'contato',          label: 'Fale com a Engenharia' },
     ],
   },
+  {
+    title: 'Privacidade & LGPD',
+    items: [
+      { id: 'privacidade',       label: 'Política de Privacidade' },
+      { id: 'termos',            label: 'Termos de Uso' },
+      { id: 'cookie-settings',   label: 'Preferências de Cookies' },
+    ],
+  },
 ];
 
 const solutions = ['SHM® — Integridade Estrutural', 'Teor Online — Fe/SiO₂', 'V-Scan® — Balança Óptica', 'V-Count® — Corpos Moedores'];
@@ -35,6 +43,8 @@ const ITEM_URLS = {
   especificacoes: `${BASE}/especificacoes`,
   'sobre-llk': `${BASE}/sobre-llk`,
   'contato': `${BASE}/contato`,
+  'privacidade': `${BASE}/privacidade`,
+  'termos': `${BASE}/termos`,
 };
 
 export default function Footer({ onNavigate }) {
@@ -89,8 +99,15 @@ export default function Footer({ onNavigate }) {
                 {col.items.map(item => (
                   <a
                     key={item.id}
-                    href={ITEM_URLS[item.id] || '/'}
+                    href={ITEM_URLS[item.id] || '#'}
                     onClick={(e) => {
+                      if (item.id === 'cookie-settings') {
+                        e.preventDefault();
+                        if (typeof window !== 'undefined') {
+                          window.dispatchEvent(new CustomEvent('open-cookie-preferences'));
+                        }
+                        return;
+                      }
                       if (onNavigate) {
                         e.preventDefault();
                         onNavigate(item.id);

@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import ContactModal from './ContactModal';
 import WhatsAppButton from './WhatsAppButton';
+import CookieBanner from './CookieBanner';
 
 export default function AppShell({ activePage, children }) {
   const [quoteOpen, setQuoteOpen] = useState(false);
@@ -30,6 +31,7 @@ export default function AppShell({ activePage, children }) {
       <Footer onOpenQuote={handleOpenQuote} />
       <ContactModal isOpen={quoteOpen} onClose={() => setQuoteOpen(false)} />
       <WhatsAppButton />
+      <CookieBanner />
     </div>
   );
 }
