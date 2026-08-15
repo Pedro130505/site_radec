@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, DollarSign, ShieldCheck, TrendingUp, Search, AlertTriangle, Shield, Cpu, Users, Target, TrendingDown, Info } from 'lucide-react';
+import { Clock, DollarSign, ShieldCheck, TrendingUp, Search, AlertTriangle, Shield, Cpu, Users, Target, Info } from 'lucide-react';
 
 const timelineSteps = [
   { title: 'Desenvolvimento com a Vale', desc: 'Parceria de P&D iniciada no ecossistema Mining Hub' },

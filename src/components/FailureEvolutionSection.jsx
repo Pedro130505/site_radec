@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, AlertTriangle, Minus, Eye, Activity, Layers, Cable } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Eye, Activity, Layers, Cable } from 'lucide-react';
 import { useScrollReveal, revealStyle } from '../utils/scrollReveal';
 
 const matrix = [

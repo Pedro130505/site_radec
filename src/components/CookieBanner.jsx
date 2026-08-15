@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Check, X, Settings } from 'lucide-react';
+import { Shield, Settings } from 'lucide-react';
 
 const STORAGE_KEY = 'llk_cookie_consent';
 
