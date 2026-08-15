@@ -1,292 +1,440 @@
-import React from 'react';
-import { Clock, DollarSign, ShieldCheck, TrendingUp, Search, AlertTriangle, Shield, Cpu, Users, Target, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { Clock, DollarSign, ShieldCheck, TrendingUp, Search, AlertTriangle, Shield, Cpu, Users, Target, Info, CheckCircle2, ArrowRight, Zap } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
 const timelineSteps = [
-  { title: 'Desenvolvimento com a Vale', desc: 'Parceria de P&D iniciada no ecossistema Mining Hub' },
-  { title: 'Avaliação técnica', desc: 'Validação de algoritmos em bancada laboratorial' },
-  { title: 'Testes operacionais', desc: 'Protótipos instalados em ambiente severo' },
-  { title: 'Testes em correia real', desc: 'Aferição de acurácia com falhas induzidas' },
-  { title: 'Integração com automação', desc: 'Conexão com CLPs da planta via Modbus TCP' },
-  { title: 'Operação assistida', desc: 'Monitoramento em tempo real sem trip para validação' },
-  { title: 'Intertravamento', desc: 'Ativação do desarme automático de segurança' },
-  { title: 'Eventos reais em operação', desc: 'Detecção de rasgos reais e resultados financeiros comprovados' },
+  { n: '01', title: 'Desenvolvimento com a Vale', desc: 'Parceria de P&D iniciada no ecossistema Mining Hub com foco em detecção precoce de falhas.' },
+  { n: '02', title: 'Avaliação técnica', desc: 'Validação de algoritmos em bancada laboratorial com dados ópticos e espectrais reais.' },
+  { n: '03', title: 'Testes operacionais', desc: 'Protótipos instalados em ambiente severo sob poeira em suspensão e alta vibração.' },
+  { n: '04', title: 'Testes em correia real', desc: 'Aferição de acurácia com falhas induzidas em transportadores de correia de grande porte.' },
+  { n: '05', title: 'Integração com automação', desc: 'Conexão com CLPs da planta via protocolo Modbus TCP e sinais de relé digital de segurança.' },
+  { n: '06', title: 'Operação assistida', desc: 'Monitoramento contínuo em tempo real sem trip para validação estatística de acurácia.' },
+  { n: '07', title: 'Intertravamento', desc: 'Ativação do desarme automático de segurança direto na lógica de controle do motor principal.' },
+  { n: '08', title: 'Eventos reais em operação', desc: 'Detecção de rasgos reais e retorno financeiro comprovado em lavra contínua.', isCurrent: true },
 ];
 
 const eventSteps = [
-  { n: '01', title: 'Alteração na borda', desc: 'Sistema identifica alteração geométrica na borda da correia.', Icon: Search },
-  { n: '02', title: 'Alarme gerado', desc: 'Sistema gera alarme conforme condição detectada.', Icon: AlertTriangle },
-  { n: '03', title: 'Nível de proteção', desc: 'Condição atinge o nível configurado para atuação.', Icon: Shield },
-  { n: '04', title: 'Parada automática', desc: 'Intertravamento acionado pelo CLP automaticamente.', Icon: Cpu },
-  { n: '05', title: 'Inspeção em campo', desc: 'Equipe inspeciona a correia com transportador parado.', Icon: Users },
-  { n: '06', title: 'Rasgo confirmado', desc: 'Rasgo na borda confirmado durante inspeção física.', Icon: Target },
-  { n: '07', title: 'Correia reparada', desc: 'Correia reparada e operação retomada com segurança.', Icon: ShieldCheck },
+  { n: '01', title: 'Alteração na borda', desc: 'Sistema identifica alteração geométrica na borda da correia via sensores ópticos.', Icon: Search, status: 'Alerta Inicial', color: '#38BDF8' },
+  { n: '02', title: 'Alarme gerado', desc: 'Sistema gera alarme pré-configurado e notifica a sala de controle.', Icon: AlertTriangle, status: 'Notificação SCADA', color: '#F59E0B' },
+  { n: '03', title: 'Nível de proteção', desc: 'Condição de avanço atinge o nível limite configurado para atuação.', Icon: Shield, status: 'Nível 2 Atingido', color: '#F97316' },
+  { n: '04', title: 'Parada automática', desc: 'Intertravamento acionado pelo CLP automaticamente em menos de 1 segundo.', Icon: Cpu, status: 'Trip CLP Ativado', color: '#EF4444' },
+  { n: '05', title: 'Inspeção em campo', desc: 'Equipe inspeciona a correia com transportador parado com total segurança.', Icon: Users, status: 'Inspeção Física', color: '#A855F7' },
+  { n: '06', title: 'Rasgo confirmado', desc: 'Rasgo na borda confirmado durante verificação presencial pela manutenção.', Icon: Target, status: 'Diagnóstico OK', color: '#EC4899' },
+  { n: '07', title: 'Correia reparada', desc: 'Correia reparada rapidamente e operação retomada com segurança absoluta.', Icon: ShieldCheck, status: 'Operação Normal', color: '#10B981' },
 ];
 
 export default function TimelineAndValeCase({ onOpenQuote }) {
-  return (
-    <section id="pesquisa-operacao" style={{
-      background: 'var(--c-gray-00)',
-      borderBottom: '1px solid var(--c-gray-01)',
-      padding: 'var(--section-y) 0',
-      scrollMarginTop: '80px',
-    }}>
-      <div className="container">
+  const [activeStep, setActiveStep] = useState(3); // Default step 04 (Parada automática)
+  const currentEvent = eventSteps[activeStep];
 
-        {/* ======== Section 1: Timeline ======== */}
-        <div style={{ marginBottom: '5rem' }}>
-          <div style={{ maxWidth: '640px', marginBottom: '3rem' }}>
-            <div className="eyebrow">Da Pesquisa à Operação</div>
-            <h2 className="title-h2" style={{ marginBottom: '1rem' }}>
-              Desenvolvido para sair do laboratório e operar na mineração
+  return (
+    <div id="case-vale">
+      {/* ======== SECTION 1: TIMELINE VALE (FULL-BLEED LIGHT) ======== */}
+      <section className="section-wrapper-light">
+        <div className="container">
+          <div style={{ maxWidth: '780px', marginBottom: '3.5rem' }}>
+            <div className="eyebrow">
+              <Zap size={14} />
+              Da Pesquisa à Confiabilidade Industrial
+            </div>
+            <h2 className="title-h1" style={{ marginBottom: '1.25rem', color: 'var(--c-gray-06)' }}>
+              Desenvolvido para sair do laboratório e operar na mineração severa
             </h2>
-            <p className="lead" style={{ fontSize: '1rem' }}>
-              Um histórico de validação rigorosa com a Vale para atingir confiabilidade industrial absoluta.
+            <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)' }}>
+              Um histórico rigoroso de 8 etapas de validação em conjunto com a Vale para atingir confiabilidade industrial absoluta.
             </p>
           </div>
 
-          {/* Timeline Grid */}
+          {/* 8-Step Clean Grid Cards */}
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px',
-            background: 'var(--c-gray-01)', border: '1px solid var(--c-gray-01)',
-            borderRadius: 'var(--r-xl)', overflow: 'hidden',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1.25rem',
+            marginBottom: '1rem',
           }}>
             {timelineSteps.map((t, i) => (
-              <div key={i} style={{
-                background: 'var(--c-white)',
-                padding: '1.5rem',
-              }}>
-                <div style={{
-                  fontFamily: 'IBM Plex Mono, monospace',
-                  fontSize: '0.6875rem', fontWeight: 600,
-                  color: i === 7 ? 'var(--c-blue)' : 'var(--c-gray-03)',
-                  letterSpacing: '0.06em', marginBottom: '0.75rem',
-                }}>
-                  0{i + 1} {i === 7 && '— Atual'}
+              <div
+                key={i}
+                className="card-light"
+                style={{
+                  padding: '1.75rem 1.5rem',
+                  borderTop: t.isCurrent ? '3px solid var(--c-blue)' : '1px solid var(--c-gray-01)',
+                  background: 'var(--c-white)',
+                  display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                }}
+              >
+                <div>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    marginBottom: '1.25rem',
+                  }}>
+                    <span className="step-badge" style={{
+                      background: t.isCurrent ? 'rgba(21, 87, 212, 0.1)' : 'var(--c-gray-00)',
+                      color: t.isCurrent ? 'var(--c-blue)' : 'var(--c-gray-04)',
+                      border: t.isCurrent ? '1px solid rgba(21, 87, 212, 0.3)' : '1px solid var(--c-gray-01)',
+                      fontFamily: 'IBM Plex Mono, monospace', fontWeight: 800,
+                    }}>
+                      PASSO {t.n} {t.isCurrent && '— ATUAL'}
+                    </span>
+                    {t.isCurrent && <CheckCircle2 size={16} color="var(--c-blue)" />}
+                  </div>
+
+                  <h4 style={{
+                    fontFamily: 'Outfit, sans-serif',
+                    fontSize: '1.125rem', fontWeight: 800,
+                    color: 'var(--c-navy-deep)', marginBottom: '0.625rem',
+                    lineHeight: 1.3,
+                  }}>
+                    {t.title}
+                  </h4>
+
+                  <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)', lineHeight: 1.65 }}>
+                    {t.desc}
+                  </p>
                 </div>
-                <h4 style={{
-                  fontFamily: 'Outfit, sans-serif',
-                  fontSize: '0.9375rem', fontWeight: 700,
-                  color: 'var(--c-navy)', marginBottom: '0.375rem',
-                }}>
-                  {t.title}
-                </h4>
-                <p style={{ fontSize: '0.8125rem', color: 'var(--c-gray-04)', lineHeight: 1.6 }}>
-                  {t.desc}
-                </p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* ======== Section 2: Vale Case ======== */}
-        <div>
-          <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3rem' }}>
-            <div className="eyebrow">Prova Comercial Definitiva</div>
-            <h2 className="title-h2" style={{ marginBottom: '0.75rem' }}>
-              Resultados comprovados em operação
+      {/* ======== SECTION 2: COMPARATIVE PERFORMANCE (BEFORE / AFTER) ======== */}
+      <section className="section-wrapper-white">
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3.5rem' }}>
+            <div className="eyebrow" style={{ margin: '0 auto 1.25rem' }}>Prova Comercial Definitiva</div>
+            <h2 className="title-h1" style={{ marginBottom: '1rem' }}>
+              Resultados comprovados em operação contínua
             </h2>
-            <p style={{
-              fontSize: '1rem', fontWeight: 600, color: 'var(--c-gray-04)',
-            }}>
-              Vale | Mina de Cauê — Itabira/MG
+            <p style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--c-blue)' }}>
+              Vale | Mina de Cauê — Itabira / MG
             </p>
           </div>
 
-          {/* Before / After */}
+          {/* Before vs After Cards */}
           <div style={{
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '3rem',
+            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', marginBottom: '4rem',
           }}>
-            {/* Before */}
+            {/* BEFORE */}
             <div style={{
               background: '#FFF5F5', border: '1px solid #FECACA',
-              borderRadius: 'var(--r-xl)', padding: '2rem',
+              borderRadius: 'var(--r-xl)', padding: '2.5rem',
+              boxShadow: '0 8px 24px rgba(220, 38, 38, 0.06)',
             }}>
               <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                marginBottom: '1.5rem',
+                marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem',
               }}>
                 <span style={{
-                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em',
                   textTransform: 'uppercase', color: '#991B1B',
-                  background: '#FEE2E2', padding: '0.375rem 0.75rem', borderRadius: '4px',
+                  background: '#FEE2E2', padding: '0.4rem 0.85rem', borderRadius: '6px',
                 }}>
                   Antes do RADEC®
                 </span>
-                <span style={{ fontSize: '0.75rem', color: '#9AA3B2', fontFamily: 'IBM Plex Mono, monospace' }}>
+                <span style={{ fontSize: '0.8125rem', color: '#7F1D1D', fontFamily: 'IBM Plex Mono, monospace', fontWeight: 600 }}>
                   out/2021 a set/2024
                 </span>
               </div>
+
               <h4 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1rem', fontWeight: 700,
-                color: '#7F1D1D', marginBottom: '1.25rem',
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
+                color: '#7F1D1D', marginBottom: '1.5rem', lineHeight: 1.3,
               }}>
                 Operação Sem Intertravamento Automático
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {[
-                  { Icon: Clock, value: '+40 horas', label: 'de paradas não programadas por danos de rasgo' },
-                  { Icon: DollarSign, value: 'R$ 17 milhões', label: 'de prejuízo financeiro estimado' },
-                ].map(({ Icon, value, label }, i) => (
-                  <div key={i} style={{
-                    background: 'white', border: '1px solid #FECACA',
-                    borderRadius: 'var(--r-lg)', padding: '1.25rem',
-                    display: 'flex', alignItems: 'center', gap: '1rem',
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{
+                  background: 'white', border: '1px solid #FECACA',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
+                  display: 'flex', alignItems: 'center', gap: '1.25rem',
+                }}>
+                  <div style={{
+                    width: '48px', height: '48px', background: '#FEE2E2',
+                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0,
                   }}>
+                    <Clock size={22} color="#DC2626" />
+                  </div>
+                  <div>
                     <div style={{
-                      width: '40px', height: '40px', background: '#FEE2E2',
-                      borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                      justifyContent: 'center', flexShrink: 0,
+                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
+                      color: '#991B1B', letterSpacing: '-0.02em', lineHeight: 1.1,
                     }}>
-                      <Icon size={18} color="#DC2626" />
+                      +40 horas
                     </div>
-                    <div>
-                      <div style={{
-                        fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800,
-                        color: '#991B1B', letterSpacing: '-0.02em',
-                      }}>
-                        {value}
-                      </div>
-                      <div style={{ fontSize: '0.8125rem', color: '#6B7280' }}>{label}</div>
+                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                      de paradas não programadas por danos de rasgo
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <div style={{
+                  background: 'white', border: '1px solid #FECACA',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
+                  display: 'flex', alignItems: 'center', gap: '1.25rem',
+                }}>
+                  <div style={{
+                    width: '48px', height: '48px', background: '#FEE2E2',
+                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    <DollarSign size={22} color="#DC2626" />
+                  </div>
+                  <div>
+                    <div style={{
+                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
+                      color: '#991B1B', letterSpacing: '-0.02em', lineHeight: 1.1,
+                    }}>
+                      R$ 17 milhões
+                    </div>
+                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                      de prejuízo financeiro estimado em avarias acumuladas
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* After */}
+            {/* AFTER */}
             <div style={{
               background: '#F0FDF4', border: '1px solid #BBF7D0',
-              borderRadius: 'var(--r-xl)', padding: '2rem',
+              borderRadius: 'var(--r-xl)', padding: '2.5rem',
+              boxShadow: '0 8px 24px rgba(22, 163, 74, 0.08)',
             }}>
               <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                marginBottom: '1.5rem',
+                marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem',
               }}>
                 <span style={{
-                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.08em',
+                  fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em',
                   textTransform: 'uppercase', color: '#14532D',
-                  background: '#DCFCE7', padding: '0.375rem 0.75rem', borderRadius: '4px',
+                  background: '#DCFCE7', padding: '0.4rem 0.85rem', borderRadius: '6px',
                 }}>
                   Depois do RADEC® Intertravado
                 </span>
-                <span style={{ fontSize: '0.75rem', color: '#9AA3B2', fontFamily: 'IBM Plex Mono, monospace' }}>
+                <span style={{ fontSize: '0.8125rem', color: '#14532D', fontFamily: 'IBM Plex Mono, monospace', fontWeight: 600 }}>
                   out/2024 a abr/2026
                 </span>
               </div>
+
               <h4 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1rem', fontWeight: 700,
-                color: '#14532D', marginBottom: '1.25rem',
+                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
+                color: '#14532D', marginBottom: '1.5rem', lineHeight: 1.3,
               }}>
                 Proteção Ativa Intertravada ao Sistema de Controle
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {[
-                  { Icon: ShieldCheck, value: '+45 horas', label: 'de paradas não programadas evitadas em campo' },
-                  { Icon: TrendingUp, value: 'R$ 15 milhões', label: 'de retorno financeiro estimado por atuações preventivas' },
-                ].map(({ Icon, value, label }, i) => (
-                  <div key={i} style={{
-                    background: 'white', border: '1px solid #BBF7D0',
-                    borderRadius: 'var(--r-lg)', padding: '1.25rem',
-                    display: 'flex', alignItems: 'center', gap: '1rem',
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{
+                  background: 'white', border: '1px solid #BBF7D0',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
+                  display: 'flex', alignItems: 'center', gap: '1.25rem',
+                }}>
+                  <div style={{
+                    width: '48px', height: '48px', background: '#DCFCE7',
+                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0,
                   }}>
+                    <ShieldCheck size={22} color="#16A34A" />
+                  </div>
+                  <div>
                     <div style={{
-                      width: '40px', height: '40px', background: '#DCFCE7',
-                      borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                      justifyContent: 'center', flexShrink: 0,
+                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
+                      color: '#14532D', letterSpacing: '-0.02em', lineHeight: 1.1,
                     }}>
-                      <Icon size={18} color="#16A34A" />
+                      +45 horas
                     </div>
-                    <div>
-                      <div style={{
-                        fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800,
-                        color: '#14532D', letterSpacing: '-0.02em',
-                      }}>
-                        {value}
-                      </div>
-                      <div style={{ fontSize: '0.8125rem', color: '#6B7280' }}>{label}</div>
+                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                      de paradas não programadas evitadas com desarme preventivo
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <div style={{
+                  background: 'white', border: '1px solid #BBF7D0',
+                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
+                  display: 'flex', alignItems: 'center', gap: '1.25rem',
+                }}>
+                  <div style={{
+                    width: '48px', height: '48px', background: '#DCFCE7',
+                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    <TrendingUp size={22} color="#16A34A" />
+                  </div>
+                  <div>
+                    <div style={{
+                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
+                      color: '#14532D', letterSpacing: '-0.02em', lineHeight: 1.1,
+                    }}>
+                      R$ 15 milhões
+                    </div>
+                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
+                      de retorno financeiro direto por preservação da correia
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* 7 Steps Event Infographic */}
+      {/* ======== SECTION 3: 7-STEP FIELD EVENT INFOGRAPHIC (IMAGE 1 REDESIGN) ======== */}
+      <section className="section-wrapper-navy">
+        <div className="container">
           <div style={{
-            background: 'var(--c-navy)', borderRadius: 'var(--r-xl)', padding: '2.5rem',
+            background: 'var(--c-navy-card)',
+            borderRadius: 'var(--r-xl)',
+            padding: '3rem',
+            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
           }}>
+            {/* Header Header */}
             <div style={{
               display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
-              gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap',
+              gap: '1.5rem', marginBottom: '2.5rem', flexWrap: 'wrap',
             }}>
               <div>
-                <div style={{
-                  fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em',
-                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.5rem',
-                }}>
-                  Documentação de Campo
-                </div>
-                <h4 style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 700,
-                  color: 'white', letterSpacing: '-0.02em',
+                <div className="eyebrow eyebrow-dark">Documentação de Campo em Operação Real</div>
+                <h3 style={{
+                  fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.125rem)',
+                  fontWeight: 800, color: 'white', letterSpacing: '-0.025em',
                 }}>
                   Um evento real em operação — Vale | Mina de Cauê, Itabira/MG
-                </h4>
+                </h3>
               </div>
-              <span style={{
+              <div style={{
                 background: 'var(--c-blue)', color: 'white',
-                fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.06em',
-                textTransform: 'uppercase', padding: '0.5rem 1rem', borderRadius: '4px',
-                flexShrink: 0,
+                padding: '0.625rem 1.25rem', borderRadius: 'var(--r-md)',
+                fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.08em',
+                textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(21, 87, 212, 0.4)',
               }}>
-                RADEC® Visão
-              </span>
+                RADEC® Visão Intertravado
+              </div>
             </div>
 
-            {/* 7 event steps */}
+            {/* Interactive Step Navigator Bar (7 steps) */}
             <div style={{
               display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)',
-              gap: '1px', background: 'rgba(255,255,255,0.06)',
-              borderRadius: 'var(--r-lg)', overflow: 'hidden',
-              border: '1px solid rgba(255,255,255,0.06)',
-              marginBottom: '1.5rem',
-            }}>
+              gap: '0.5rem', marginBottom: '2.5rem',
+            }} className="event-steps-grid">
               {eventSteps.map((ev, i) => {
                 const Icon = ev.Icon;
+                const isActive = activeStep === i;
+
                 return (
-                  <div key={i} style={{ background: 'var(--c-navy-mid)', padding: '1.5rem 1.25rem' }}>
+                  <button
+                    key={i}
+                    onClick={() => setActiveStep(i)}
+                    style={{
+                      background: isActive ? 'var(--c-blue)' : 'rgba(255, 255, 255, 0.04)',
+                      border: isActive ? '1.5px solid var(--c-blue-glow)' : '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: 'var(--r-md)',
+                      padding: '1.25rem 1rem',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      transition: 'all 0.22s ease',
+                      boxShadow: isActive ? '0 10px 25px rgba(37, 99, 235, 0.35)' : 'none',
+                    }}
+                  >
                     <div style={{
-                      fontFamily: 'IBM Plex Mono, monospace',
-                      fontSize: '0.6875rem', color: 'rgba(255,255,255,0.3)', marginBottom: '0.75rem',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      marginBottom: '0.75rem',
                     }}>
-                      {ev.n}
+                      <span style={{
+                        fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.75rem',
+                        fontWeight: 700, color: isActive ? 'white' : 'rgba(255,255,255,0.4)',
+                      }}>
+                        {ev.n}
+                      </span>
+                      <Icon size={16} color={isActive ? 'white' : ev.color} />
                     </div>
-                    <Icon size={16} color="rgba(255,255,255,0.4)" style={{ marginBottom: '0.75rem' }} />
-                    <h5 style={{
+
+                    <div style={{
                       fontFamily: 'Outfit, sans-serif', fontSize: '0.875rem', fontWeight: 700,
-                      color: 'white', marginBottom: '0.375rem', lineHeight: 1.3,
+                      color: 'white', lineHeight: 1.25, marginBottom: '0.35rem',
                     }}>
                       {ev.title}
-                    </h5>
-                    <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.55 }}>
+                    </div>
+
+                    <div style={{
+                      fontSize: '0.6875rem', color: isActive ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.45)',
+                      lineHeight: 1.4,
+                    }}>
                       {ev.desc}
-                    </p>
-                  </div>
+                    </div>
+                  </button>
                 );
               })}
             </div>
 
-            {/* Bottom caption */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Info size={13} color="rgba(255,255,255,0.25)" />
-              <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)' }}>
+            {/* Active Step Visual Detail Display */}
+            <div style={{
+              background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: 'var(--r-lg)', padding: '2rem',
+              display: 'grid', gridTemplateColumns: '1fr auto', gap: '2rem', alignItems: 'center',
+              marginBottom: '1.5rem',
+            }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                  <span style={{
+                    background: currentEvent.color, color: 'white',
+                    fontSize: '0.6875rem', fontWeight: 800, padding: '0.3rem 0.75rem', borderRadius: '4px',
+                    textTransform: 'uppercase', letterSpacing: '0.06em',
+                  }}>
+                    {currentEvent.status}
+                  </span>
+                  <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)', fontFamily: 'IBM Plex Mono, monospace' }}>
+                    Etapa {currentEvent.n} de 07
+                  </span>
+                </div>
+
+                <h4 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800, color: 'white', marginBottom: '0.5rem' }}>
+                  {currentEvent.title}
+                </h4>
+
+                <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.6, maxWidth: '780px' }}>
+                  {currentEvent.desc}
+                </p>
+              </div>
+
+              <button
+                onClick={onOpenQuote}
+                className="btn btn-primary"
+                style={{ flexShrink: 0 }}
+              >
+                Solicitar Diagnóstico Técnico
+                <ArrowRight size={16} />
+              </button>
+            </div>
+
+            {/* Caption Note */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+              <Info size={15} color="rgba(255,255,255,0.4)" />
+              <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)' }}>
                 Evento real ocorrido na Mina de Cauê – Itabira/MG, com o RADEC® Visão intertravado ao sistema de controle da Vale.
               </span>
             </div>
           </div>
         </div>
 
-      </div>
-    </section>
+        <style>{`
+          @media (max-width: 1024px) {
+            .event-steps-grid {
+              grid-template-columns: repeat(2, 1fr) !important;
+            }
+          }
+          @media (max-width: 640px) {
+            .event-steps-grid {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
+      </section>
+    </div>
   );
 }
+

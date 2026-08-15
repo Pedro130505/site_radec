@@ -1,64 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* ============================================
-   LLK / RADEC® — DESIGN SYSTEM GLOBAL
-   Inspiração: Vale, Sandvik, Sotreq, Samarco
+   LLK / RADEC® — HIGH-END INDUSTRIAL DESIGN SYSTEM
+   Standard: Sandvik, Siemens, Caterpillar, Wirtgen
    ============================================ */
 
 :root {
-  /* Brand Colors — Manual de Marca LLK */
-  --c-navy:       #0A1F44;   /* Marinho Institucional Principal */
-  --c-navy-mid:   #122B5A;   /* Marinho Médio */
-  --c-navy-light: #1A3A72;   /* Marinho Claro para hover */
-  --c-blue:       #1557D4;   /* Azul Corporativo */
-  --c-blue-dark:  #0F3FA6;   /* Azul Escuro */
+  /* Industrial Color Palette */
+  --c-navy-deep:   #061329;   /* Deep Industrial Midnight */
+  --c-navy:        #0A192F;   /* Main Navy Theme */
+  --c-navy-card:   #0E223D;   /* Dark Navy Card Container */
+  --c-slate-deep:  #0B132B;   /* Slate Deep Accent */
+  --c-slate-card:  #111C38;   /* Slate Card */
+  
+  --c-blue:        #1557D4;   /* Corporate Blue Accent */
+  --c-blue-glow:   #2563EB;   /* Active Glow Blue */
+  --c-cyan-glow:   #06B6D4;   /* Optical Beam Cyan */
+  
+  /* High-Contrast Light Neutrals */
+  --c-white:       #FFFFFF;
+  --c-gray-00:     #F8FAFC;   /* Light Industrial Section Background */
+  --c-gray-01:     #E2E8F0;   /* Crisp Borders & Dividers */
+  --c-gray-02:     #CBD5E1;   /* Input & Darker Borders */
+  --c-gray-03:     #94A3B8;   /* Secondary Subtitles */
+  --c-gray-04:     #64748B;   /* Body Aux */
+  --c-gray-05:     #334155;   /* Strong Text */
+  --c-gray-06:     #0F172A;   /* Primary Dark Titles */
 
-  /* Neutrals — High Contrast */
-  --c-white:      #FFFFFF;
-  --c-gray-00:    #F7F8FA;   /* Background de seção clara */
-  --c-gray-01:    #EEF0F4;   /* Divisoras e bordas */
-  --c-gray-02:    #D6DAE3;   /* Bordas mais fortes */
-  --c-gray-03:    #9AA3B2;   /* Texto secundário */
-  --c-gray-04:    #6B7282;   /* Texto auxiliar */
-  --c-gray-05:    #374151;   /* Corpo de texto */
-  --c-gray-06:    #111827;   /* Título escuro */
-
-  /* Semantic */
-  --c-green:      #16A34A;
-  --c-green-light:#DCFCE7;
-  --c-amber:      #D97706;
-  --c-amber-light:#FEF3C7;
-  --c-red:        #DC2626;
-  --c-red-light:  #FEE2E2;
+  /* Status Colors */
+  --c-green:       #10B981;
+  --c-green-light: #DCFCE7;
+  --c-amber:       #F59E0B;
+  --c-amber-light: #FEF3C7;
+  --c-red:         #EF4444;
+  --c-red-light:   #FEE2E2;
 
   /* Typography Scale */
-  --f-display:    clamp(2.5rem, 5vw, 4rem);
-  --f-h1:         clamp(2rem, 4vw, 3rem);
-  --f-h2:         clamp(1.6rem, 3vw, 2.25rem);
-  --f-h3:         clamp(1.2rem, 2vw, 1.5rem);
-  --f-body:       1rem;
-  --f-small:      0.875rem;
-  --f-xs:         0.75rem;
+  --f-display:     clamp(2.75rem, 6vw, 4.5rem);
+  --f-h1:          clamp(2.25rem, 4.5vw, 3.25rem);
+  --f-h2:          clamp(1.75rem, 3.2vw, 2.5rem);
+  --f-h3:          clamp(1.25rem, 2.2vw, 1.625rem);
+  --f-body:        1.0625rem;
+  --f-small:       0.9375rem;
+  --f-xs:          0.8125rem;
 
   /* Spacing */
-  --section-y:    5rem;
-  --container-x:  1.5rem;
+  --section-y:     5.5rem;
+  --container-x:   2rem;
 
   /* Radius */
-  --r-sm:  4px;
-  --r-md:  8px;
-  --r-lg:  12px;
-  --r-xl:  16px;
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  16px;
+  --r-xl:  24px;
 
-  /* Shadows — Professional Depth */
-  --shadow-sm:  0 1px 3px rgba(10, 31, 68, 0.06), 0 1px 2px rgba(10, 31, 68, 0.04);
-  --shadow-md:  0 4px 12px rgba(10, 31, 68, 0.08), 0 2px 4px rgba(10, 31, 68, 0.04);
-  --shadow-lg:  0 8px 24px rgba(10, 31, 68, 0.10), 0 4px 8px rgba(10, 31, 68, 0.06);
+  /* Elevated Shadows */
+  --shadow-sm:   0 2px 4px rgba(6, 19, 41, 0.04), 0 1px 2px rgba(6, 19, 41, 0.03);
+  --shadow-md:   0 8px 24px rgba(6, 19, 41, 0.08), 0 2px 6px rgba(6, 19, 41, 0.04);
+  --shadow-lg:   0 16px 40px rgba(6, 19, 41, 0.12), 0 4px 12px rgba(6, 19, 41, 0.06);
+  --shadow-glow: 0 0 25px rgba(37, 99, 235, 0.25);
 }
 
 /* ============================================
-   BASE RESET & GLOBAL TYPOGRAPHY
+   BASE RESET & TYPOGRAPHY
    ============================================ */
 
 *, *::before, *::after {
@@ -76,16 +81,16 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 400;
   color: var(--c-gray-05);
-  background-color: var(--c-white);
+  background-color: var(--c-navy-deep);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', 'Inter', sans-serif;
+  font-family: 'Outfit', sans-serif;
   letter-spacing: -0.025em;
-  line-height: 1.2;
+  line-height: 1.18;
   color: var(--c-gray-06);
   font-weight: 700;
 }
@@ -106,87 +111,104 @@ a {
 }
 
 /* ============================================
-   LAYOUT UTILITIES
+   EXPANDED FULL-WIDTH CONTAINER SYSTEM
    ============================================ */
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--container-x);
   padding-right: var(--container-x);
 }
 
-.section {
-  padding-top: var(--section-y);
-  padding-bottom: var(--section-y);
+/* Full-bleed Section Wrappers */
+.section-wrapper-navy {
+  background-color: var(--c-navy);
+  color: white;
+  padding: var(--section-y) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.section-header {
-  margin-bottom: 3.5rem;
+.section-wrapper-slate {
+  background-color: var(--c-slate-deep);
+  color: white;
+  padding: var(--section-y) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.section-header.center {
-  text-align: center;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+.section-wrapper-light {
+  background-color: var(--c-gray-00);
+  color: var(--c-gray-06);
+  padding: var(--section-y) 0;
+  border-bottom: 1px solid var(--c-gray-01);
+}
+
+.section-wrapper-white {
+  background-color: var(--c-white);
+  color: var(--c-gray-06);
+  padding: var(--section-y) 0;
+  border-bottom: 1px solid var(--c-gray-01);
 }
 
 /* ============================================
-   TYPOGRAPHY COMPONENTS
+   TYPOGRAPHY UTILITIES
    ============================================ */
 
 .eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: 'Inter', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--c-blue);
-  background: transparent;
-  border-bottom: 2px solid var(--c-blue);
-  padding-bottom: 2px;
-  margin-bottom: 1rem;
+  background: rgba(21, 87, 212, 0.08);
+  border: 1px solid rgba(21, 87, 212, 0.2);
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  margin-bottom: 1.25rem;
 }
 
-.eyebrow-white {
-  color: rgba(255,255,255,0.7);
-  border-color: rgba(255,255,255,0.3);
+.eyebrow-dark {
+  color: var(--c-cyan-glow);
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.25);
 }
 
 .title-display {
   font-size: var(--f-display);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.02;
   letter-spacing: -0.03em;
 }
 
 .title-h1 {
   font-size: var(--f-h1);
-  font-weight: 700;
-  line-height: 1.15;
+  font-weight: 800;
+  line-height: 1.1;
   letter-spacing: -0.025em;
 }
 
 .title-h2 {
   font-size: var(--f-h2);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.18;
   letter-spacing: -0.02em;
 }
 
 .title-h3 {
   font-size: var(--f-h3);
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.25;
   letter-spacing: -0.015em;
 }
 
 .lead {
-  font-size: 1.125rem;
+  font-size: 1.1875rem;
   font-weight: 400;
   color: var(--c-gray-04);
   line-height: 1.75;
@@ -196,34 +218,15 @@ a {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.body-text {
-  font-size: var(--f-body);
-  color: var(--c-gray-05);
-  line-height: 1.75;
-}
-
-.small-text {
-  font-size: var(--f-small);
-  color: var(--c-gray-04);
-  line-height: 1.6;
-}
-
-.caption {
-  font-size: var(--f-xs);
-  color: var(--c-gray-03);
-  line-height: 1.5;
-  font-weight: 500;
-}
-
 /* ============================================
-   BUTTON SYSTEM
+   BUTTON & INTERACTION SYSTEM
    ============================================ */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
   font-weight: 600;
@@ -233,279 +236,112 @@ a {
   border-radius: var(--r-md);
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.18s ease;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
 .btn-primary {
   background: var(--c-blue);
   color: white;
-  padding: 0.875rem 1.75rem;
-  box-shadow: 0 1px 2px rgba(21, 87, 212, 0.3);
+  padding: 0.9375rem 1.875rem;
+  box-shadow: 0 4px 14px rgba(21, 87, 212, 0.35);
 }
 
 .btn-primary:hover {
-  background: var(--c-blue-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(21, 87, 212, 0.35);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
+  background: var(--c-blue-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
 }
 
 .btn-secondary {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.07);
   color: white;
-  padding: 0.875rem 1.75rem;
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  padding: 0.9375rem 1.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.55);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--c-blue);
-  padding: 0.875rem 1.75rem;
-  border: 1.5px solid var(--c-blue);
-}
-
-.btn-outline:hover {
-  background: var(--c-blue);
-  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 .btn-sm {
-  font-size: var(--f-small);
-  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
 }
 
 .btn-lg {
   font-size: 1.0625rem;
-  padding: 1rem 2rem;
+  padding: 1.125rem 2.25rem;
 }
 
 /* ============================================
-   CARD SYSTEM
+   CARD SYSTEM WITH GLASSMORPHISM & 3D HOVER
    ============================================ */
 
-/* Light Card (white bg) */
-.card {
+.card-light {
   background: var(--c-white);
   border: 1px solid var(--c-gray-01);
   border-radius: var(--r-xl);
-  padding: 2rem;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.card:hover {
+  padding: 2.25rem;
   box-shadow: var(--shadow-md);
-  border-color: var(--c-gray-02);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark Card (navy bg) */
-.card-dark {
-  background: var(--c-navy-mid);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: var(--r-xl);
-  padding: 2rem;
-}
-
-/* ============================================
-   SECTION BACKGROUNDS
-   ============================================ */
-
-.bg-navy { background-color: var(--c-navy); }
-.bg-navy-mid { background-color: var(--c-navy-mid); }
-.bg-white { background-color: var(--c-white); }
-.bg-gray { background-color: var(--c-gray-00); }
-
-/* ============================================
-   ICON BADGES
-   ============================================ */
-
-.icon-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--r-md);
-  flex-shrink: 0;
-}
-
-.icon-badge-sm { width: 36px; height: 36px; }
-.icon-badge-md { width: 44px; height: 44px; }
-.icon-badge-lg { width: 56px; height: 56px; }
-
-.icon-badge-blue {
-  background: rgba(21, 87, 212, 0.1);
-  color: var(--c-blue);
-}
-
-.icon-badge-navy {
-  background: var(--c-blue);
-  color: white;
-}
-
-.icon-badge-green {
-  background: rgba(22, 163, 74, 0.1);
-  color: var(--c-green);
-}
-
-/* ============================================
-   STATUS BADGES
-   ============================================ */
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.375rem 0.875rem;
-  border-radius: 4px;
-}
-
-.status-ok     { background: var(--c-green-light); color: #14532D; }
-.status-warn   { background: var(--c-amber-light); color: #78350F; }
-.status-alert  { background: var(--c-red-light);   color: #7F1D1D; }
-.status-neutral{ background: var(--c-gray-01);     color: var(--c-gray-05); }
-
-/* ============================================
-   TABLE SYSTEM
-   ============================================ */
-
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--f-small);
-}
-
-.data-table th {
-  font-size: var(--f-xs);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--c-gray-04);
-  background: var(--c-gray-00);
-  padding: 0.875rem 1.25rem;
-  border-bottom: 2px solid var(--c-gray-01);
-  text-align: left;
-  white-space: nowrap;
-}
-
-.data-table td {
-  padding: 0.875rem 1.25rem;
-  border-bottom: 1px solid var(--c-gray-01);
-  color: var(--c-gray-05);
-  font-size: var(--f-small);
-}
-
-.data-table tr:hover td {
-  background: var(--c-gray-00);
-}
-
-/* ============================================
-   FORM SYSTEM
-   ============================================ */
-
-.form-label {
-  display: block;
-  font-size: var(--f-xs);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--c-gray-05);
-  margin-bottom: 0.375rem;
-}
-
-.form-input {
-  width: 100%;
-  background: var(--c-white);
-  border: 1.5px solid var(--c-gray-02);
-  border-radius: var(--r-md);
-  padding: 0.75rem 1rem;
-  font-size: var(--f-small);
-  font-family: 'Inter', sans-serif;
-  color: var(--c-gray-06);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  outline: none;
-}
-
-.form-input:focus {
+.card-light:hover {
+  box-shadow: var(--shadow-lg);
   border-color: var(--c-blue);
-  box-shadow: 0 0 0 3px rgba(21, 87, 212, 0.08);
+  transform: translateY(-3px);
 }
 
-.form-input::placeholder {
-  color: var(--c-gray-03);
+.card-dark {
+  background: var(--c-navy-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-xl);
+  padding: 2.25rem;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-dark:hover {
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), var(--shadow-glow);
+  transform: translateY(-3px);
 }
 
 /* ============================================
-   DIVIDER / SEPARATOR
+   STEP & FLOW GRAPHICS
    ============================================ */
 
-.divider {
-  border: none;
-  border-top: 1px solid var(--c-gray-01);
+.step-card-active {
+  background: var(--c-blue) !important;
+  color: white !important;
+  border-color: var(--c-blue-glow) !important;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
 }
 
-.divider-navy {
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-/* ============================================
-   STEP/FLOW NUMBERS
-   ============================================ */
-
-.step-number {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--c-blue);
-  color: white;
+.step-badge {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--f-xs);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.step-number-sm {
-  width: 26px;
-  height: 26px;
-  font-size: 0.6875rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--r-sm);
 }
 
 /* ============================================
-   MONO / CODE ELEMENTS
+   ANIMATIONS & SCROLLBAR
    ============================================ */
 
-.mono {
-  font-family: 'IBM Plex Mono', monospace;
-}
-
-/* ============================================
-   SCROLLBAR
-   ============================================ */
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--c-gray-00); }
-::-webkit-scrollbar-thumb { background: var(--c-gray-02); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--c-navy); }
-
-/* ============================================
-   SELECTION
-   ============================================ */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--c-navy-deep); }
+::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-blue); }
 
 ::selection {
   background: var(--c-blue);
   color: white;
 }
+

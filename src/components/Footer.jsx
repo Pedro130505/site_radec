@@ -6,13 +6,13 @@ const navCols = [
   {
     title: 'Produto',
     items: [
-      { id: 'produto',           label: 'Visão Geral RADEC®' },
+      { id: 'hero',              label: 'Visão Geral RADEC®' },
       { id: 'radec-visao',       label: 'RADEC® Visão' },
       { id: 'radec-vibracional', label: 'RADEC® Vibracional' },
     ],
   },
   {
-    title: 'Resultados & Empresa',
+    title: 'Resultados & Engenharia',
     items: [
       { id: 'resultados',        label: 'Case Vale & ROI' },
       { id: 'especificacoes',    label: 'Especificações Técnicas' },
@@ -29,8 +29,6 @@ const navCols = [
     ],
   },
 ];
-
-const solutions = ['SHM® — Integridade Estrutural', 'Teor Online — Fe/SiO₂', 'V-Scan® — Balança Óptica', 'V-Count® — Corpos Moedores'];
 
 const BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
@@ -50,12 +48,13 @@ const ITEM_URLS = {
 export default function Footer({ onNavigate }) {
   const linkStyle = {
     fontSize: '0.875rem',
-    color: 'rgba(255,255,255,0.45)',
+    color: 'rgba(255,255,255,0.5)',
     background: 'none', border: 'none',
     cursor: 'pointer', padding: 0,
     textAlign: 'left', display: 'block',
     transition: 'color 0.15s',
     fontFamily: 'inherit',
+    fontWeight: 500,
     textDecoration: 'none',
   };
 
@@ -69,33 +68,33 @@ export default function Footer({ onNavigate }) {
 
   return (
     <footer style={{
-      background: 'var(--c-navy)',
-      color: 'rgba(255,255,255,0.55)',
-      borderTop: '1px solid rgba(255,255,255,0.06)',
+      background: 'var(--c-navy-deep)',
+      color: 'rgba(255,255,255,0.6)',
+      borderTop: '1px solid rgba(255,255,255,0.08)',
     }}>
-      <div className="container" style={{ padding: '4rem 1.5rem 3rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1.5fr', gap: '3rem', marginBottom: '3rem' }}>
+      <div className="container" style={{ padding: '5rem 2rem 3.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '3.5rem', marginBottom: '4rem' }}>
 
-          {/* Brand */}
-          <div>
-            <a href="/" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home'); } }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.25rem', display: 'block' }}>
-              <img src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} alt="LLK Soluções" style={{ height: '34px', opacity: 0.85 }} />
+          {/* Brand Column */}
+          <div style={{ gridColumn: 'span 1' }}>
+            <a href="/" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home'); } }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.5rem', display: 'block' }}>
+              <img src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} alt="LLK Soluções" style={{ height: '36px', opacity: 0.9 }} />
             </a>
-            <p style={{ fontSize: '0.875rem', lineHeight: 1.75, maxWidth: '300px', marginBottom: '1.5rem' }}>
-              LLK Soluções Industriais — Especialistas em eficiência operacional, visão computacional e proteção de ativos para as Indústrias de Base.
+            <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', marginBottom: '1.75rem', maxWidth: '320px' }}>
+              LLK Soluções Industriais — Especialistas em visão computacional, inteligência artificial e proteção de ativos para a Indústria de Base.
             </p>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', fontFamily: 'IBM Plex Mono, monospace' }}>
-              Innovation Starts Here
+            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--c-cyan-glow)', fontFamily: 'IBM Plex Mono, monospace' }}>
+              INNOVATION STARTS HERE
             </span>
           </div>
 
-          {/* Nav cols */}
+          {/* Navigation Columns */}
           {navCols.map(col => (
             <div key={col.title}>
-              <h4 style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)', marginBottom: '1.25rem' }}>
+              <h4 style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
                 {col.title}
               </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {col.items.map(item => (
                   <a
                     key={item.id}
@@ -114,8 +113,8 @@ export default function Footer({ onNavigate }) {
                       }
                     }}
                     style={linkStyle}
-                    onMouseEnter={e => e.currentTarget.style.color = 'white'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--c-cyan-glow)'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
                   >
                     {item.label}
                   </a>
@@ -124,23 +123,23 @@ export default function Footer({ onNavigate }) {
             </div>
           ))}
 
-          {/* Contact */}
+          {/* Contact Column */}
           <div>
-            <h4 style={{ fontSize: '0.6875rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.8)', marginBottom: '1.25rem' }}>
-              Contato
+            <h4 style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
+              Contato & Sede
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               {[
                 { Icon: MapPin, text: 'Belo Horizonte / MG — BHTec' },
                 { Icon: Phone, text: '(31) 3333-3333', href: 'tel:+553133333333' },
                 { Icon: Mail, text: 'contato@llk.com.br', href: 'mailto:contato@llk.com.br' },
                 { Icon: Globe, text: 'www.llk.com.br' },
               ].map(({ Icon, text, href }, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
-                  <Icon size={13} color="rgba(255,255,255,0.3)" style={{ marginTop: '2px', flexShrink: 0 }} />
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <Icon size={16} color="var(--c-cyan-glow)" style={{ flexShrink: 0 }} />
                   {href
-                    ? <a href={href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)', textDecoration: 'none' }}>{text}</a>
-                    : <span style={{ fontSize: '0.875rem' }}>{text}</span>
+                    ? <a href={href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontWeight: 500 }}>{text}</a>
+                    : <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>{text}</span>
                   }
                 </div>
               ))}
@@ -150,23 +149,23 @@ export default function Footer({ onNavigate }) {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-          <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)' }}>
+      {/* Bottom Bar */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.2)' }}>
+        <div className="container" style={{ padding: '1.5rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>
             © {new Date().getFullYear()} LLK Soluções Industriais Ltda. Todos os direitos reservados. RADEC® é marca registrada.
           </span>
           <button
-            onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onClick={() => { onNavigate('hero'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             style={{
-              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: 'var(--r-md)', padding: '0.5rem 0.875rem',
-              fontSize: '0.75rem', fontWeight: 600, color: 'rgba(255,255,255,0.45)',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.375rem',
+              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: 'var(--r-md)', padding: '0.625rem 1rem',
+              fontSize: '0.8125rem', fontWeight: 700, color: 'white',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
             }}
           >
-            <ArrowUp size={13} />
-            Voltar ao início
+            <ArrowUp size={15} />
+            Voltar ao topo
           </button>
         </div>
       </div>
