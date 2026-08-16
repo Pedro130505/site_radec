@@ -153,7 +153,7 @@ export default function RadecVisao({ onOpenQuote }) {
             }}>
               <RefreshCw size={14} color="var(--c-cyan-glow)" className="spin-slow" />
               <span style={{ fontSize: '0.8125rem', fontWeight: 800, color: 'var(--c-cyan-glow)', letterSpacing: '0.05em' }}>
-                FLUXO ATIVO · 60 FPS
+                PROCESSAMENTO EM TEMPO REAL
               </span>
             </div>
           </div>
