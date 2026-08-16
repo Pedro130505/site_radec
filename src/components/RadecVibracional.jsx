@@ -65,11 +65,14 @@ export default function RadecVibracional({ onOpenQuote }) {
             <Waves size={14} />
             Sensoriamento Frequencial de Choque Mecânico
           </div>
-          <h2 className="title-h1" style={{ marginBottom: '1.25rem', color: 'white' }}>
-            RADEC® Vibracional — Detecção por ondas de choque e impacto
+          <h2 className="title-h1" style={{ marginBottom: '0.75rem', color: 'white' }}>
+            RADEC® Vibracional
           </h2>
-          <p className="lead lead-white" style={{ fontSize: '1.125rem' }}>
-            Identifica manifestações mecânicas transientes causadas por rasgos, queda de material perfurante e tiras soltas, complementando com precisão a proteção óptica.
+          <p className="lead lead-white" style={{ fontSize: '1.375rem', fontWeight: 600, marginBottom: '0.75rem' }}>
+            Detecção de eventos por choque mecânico
+          </p>
+          <p className="lead lead-white" style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.7)' }}>
+            Detecta manifestações mecânicas associadas a rasgos, queda de material e tiras soltas, complementando a proteção óptica.
           </p>
         </div>
 

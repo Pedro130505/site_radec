@@ -7,10 +7,11 @@ const products = [
     id: 'visao',
     label: 'Inspeção Óptica & IA',
     title: 'RADEC® Visão',
-    subtitle: 'Monitoramento direto por visão computacional',
-    desc: 'Monitora manifestações geométricas da correia para identificação de rasgos de borda, centrais e desalinhamentos sem contato físico.',
-    items: ['Rasgos de borda e fraturas laterais', 'Rasgos centrais longitudinais', 'Abertura e sobreposição de lona', 'Desalinhamento contínuo do eixo'],
+    subtitle: 'Monitoramento direto da correia por visão computacional',
+    desc: 'Monitora manifestações ópticas e geométricas da correia para identificação de rasgos, desalinhamentos e alterações de condição.',
+    items: ['Rasgos de borda', 'Rasgos centrais', 'Rasgos com abertura', 'Rasgos com sobreposição', 'Desalinhamento'],
     href: '#radec-visao',
+    btnText: 'Conheça o RADEC® Visão',
     Icon: Eye,
   },
   {
@@ -18,9 +19,10 @@ const products = [
     label: 'Sensoriamento Mecânico',
     title: 'RADEC® Vibracional',
     subtitle: 'Detecção de eventos por choque mecânico',
-    desc: 'Detecta manifestações mecânicas associadas a choques transientes, queda de material perfurante e tiras soltas, complementando a proteção óptica.',
-    items: ['Queda de blocos de rocha perfurantes', 'Tiras soltas e abas descoladas em velocidade', 'Choque por travamento de roletes', 'Impacto estrutural severo no chassi'],
+    desc: 'Detecta manifestações mecânicas associadas a rasgos, queda de material e tiras soltas, complementando a proteção óptica.',
+    items: ['Queda de material', 'Tiras soltas', 'Eventos de impacto associados ao dano'],
     href: '#radec-vibracional',
+    btnText: 'Conheça o RADEC® Vibracional',
     Icon: Activity,
   },
 ];
@@ -161,7 +163,7 @@ export default function RadecFamilyOverview({ onOpenQuote }) {
 
                 <div>
                   <a href={p.href} className="btn btn-primary btn-lg" style={{ width: '100%', justifyContent: 'center' }}>
-                    Conheça em detalhes o {p.title}
+                    {p.btnText || `Conheça o ${p.title}`}
                     <ArrowRight size={18} />
                   </a>
                 </div>

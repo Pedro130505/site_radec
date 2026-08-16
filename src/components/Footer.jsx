@@ -78,7 +78,7 @@ export default function Footer({ onNavigate }) {
           {/* Brand Column */}
           <div style={{ gridColumn: 'span 1' }}>
             <a href="/" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home'); } }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.5rem', display: 'block' }}>
-              <img src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} alt="LLK Soluções" style={{ height: '36px', opacity: 0.9 }} />
+              <img src={getAssetUrl('assets/brand/llk_logo_b_white.svg')} alt="LLK Soluções Industriais | Innovation Starts Here" style={{ height: '40px', width: 'auto', opacity: 0.95 }} />
             </a>
             <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', marginBottom: '1.75rem', maxWidth: '320px' }}>
               LLK Soluções Industriais — Especialistas em visão computacional, inteligência artificial e proteção de ativos para a Indústria de Base.

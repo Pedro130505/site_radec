@@ -81,13 +81,13 @@ export default function ActiveProtectionSection() {
             </div>
             <h2 className="title-h1" style={{ color: 'white', lineHeight: 1.05 }}>
               Mais que monitoramento.<br />
-              <span style={{ color: 'var(--c-cyan-glow)' }}>Proteção ativa instantânea.</span>
+              <span style={{ color: 'var(--c-cyan-glow)' }}>Proteção ativa.</span>
             </h2>
           </div>
 
           <div>
             <p className="lead lead-white" style={{ fontSize: '1.125rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-              Um fluxo de resposta sequencial ultra-rápido projetado para atuar no circuito de emergência do CLP em menos de 1 segundo, contendo o dano antes de causar paradas de dias.
+              O RADEC monitora continuamente a correia, disponibiliza informações de diagnóstico e proteção ao sistema de controle e permite configurar estratégias de alarme e intertravamento de acordo com a criticidade da aplicação.
             </p>
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>

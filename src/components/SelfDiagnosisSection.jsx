@@ -59,14 +59,14 @@ export default function SelfDiagnosisSection() {
               Confiabilidade & Autodiagnóstico Integrado
             </div>
             <h2 className="title-h1" style={{ color: 'var(--c-navy-deep)', lineHeight: 1.08 }}>
-              Proteção inteligente exige saber<br />
-              <span style={{ color: 'var(--c-blue)' }}>quando o próprio sistema precisa de atenção.</span>
+              Proteção também exige saber<br />
+              <span style={{ color: 'var(--c-blue)' }}>quando o sistema precisa de atenção</span>
             </h2>
           </div>
 
           <div>
             <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-              O RADEC® não apenas monitora a correia: ele possui autodiagnóstico contínuo da qualidade óptica, comunicação Modbus e integridade de todos os seus sensores físicos.
+              O RADEC disponibiliza estados de diagnóstico relacionados ao próprio sistema e à validade das informações utilizadas no monitoramento.
             </p>
 
             <div style={{

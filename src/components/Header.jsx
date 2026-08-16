@@ -204,9 +204,9 @@ export default function Header({ activePage, onNavigate, onOpenQuote }) {
           style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0, flexShrink: 0 }}
         >
           <img
-            src={getAssetUrl('assets/Logotipos/blue/LLK-LOGO-A-BLUE.svg')}
-            alt="LLK Soluções"
-            style={{ height: '32px', width: 'auto' }}
+            src={getAssetUrl('assets/brand/llk_logo_b_blue.svg')}
+            alt="LLK Soluções Industriais | Innovation Starts Here"
+            style={{ height: '36px', width: 'auto' }}
           />
           <div style={{ borderLeft: '1px solid var(--c-gray-02)', paddingLeft: '0.875rem', textAlign: 'left' }}>
             <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '0.9375rem', letterSpacing: '-0.02em', lineHeight: 1.1, color: 'var(--c-navy)' }}>

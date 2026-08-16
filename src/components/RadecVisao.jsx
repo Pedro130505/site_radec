@@ -5,18 +5,18 @@ import { getAssetUrl } from '../utils/assets';
 const differentials = [
   {
     Icon: Eye,
-    title: 'Visão Computacional & IA',
-    desc: 'Monitora continuamente manifestações geométricas da correia por sensores de imagem de alta definição e algoritmos treinados.',
+    title: 'Visão computacional',
+    desc: 'Monitora continuamente manifestações geométricas da correia.',
   },
   {
     Icon: Shield,
-    title: 'Sensoriamento Óptico Sem Contato',
-    desc: 'Não depende de contato físico ou cordas mecânicas com a correia, eliminando completamente desgaste e atritos.',
+    title: 'Monitoramento sem contato',
+    desc: 'Não depende de contato mecânico com a correia para realizar a leitura.',
   },
   {
     Icon: Cpu,
-    title: 'Integração Direta ao CLP',
-    desc: 'Informações de diagnóstico e sinais de desarme instantâneo disponíveis via Modbus TCP e Relés ao sistema de controle.',
+    title: 'Integração industrial',
+    desc: 'Informações de diagnóstico, alarme e proteção disponíveis para o sistema de controle.',
   },
 ];
 
@@ -85,11 +85,11 @@ export default function RadecVisao({ onOpenQuote }) {
             <Scan size={14} />
             Inspeção Óptica Contínua & Video Analytics
           </div>
-          <h2 className="title-h1" style={{ marginBottom: '1.25rem', color: 'white' }}>
-            RADEC® Visão — Monitoramento direto da geometria da correia
+          <h2 className="title-h1" style={{ marginBottom: '0.75rem', color: 'white' }}>
+            RADEC® Visão
           </h2>
-          <p className="lead lead-white" style={{ fontSize: '1.125rem' }}>
-            Sistema de visão computacional projetado para ambientes industriais severos. Detecta descontinuidade e danos estruturais antes da propagação catastrófica.
+          <p className="lead lead-white" style={{ fontSize: '1.375rem', fontWeight: 600 }}>
+            A correia é monitorada diretamente
           </p>
         </div>
 

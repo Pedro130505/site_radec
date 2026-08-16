@@ -36,24 +36,24 @@
   --c-red:         #EF4444;
   --c-red-light:   #FEE2E2;
 
-  /* Typography Scale */
-  --f-display:     clamp(2.75rem, 6vw, 4.5rem);
-  --f-h1:          clamp(2.25rem, 4.5vw, 3.25rem);
-  --f-h2:          clamp(1.75rem, 3.2vw, 2.5rem);
-  --f-h3:          clamp(1.25rem, 2.2vw, 1.625rem);
-  --f-body:        1.0625rem;
-  --f-small:       0.9375rem;
-  --f-xs:          0.8125rem;
+  /* Typography Scale - Compact Industrial Proportion */
+  --f-display:     clamp(2.25rem, 4.2vw, 3.5rem);
+  --f-h1:          clamp(1.75rem, 3.2vw, 2.5rem);
+  --f-h2:          clamp(1.375rem, 2.2vw, 1.875rem);
+  --f-h3:          clamp(1.0625rem, 1.6vw, 1.25rem);
+  --f-body:        0.9375rem;
+  --f-small:       0.84rem;
+  --f-xs:          0.75rem;
 
-  /* Spacing */
-  --section-y:     5.5rem;
-  --container-x:   2rem;
+  /* Spacing - Compact Padding */
+  --section-y:     3.75rem;
+  --container-x:   1.5rem;
 
   /* Radius */
-  --r-sm:  6px;
-  --r-md:  10px;
-  --r-lg:  16px;
-  --r-xl:  24px;
+  --r-sm:  4px;
+  --r-md:  8px;
+  --r-lg:  12px;
+  --r-xl:  18px;
 
   /* Elevated Shadows */
   --shadow-sm:   0 2px 4px rgba(6, 19, 41, 0.04), 0 1px 2px rgba(6, 19, 41, 0.03);
@@ -74,7 +74,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 body {
