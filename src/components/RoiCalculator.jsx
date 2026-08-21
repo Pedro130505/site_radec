@@ -1,194 +1,210 @@
 import React, { useState } from 'react';
-import { Calculator, ArrowRight, Info, DollarSign } from 'lucide-react';
+import { Calculator, ArrowRight, Info, ShieldCheck, DollarSign } from 'lucide-react';
 
-const fmt = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(v);
+const formatCurrency = (val) => {
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val);
+};
 
 export default function RoiCalculator({ onOpenQuote }) {
-  const [cost, setCost] = useState(50000);
-  const [hours, setHours] = useState(12);
-  const [repair, setRepair] = useState(150000);
-  const [count, setCount] = useState(2);
+  const [costPerHour, setCostPerHour] = useState(50000);
+  const [downtimeHours, setDowntimeHours] = useState(12);
+  const [repairCost, setRepairCost] = useState(150000);
+  const [eventsPerYear, setEventsPerYear] = useState(2);
 
-  const perEvent = (cost * hours) + repair;
-  const annual = perEvent * count;
-  const saving = annual * 0.85;
-
-  const sliders = [
-    { label: 'Custo estimado da parada por hora', min: 10000, max: 200000, step: 5000, value: cost, onChange: setCost, display: `${fmt(cost)}/h` },
-    { label: 'Horas médias de parada por evento', min: 2, max: 48, step: 1, value: hours, onChange: setHours, display: `${hours} horas` },
-    { label: 'Custo estimado de reparo / emenda de correia', min: 20000, max: 500000, step: 10000, value: repair, onChange: setRepair, display: fmt(repair) },
-    { label: 'Ocorrências estimadas por ano', min: 1, max: 10, step: 1, value: count, onChange: setCount, display: `${count} ocorrência${count > 1 ? 's' : ''}` },
-  ];
+  // Financial Calculations
+  const costPerEvent = (costPerHour * downtimeHours) + repairCost;
+  const annualLoss = costPerEvent * eventsPerYear;
+  const estimatedSavings = annualLoss * 0.85; // 85% conservative prevention rate
 
   return (
-    <section id="calculadora-roi" className="section-wrapper-light">
-      <div className="container">
-
-        {/* Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 4rem' }}>
-          <div className="eyebrow" style={{ margin: '0 auto 1.25rem' }}>
-            <DollarSign size={14} />
+    <section id="roi" className="scroll-mt-24 py-16 md:py-20 bg-slate-50 text-slate-800 border-b border-slate-200 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="container mx-auto px-4 md:px-8">
+        
+        {/* Section Header (Pergunta 7 do PDF) */}
+        <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+          <span className="eyebrow">
             Estimativa Comercial Ilustrativa
-          </div>
-          <h2 className="title-h1" style={{ marginBottom: '1rem', color: 'var(--c-gray-06)' }}>
-            Calculadora de Retorno & Impacto Financeiro
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#072752] font-['Outfit']">
+            Estimativa de impacto financeiro
           </h2>
-          <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)' }}>
-            Calcule o prejuízo financeiro direto provocado por rasgos de correia e paradas não programadas no seu fluxo de produção.
+          <p className="text-slate-600 text-base md:text-lg">
+            Avalie o impacto financeiro provocado por rasgos e paradas não programadas no seu transportador.
           </p>
         </div>
 
-        {/* Calculator Layout */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', maxWidth: '1200px', margin: '0 auto',
-        }}>
-
-          {/* Inputs */}
-          <div className="card-light" style={{ padding: '2.5rem' }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '0.875rem',
-              paddingBottom: '1.5rem', marginBottom: '2rem',
-              borderBottom: '1px solid var(--c-gray-01)',
-            }}>
-              <div style={{
-                width: '44px', height: '44px', background: 'rgba(21,87,212,0.1)',
-                borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', flexShrink: 0,
-              }}>
-                <Calculator size={20} color="var(--c-blue)" />
+        {/* 2-Column Calculator Box */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-5xl mx-auto bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
+          
+          {/* Left Column: Sliders */}
+          <div className="lg:col-span-7 p-6 md:p-8 space-y-6">
+            
+            <div className="flex items-center gap-3 pb-4 border-b border-slate-200">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#0356c5] flex items-center justify-center font-bold">
+                <Calculator className="w-5 h-5" />
               </div>
-              <h3 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
-                color: 'var(--c-navy-deep)',
-              }}>
-                Parâmetros da Operação da Planta
-              </h3>
+              <div>
+                <h3 className="text-lg font-bold text-[#072752] font-['Outfit']">
+                  Parâmetros Operacionais do Transportador
+                </h3>
+                <p className="text-xs text-slate-500 font-medium">
+                  Ajuste os valores de acordo com a sua planta industrial.
+                </p>
+              </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-              {sliders.map((s, i) => (
-                <div key={i}>
-                  <div style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    marginBottom: '0.625rem',
-                  }}>
-                    <label style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--c-gray-05)' }}>
-                      {s.label}
-                    </label>
-                    <span style={{
-                      fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.9375rem',
-                      fontWeight: 800, color: 'var(--c-blue)',
-                    }}>
-                      {s.display}
-                    </span>
-                  </div>
-                  <input
-                    type="range"
-                    min={s.min} max={s.max} step={s.step} value={s.value}
-                    onChange={e => s.onChange(Number(e.target.value))}
-                    style={{
-                      width: '100%', height: '6px', appearance: 'none',
-                      background: `linear-gradient(to right, var(--c-blue) ${((s.value - s.min) / (s.max - s.min)) * 100}%, var(--c-gray-01) 0%)`,
-                      borderRadius: '3px', outline: 'none', cursor: 'pointer',
-                    }}
-                  />
+            <div className="space-y-5">
+              
+              {/* Slider 1 */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs font-bold">
+                  <label className="text-[#072752] uppercase">Custo da Parada por Hora:</label>
+                  <span className="text-[#0356c5] font-mono text-sm">{formatCurrency(costPerHour)}/h</span>
                 </div>
-              ))}
+                <input 
+                  type="range"
+                  min="10000"
+                  max="200000"
+                  step="5000"
+                  value={costPerHour}
+                  onChange={(e) => setCostPerHour(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>R$ 10.000/h</span>
+                  <span>R$ 200.000/h</span>
+                </div>
+              </div>
+
+              {/* Slider 2 */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs font-bold">
+                  <label className="text-[#072752] uppercase">Horas de Parada por Ocorrência:</label>
+                  <span className="text-[#0356c5] font-mono text-sm">{downtimeHours} horas</span>
+                </div>
+                <input 
+                  type="range"
+                  min="2"
+                  max="48"
+                  step="1"
+                  value={downtimeHours}
+                  onChange={(e) => setDowntimeHours(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>2 horas</span>
+                  <span>48 horas</span>
+                </div>
+              </div>
+
+              {/* Slider 3 */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs font-bold">
+                  <label className="text-[#072752] uppercase">Custo Estimado de Reparo / Troca de Correia:</label>
+                  <span className="text-[#0356c5] font-mono text-sm">{formatCurrency(repairCost)}</span>
+                </div>
+                <input 
+                  type="range"
+                  min="20000"
+                  max="500000"
+                  step="10000"
+                  value={repairCost}
+                  onChange={(e) => setRepairCost(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>R$ 20.000</span>
+                  <span>R$ 500.000</span>
+                </div>
+              </div>
+
+              {/* Slider 4 */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs font-bold">
+                  <label className="text-[#072752] uppercase">Ocorrências por Ano:</label>
+                  <span className="text-[#0356c5] font-mono text-sm">{eventsPerYear} ocorrência{eventsPerYear > 1 ? 's' : ''}</span>
+                </div>
+                <input 
+                  type="range"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value={eventsPerYear}
+                  onChange={(e) => setEventsPerYear(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0356c5]"
+                />
+                <div className="flex justify-between text-[10px] text-slate-400 font-medium">
+                  <span>1 ocorrência</span>
+                  <span>10 ocorrências</span>
+                </div>
+              </div>
+
             </div>
+
           </div>
 
-          {/* Results */}
-          <div className="card-dark" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          {/* Right Column: Calculated Results */}
+          <div className="lg:col-span-5 bg-[#072752] text-white p-6 md:p-8 flex flex-col justify-between space-y-6">
+            
             <div>
-              <div style={{
-                fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
-                textTransform: 'uppercase', color: 'var(--c-cyan-glow)',
-                marginBottom: '0.5rem',
-              }}>
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-200 block mb-1">
                 Resultado da Estimativa
-              </div>
-              <h3 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1.5rem', fontWeight: 800,
-                color: 'white', marginBottom: '2rem', letterSpacing: '-0.02em',
-              }}>
-                Impacto Estimado na Produção
-              </h3>
+              </span>
+              <h4 className="text-xl font-bold font-['Outfit'] text-white">
+                Impacto Estimado na Operação
+              </h4>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
-                <div style={{
-                  background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                }}>
-                  <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem', fontWeight: 600 }}>
-                    Prejuízo estimado por ocorrência
-                  </div>
-                  <div style={{
-                    fontFamily: 'Outfit, sans-serif', fontSize: '2rem', fontWeight: 900,
-                    color: '#FCD34D', letterSpacing: '-0.02em',
-                  }}>
-                    {fmt(perEvent)}
-                  </div>
+              <div className="mt-6 space-y-4">
+                
+                <div className="bg-[#0b1c36] p-4 rounded-xl border border-slate-700/80">
+                  <span className="text-xs text-slate-400 font-medium block mb-1">Prejuízo Estimado por Ocorrência:</span>
+                  <span className="text-2xl font-black text-amber-400 font-['Outfit']">{formatCurrency(costPerEvent)}</span>
                 </div>
 
-                <div style={{
-                  background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                }}>
-                  <div style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem', fontWeight: 600 }}>
-                    Impacto acumulado por ano
-                  </div>
-                  <div style={{
-                    fontFamily: 'Outfit, sans-serif', fontSize: '2.25rem', fontWeight: 900,
-                    color: '#FCA5A5', letterSpacing: '-0.02em',
-                  }}>
-                    {fmt(annual)}
-                  </div>
+                <div className="bg-[#0b1c36] p-4 rounded-xl border border-slate-700/80">
+                  <span className="text-xs text-slate-400 font-medium block mb-1">Impacto Anual Acumulado:</span>
+                  <span className="text-2xl font-black text-rose-400 font-['Outfit']">{formatCurrency(annualLoss)}</span>
                 </div>
 
-                <div style={{
-                  background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.25)',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                }}>
-                  <div style={{ fontSize: '0.75rem', color: '#34D399', marginBottom: '0.4rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                    Economia Estimada com RADEC®
+                <div className="bg-[#041126] p-4 rounded-xl border border-emerald-500/40">
+                  <div className="flex items-center justify-between text-xs text-emerald-300 font-bold mb-1">
+                    <span>Retorno Estimado com RADEC®:</span>
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   </div>
-                  <div style={{
-                    fontFamily: 'Outfit, sans-serif', fontSize: '1.875rem', fontWeight: 900,
-                    color: '#34D399', letterSpacing: '-0.02em', marginBottom: '0.35rem',
-                  }}>
-                    ~{fmt(saving)} economizados/ano
-                  </div>
-                  <p style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>
-                    Obtida pelo desarme automático em menos de 1 segundo e contenção de avanço do rasgo.
+                  <span className="text-3xl font-black text-emerald-400 font-['Outfit']">
+                    ~{formatCurrency(estimatedSavings)} /ano
+                  </span>
+                  <p className="text-[11px] text-slate-300 mt-1 leading-relaxed font-normal">
+                    Calculado com base no desarme automático e na prevenção de paradas catastróficas.
                   </p>
                 </div>
+
               </div>
             </div>
 
-            <button
-              onClick={onOpenQuote}
-              className="btn btn-primary btn-lg"
-              style={{ width: '100%', justifyContent: 'center' }}
-            >
-              Solicitar Estudo de Viabilidade para Minha Planta
-              <ArrowRight size={18} />
-            </button>
+            <div>
+              <button
+                onClick={onOpenQuote}
+                className="w-full bg-[#0356c5] hover:bg-blue-600 text-white font-bold py-3.5 px-6 rounded-xl transition flex items-center justify-center gap-2 shadow-md text-sm"
+              >
+                <span>Solicitar Estudo Personalizado para Minha Planta</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
           </div>
+
         </div>
 
-        {/* Disclaimer */}
-        <div style={{
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-          marginTop: '2.5rem',
-        }}>
-          <Info size={14} color="var(--c-gray-03)" />
-          <span style={{ fontSize: '0.8125rem', color: 'var(--c-gray-03)', fontWeight: 500 }}>
-            Cálculo ilustrativo, baseado em valores informados pelo usuário.
-          </span>
+        {/* Disclaimer as required by PDF */}
+        <div className="max-w-xl mx-auto text-center mt-6">
+          <p className="text-xs text-slate-500 flex items-center justify-center gap-1.5 font-medium">
+            <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span>Cálculo ilustrativo, baseado em valores informados pelo usuário.</span>
+          </p>
         </div>
 
       </div>
     </section>
   );
 }
-

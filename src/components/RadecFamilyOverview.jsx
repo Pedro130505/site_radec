@@ -1,179 +1,177 @@
 import React from 'react';
-import { Eye, Activity, CheckCircle2, ArrowRight, Layers } from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
+import { Eye, Activity, CheckCircle2, ArrowRight, Camera, ShieldCheck } from 'lucide-react';
+import { getAssetUrl } from '../utils/assets';
 
-const products = [
-  {
-    id: 'visao',
-    label: 'Inspeção Óptica & IA',
-    title: 'RADEC® Visão',
-    subtitle: 'Monitoramento direto da correia por visão computacional',
-    desc: 'Monitora manifestações ópticas e geométricas da correia para identificação de rasgos, desalinhamentos e alterações de condição.',
-    items: ['Rasgos de borda', 'Rasgos centrais', 'Rasgos com abertura', 'Rasgos com sobreposição', 'Desalinhamento'],
-    href: '#radec-visao',
-    btnText: 'Conheça o RADEC® Visão',
-    Icon: Eye,
-  },
-  {
-    id: 'vibracional',
-    label: 'Sensoriamento Mecânico',
-    title: 'RADEC® Vibracional',
-    subtitle: 'Detecção de eventos por choque mecânico',
-    desc: 'Detecta manifestações mecânicas associadas a rasgos, queda de material e tiras soltas, complementando a proteção óptica.',
-    items: ['Queda de material', 'Tiras soltas', 'Eventos de impacto associados ao dano'],
-    href: '#radec-vibracional',
-    btnText: 'Conheça o RADEC® Vibracional',
-    Icon: Activity,
-  },
-];
-
-export default function RadecFamilyOverview({ onOpenQuote }) {
+export default function RadecFamilyOverview({ onOpenQuote, onNavigate }) {
   return (
-    <section id="familia-radec" className="section-wrapper-light">
-      <div className="container">
-
-        {/* Asymmetric Split Header - Eliminating Empty White Space */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '3.5rem',
-          alignItems: 'center',
-          marginBottom: '4rem',
-          paddingBottom: '2.5rem',
-          borderBottom: '1px solid var(--c-gray-01)',
-        }}>
-          {/* Left Column: Bold Headline & Eyebrow */}
-          <div>
-            <div className="eyebrow" style={{ marginBottom: '1rem' }}>
-              <Layers size={14} />
-              Arquitetura Integrada de Proteção
-            </div>
-            <h2 className="title-h1" style={{ color: 'var(--c-navy-deep)', lineHeight: 1.05 }}>
-              Uma família de proteção.<br />
-              <span style={{ color: 'var(--c-blue)' }}>Dois princípios de detecção.</span>
-            </h2>
-          </div>
-
-          {/* Right Column: Technical Narrative & Key Metric Badges */}
-          <div>
-            <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-              Diferentes tecnologias ópticas e mecânicas atuam em etapas complementares para garantir o intertravamento automático da correia sem falsos desligamentos por poeira ou sombras.
-            </p>
-
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <div style={{
-                background: 'var(--c-white)', border: '1px solid var(--c-gray-01)',
-                padding: '0.625rem 1.125rem', borderRadius: 'var(--r-md)',
-                fontSize: '0.8125rem', fontWeight: 700, color: 'var(--c-navy-deep)',
-                display: 'flex', alignItems: 'center', gap: '0.5rem',
-              }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--c-blue)' }} />
-                Sensoriamento Óptico Sem Contato
-              </div>
-
-              <div style={{
-                background: 'var(--c-white)', border: '1px solid var(--c-gray-01)',
-                padding: '0.625rem 1.125rem', borderRadius: 'var(--r-md)',
-                fontSize: '0.8125rem', fontWeight: 700, color: 'var(--c-navy-deep)',
-                display: 'flex', alignItems: 'center', gap: '0.5rem',
-              }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--c-green)' }} />
-                Atuação em CLP &lt;1 segundo
-              </div>
-            </div>
-          </div>
+    <section id="solucoes" className="scroll-mt-24 py-16 md:py-20 bg-white text-slate-800 border-b border-slate-200 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="container mx-auto px-4 md:px-8">
+        
+        {/* Section Header (Pergunta 1 & 3 do PDF) */}
+        <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+          <span className="eyebrow">
+            O que o RADEC® Entrega
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#072752] font-['Outfit']">
+            Uma família de proteção. Dois princípios de detecção.
+          </h2>
+          <p className="text-slate-600 text-base md:text-lg">
+            Combinação de algoritmos de visão computacional inteligente e sensoriamento frequencial de alta sensibilidade para cobrir diferentes estágios de manifestação da falha.
+          </p>
         </div>
 
-        {/* Product Cards Grid */}
-        <ScrollReveal delay={150} style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-          gap: '2rem',
-        }}>
-          {products.map(p => {
-            const Icon = p.Icon;
-            return (
-              <div key={p.id} className="card-light" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '2.5rem' }}>
-                <div>
-                  {/* Card Header */}
-                  <div style={{
-                    display: 'flex', alignItems: 'flex-start',
-                    justifyContent: 'space-between', marginBottom: '1.75rem',
-                  }}>
-                    <div>
-                      <span style={{
-                        fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
-                        textTransform: 'uppercase', color: 'var(--c-blue)',
-                        display: 'block', marginBottom: '0.5rem',
-                      }}>
-                        {p.label}
-                      </span>
-
-                      <h3 style={{
-                        fontFamily: 'Outfit, sans-serif',
-                        fontSize: '1.75rem', fontWeight: 800,
-                        color: 'var(--c-navy-deep)', letterSpacing: '-0.025em',
-                      }}>
-                        {p.title}
-                      </h3>
-
-                      <p style={{
-                        fontSize: '0.9375rem', fontWeight: 600,
-                        color: 'var(--c-blue)', marginTop: '0.25rem',
-                      }}>
-                        {p.subtitle}
-                      </p>
-                    </div>
-
-                    <div style={{
-                      width: '48px', height: '48px', background: 'var(--c-navy-deep)',
-                      color: 'white', borderRadius: 'var(--r-md)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0, boxShadow: '0 4px 12px rgba(6,19,41,0.2)',
-                    }}>
-                      <Icon size={22} />
-                    </div>
-                  </div>
-
-                  <p style={{ fontSize: '1rem', color: 'var(--c-gray-05)', lineHeight: 1.7, marginBottom: '2rem' }}>
-                    {p.desc}
-                  </p>
-
-                  <div style={{ marginBottom: '2.25rem' }}>
-                    <div style={{
-                      fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
-                      textTransform: 'uppercase', color: 'var(--c-gray-03)',
-                      marginBottom: '1rem',
-                    }}>
-                      Manifestações e anomalias detectadas
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      {p.items.map((item, i) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                          <CheckCircle2 size={18} color="var(--c-green)" />
-                          <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--c-gray-05)' }}>
-                            {item}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <a href={p.href} className="btn btn-primary btn-lg" style={{ width: '100%', justifyContent: 'center' }}>
-                    {p.btnText || `Conheça o ${p.title}`}
-                    <ArrowRight size={18} />
-                  </a>
+        {/* 2 Main Product Overview Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          
+          {/* Card 1: RADEC Visão */}
+          <div className="bg-slate-50 rounded-2xl p-8 flex flex-col justify-between border border-slate-200 hover:border-[#0356c5] transition-all shadow-sm group">
+            <div className="space-y-6">
+              
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0356c5] bg-blue-100/70 px-3 py-1 rounded">
+                  Inspeção Óptica & IA
+                </span>
+                <div className="w-10 h-10 rounded-xl bg-[#0356c5] text-white flex items-center justify-center shadow-xs">
+                  <Camera className="w-5 h-5" />
                 </div>
               </div>
-            );
-          })}
-        </ScrollReveal>
+
+              {/* Photo preview */}
+              <div className="rounded-xl overflow-hidden aspect-16/9 border border-slate-200 relative">
+                <img 
+                  src={getAssetUrl('assets/photos/radec_visao_field.jpg')} 
+                  alt="RADEC Visão em campo" 
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                />
+                <div className="absolute bottom-2 left-2 bg-[#072752]/90 text-white text-[10px] font-semibold px-2.5 py-1 rounded backdrop-blur-xs">
+                  Monitoramento direto sem contato
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-[#072752] font-['Outfit']">
+                  RADEC® Visão
+                </h3>
+                <p className="text-sm font-semibold text-[#0356c5] mt-1">
+                  Monitoramento geométrico e óptico direto da correia
+                </p>
+              </div>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Supervisiona continuamente a superfície e as bordas do transportador por câmeras de alta definição, identificando rasgos e desgarres antes da destruição.
+              </p>
+
+              <div className="space-y-2 pt-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">
+                  Manifestações Monitoradas:
+                </span>
+                <ul className="space-y-2 text-xs md:text-sm text-slate-700 font-semibold">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Rasgos de borda e fraturas laterais</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Rasgos centrais e desgarres com abertura</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Rasgos com sobreposição de abas</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Desalinhamento do eixo do transportador</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div className="pt-8 mt-6 border-t border-slate-200">
+              <button
+                onClick={() => onNavigate('radec-visao')}
+                className="w-full bg-[#072752] hover:bg-[#0356c5] text-white py-3.5 px-6 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 shadow-xs transition"
+              >
+                <span>Ver detalhes do RADEC® Visão</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: RADEC Vibracional */}
+          <div className="bg-slate-50 rounded-2xl p-8 flex flex-col justify-between border border-slate-200 hover:border-[#072752] transition-all shadow-sm group">
+            <div className="space-y-6">
+              
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#072752] bg-slate-200 px-3 py-1 rounded">
+                  Sensoriamento Mecânico
+                </span>
+                <div className="w-10 h-10 rounded-xl bg-[#072752] text-white flex items-center justify-center shadow-xs">
+                  <Activity className="w-5 h-5" />
+                </div>
+              </div>
+
+              {/* Photo preview */}
+              <div className="rounded-xl overflow-hidden aspect-16/9 border border-slate-200 relative">
+                <img 
+                  src={getAssetUrl('assets/photos/radec_sensor.jpg')} 
+                  alt="RADEC Vibracional em campo" 
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                />
+                <div className="absolute bottom-2 left-2 bg-[#072752]/90 text-white text-[10px] font-semibold px-2.5 py-1 rounded backdrop-blur-xs">
+                  Sensores frequenciais IP69K
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-bold text-[#072752] font-['Outfit']">
+                  RADEC® Vibracional
+                </h3>
+                <p className="text-sm font-semibold text-[#072752] mt-1">
+                  Detecção de eventos por choque mecânico e impacto
+                </p>
+              </div>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Detecta choques e vibrações anômalas resultantes de queda de material, tiras soltas batendo e travamento de blocos de rocha.
+              </p>
+
+              <div className="space-y-2 pt-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">
+                  Manifestações Monitoradas:
+                </span>
+                <ul className="space-y-2 text-xs md:text-sm text-slate-700 font-semibold">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Queda de material e atritos anômalos na calha</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Tiras soltas e descolamento de abas em movimento</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Impacto severo por travamento de rocha perfurante</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div className="pt-8 mt-6 border-t border-slate-200">
+              <button
+                onClick={() => onNavigate('radec-vibracional')}
+                className="w-full bg-[#0356c5] hover:bg-[#072752] text-white py-3.5 px-6 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2 shadow-xs transition"
+              >
+                <span>Ver detalhes do RADEC® Vibracional</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+        </div>
 
       </div>
     </section>
   );
 }
-

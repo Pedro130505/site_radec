@@ -1,154 +1,189 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, PhoneCall, Mail } from 'lucide-react';
+import { Send, CheckCircle2, PhoneCall, Mail, MapPin, Building, ShieldCheck } from 'lucide-react';
 
 export default function ContactEvaluationSection() {
-  const [form, setForm] = useState({ nome: '', empresa: '', email: '', telefone: '', unidade: '', problema: '', mensagem: '' });
+  const [form, setForm] = useState({ 
+    nome: '', 
+    empresa: '', 
+    email: '', 
+    telefone: '', 
+    unidade: '', 
+    problema: '', 
+    mensagem: '' 
+  });
   const [submitted, setSubmitted] = useState(false);
 
-  const set = (k) => (e) => setForm(p => ({ ...p, [k]: e.target.value }));
-
-  const inputStyle = {
-    width: '100%', background: 'var(--c-white)',
-    border: '1.5px solid var(--c-gray-02)', borderRadius: 'var(--r-md)',
-    padding: '0.875rem 1.125rem', fontSize: '0.9375rem',
-    fontFamily: 'Inter, sans-serif', color: 'var(--c-gray-06)', outline: 'none',
-  };
-
-  const labelStyle = {
-    display: 'block', fontSize: '0.75rem', fontWeight: 800,
-    letterSpacing: '0.08em', textTransform: 'uppercase',
-    color: 'var(--c-navy-deep)', marginBottom: '0.4rem',
-  };
+  const handleChange = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }));
 
   return (
-    <section id="contato" className="section-wrapper-light">
-      <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '4rem', alignItems: 'start' }}>
+    <section id="contato" className="scroll-mt-24 py-16 md:py-20 bg-[#072752] text-white border-b border-slate-800 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="container mx-auto px-4 md:px-8">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-          {/* Left: Context */}
-          <div>
-            <div className="eyebrow" style={{ marginBottom: '1.25rem' }}>Engenharia de Aplicação LLK</div>
-            <h2 className="title-h1" style={{ marginBottom: '1.25rem', color: 'var(--c-gray-06)' }}>
-              Qual a melhor configuração do RADEC® para a sua planta?
+          {/* Left Column: Context & Real Phone Directives */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            <span className="eyebrow eyebrow-white">
+              Engenharia de Aplicação LLK
+            </span>
+            
+            {/* Title from PDF Section 2 & Pergunta 9 */}
+            <h2 className="text-3xl md:text-4xl font-bold font-['Outfit'] text-white leading-tight">
+              Qual configuração RADEC® é adequada para sua correia?
             </h2>
-            <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)', marginBottom: '2.5rem' }}>
-              A arquitetura ideal depende do modo de falha predominante, velocidade e largura da correia, tipo de minério e infraestrutura de automação existente.
+
+            <p className="text-slate-300 text-base leading-relaxed font-normal">
+              A solução ideal depende do modo de falha predominante, da geometria do transportador, do material transportado e da estratégia de proteção da sua planta.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '3rem' }}>
-              {[
-                'Análise técnica de engenharia sem compromisso comercial',
-                'Recomendação precisa da arquitetura (Visão / Vibracional / Combo)',
-                'Dimensionamento de enclausuramento e integração Modbus TCP',
-                'Atendimento direto por engenheiros de aplicação experientes em campo',
-              ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                  <CheckCircle2 size={20} color="var(--c-green)" />
-                  <span style={{ fontSize: '1rem', color: 'var(--c-gray-05)', fontWeight: 600 }}>
-                    {item}
-                  </span>
-                </div>
-              ))}
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                <span className="text-sm font-semibold text-slate-200">Análise técnica sem compromisso comercial</span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                <span className="text-sm font-semibold text-slate-200">Recomendação precisa da arquitetura (Visão / Vibracional / Combo)</span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                <span className="text-sm font-semibold text-slate-200">Atendimento direto pelos engenheiros de aplicação da LLK</span>
+              </div>
             </div>
 
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '1rem',
-              padding: '1.25rem 1.5rem', background: 'var(--c-white)',
-              border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-lg)',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
-            }}>
-              <div style={{
-                width: '44px', height: '44px', background: 'rgba(21, 87, 212, 0.1)',
-                borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>
-                <PhoneCall size={20} color="var(--c-blue)" />
-              </div>
-              <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--c-gray-03)', letterSpacing: '0.08em', display: 'block' }}>
-                  Atendimento Comercial & Engenharia
-                </span>
-                <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--c-navy-deep)' }}>
-                  (31) 3333-3333 · contato@llk.com.br
-                </span>
-              </div>
+            {/* Direct Commercial Contacts from PDF */}
+            <div className="pt-4 border-t border-slate-700/80 space-y-3 text-xs">
+              <a 
+                href="tel:+553136819007" 
+                className="flex items-center gap-3 bg-[#0b1c36] p-3.5 rounded-xl border border-slate-700 hover:border-[#0356c5] transition group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#0356c5] text-white flex items-center justify-center font-bold shrink-0">
+                  <PhoneCall className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold">Comercial Real:</span>
+                  <span className="text-white font-bold text-sm group-hover:text-blue-400 font-mono">(31) 3681-9007</span>
+                </div>
+              </a>
+
+              <a 
+                href="mailto:contato@llk.com.br" 
+                className="flex items-center gap-3 bg-[#0b1c36] p-3.5 rounded-xl border border-slate-700 hover:border-[#0356c5] transition group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#0356c5] text-white flex items-center justify-center font-bold shrink-0">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-slate-400 block text-[10px] uppercase font-bold">E-mail Direto:</span>
+                  <span className="text-white font-bold text-sm group-hover:text-blue-400">contato@llk.com.br</span>
+                </div>
+              </a>
             </div>
+
           </div>
 
-          {/* Right: Form */}
-          <div className="card-light" style={{ padding: '3rem', background: 'var(--c-white)' }}>
+          {/* Right Column: 7-Field Form Card */}
+          <div className="lg:col-span-7 bg-white text-slate-800 rounded-2xl p-6 md:p-8 shadow-xl border border-slate-200">
             {submitted ? (
-              <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
-                <div style={{
-                  width: '72px', height: '72px', background: '#DCFCE7',
-                  borderRadius: '50%', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', margin: '0 auto 1.75rem',
-                }}>
-                  <CheckCircle2 size={36} color="var(--c-green)" />
+              <div className="text-center py-10 space-y-4">
+                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-300">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
-                  color: 'var(--c-navy-deep)', marginBottom: '1rem',
-                }}>
-                  Solicitação Recebida com Sucesso!
-                </h3>
-                <p style={{ fontSize: '1rem', color: 'var(--c-gray-04)', lineHeight: 1.65, maxWidth: '400px', margin: '0 auto 2rem' }}>
-                  Engenheiros de aplicação da LLK entrarão em contato em breve para apresentar a avaliação técnica da sua operação.
+                <h3 className="text-2xl font-bold text-[#072752] font-['Outfit']">Solicitação Enviada com Sucesso!</h3>
+                <p className="text-slate-600 text-sm max-w-md mx-auto">
+                  A equipe de engenharia de aplicação da LLK analisará as informações do seu transportador e retornará em breve.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="btn btn-primary"
+                  className="btn btn-primary mt-2"
                 >
                   Enviar Nova Solicitação
                 </button>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
-                <div style={{
-                  paddingBottom: '1.5rem', marginBottom: '2rem',
-                  borderBottom: '1px solid var(--c-gray-01)',
-                }}>
-                  <h3 style={{
-                    fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800,
-                    color: 'var(--c-navy-deep)', marginBottom: '0.35rem',
-                  }}>
-                    Solicite uma avaliação técnica para a sua correia
+              <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="space-y-4">
+                
+                <div className="border-b border-slate-200 pb-3">
+                  <h3 className="text-xl font-bold text-[#072752] font-['Outfit']">
+                    Solicite uma avaliação da sua correia
                   </h3>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-03)' }}>
-                    Preencha os campos abaixo para receber o parecer de engenharia.
+                  <p className="text-slate-500 text-xs mt-0.5">
+                    Preencha os campos abaixo para receber a recomendação técnica de aplicação.
                   </p>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label style={labelStyle}>Nome Completo *</label>
-                    <input type="text" required placeholder="Eng. Carlos Silva" value={form.nome} onChange={set('nome')} style={inputStyle} className="form-input" />
+                    <label className="form-label">Nome Completo *</label>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="Engenheiro Carlos Silva" 
+                      value={form.nome} 
+                      onChange={handleChange('nome')} 
+                      className="form-input" 
+                    />
                   </div>
                   <div>
-                    <label style={labelStyle}>Empresa *</label>
-                    <input type="text" required placeholder="Vale / CSN / Samarco" value={form.empresa} onChange={set('empresa')} style={inputStyle} className="form-input" />
+                    <label className="form-label">Empresa / Mineradora *</label>
+                    <input 
+                      type="text" 
+                      required 
+                      placeholder="Vale / CSN / Samarco" 
+                      value={form.empresa} 
+                      onChange={handleChange('empresa')} 
+                      className="form-input" 
+                    />
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label style={labelStyle}>E-mail Corporativo *</label>
-                    <input type="email" required placeholder="carlos@empresa.com.br" value={form.email} onChange={set('email')} style={inputStyle} className="form-input" />
+                    <label className="form-label">E-mail Corporativo *</label>
+                    <input 
+                      type="email" 
+                      required 
+                      placeholder="carlos@empresa.com.br" 
+                      value={form.email} 
+                      onChange={handleChange('email')} 
+                      className="form-input" 
+                    />
                   </div>
                   <div>
-                    <label style={labelStyle}>Telefone / WhatsApp *</label>
-                    <input type="tel" required placeholder="(31) 99999-9999" value={form.telefone} onChange={set('telefone')} style={inputStyle} className="form-input" />
+                    <label className="form-label">Telefone / WhatsApp *</label>
+                    <input 
+                      type="tel" 
+                      required 
+                      placeholder="(31) 99999-9999" 
+                      value={form.telefone} 
+                      onChange={handleChange('telefone')} 
+                      className="form-input" 
+                    />
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.25rem' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label style={labelStyle}>Unidade / Operação</label>
-                    <input type="text" placeholder="Mina Cauê / Usina 1" value={form.unidade} onChange={set('unidade')} style={inputStyle} className="form-input" />
+                    <label className="form-label">Unidade / Operação</label>
+                    <input 
+                      type="text" 
+                      placeholder="Mina de Cauê / Usina 1" 
+                      value={form.unidade} 
+                      onChange={handleChange('unidade')} 
+                      className="form-input" 
+                    />
                   </div>
                   <div>
-                    <label style={labelStyle}>Principal Problema</label>
-                    <select value={form.problema} onChange={set('problema')} style={{ ...inputStyle, cursor: 'pointer' }} className="form-input">
-                      <option value="">Selecione o desafio...</option>
+                    <label className="form-label">Principal Problema</label>
+                    <select 
+                      value={form.problema} 
+                      onChange={handleChange('problema')} 
+                      className="form-input cursor-pointer"
+                    >
+                      <option value="">Selecione a condição...</option>
                       <option>Rasgos longitudinais recorrentes</option>
                       <option>Desalinhamento lateral severo</option>
                       <option>Tiras soltas / descolamento</option>
@@ -158,41 +193,32 @@ export default function ContactEvaluationSection() {
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '1.25rem' }}>
-                  <label style={labelStyle}>Mensagem / Especificações Adicionais</label>
-                  <textarea
-                    rows={3}
-                    placeholder="Largura da correia, velocidade, tipo de minério transportado..."
-                    value={form.mensagem} onChange={set('mensagem')}
-                    style={{ ...inputStyle, resize: 'vertical' }} className="form-input"
+                <div>
+                  <label className="form-label">Especificações Adicionais do Transportador</label>
+                  <textarea 
+                    rows={3} 
+                    placeholder="Largura da correia (mm), velocidade (m/s), material transportado..." 
+                    value={form.mensagem} 
+                    onChange={handleChange('mensagem')} 
+                    className="form-input resize-y" 
                   />
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '1.5rem' }}>
-                  <input
-                    type="checkbox"
-                    id="sectionLgpdConsent"
-                    required
-                    checked={form.lgpdConsent || false}
-                    onChange={(e) => setForm(p => ({ ...p, lgpdConsent: e.target.checked }))}
-                    style={{ marginTop: '3px', width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--c-blue)' }}
-                  />
-                  <label htmlFor="sectionLgpdConsent" style={{ fontSize: '0.75rem', color: 'var(--c-gray-04)', lineHeight: 1.5, cursor: 'pointer' }}>
-                    Li e aceito a <a href={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/privacidade`} target="_blank" rel="noreferrer" style={{ color: 'var(--c-blue)', fontWeight: 600, textDecoration: 'underline' }}>Política de Privacidade</a> da LLK Engenharia e autorizo o tratamento dos dados informados. *
-                  </label>
-                </div>
-
-                <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%', justifyContent: 'center' }}>
-                  Solicitar Avaliação Técnica
-                  <Send size={18} />
+                <button 
+                  type="submit" 
+                  className="w-full bg-[#0356c5] hover:bg-[#072752] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-sm"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>Enviar Solicitação para Engenharia</span>
                 </button>
+
               </form>
             )}
           </div>
 
         </div>
+
       </div>
     </section>
   );
 }
-

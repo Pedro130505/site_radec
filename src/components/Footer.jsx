@@ -2,172 +2,125 @@ import React from 'react';
 import { MapPin, Phone, Mail, Globe, ArrowUp } from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
-const navCols = [
-  {
-    title: 'Produto',
-    items: [
-      { id: 'hero',              label: 'Visão Geral RADEC®' },
-      { id: 'radec-visao',       label: 'RADEC® Visão' },
-      { id: 'radec-vibracional', label: 'RADEC® Vibracional' },
-    ],
-  },
-  {
-    title: 'Resultados & Engenharia',
-    items: [
-      { id: 'resultados',        label: 'Case Vale & ROI' },
-      { id: 'especificacoes',    label: 'Especificações Técnicas' },
-      { id: 'sobre-llk',        label: 'Sobre a LLK' },
-      { id: 'contato',          label: 'Fale com a Engenharia' },
-    ],
-  },
-  {
-    title: 'Privacidade & LGPD',
-    items: [
-      { id: 'privacidade',       label: 'Política de Privacidade' },
-      { id: 'termos',            label: 'Termos de Uso' },
-      { id: 'cookie-settings',   label: 'Preferências de Cookies' },
-    ],
-  },
-];
-
-const BASE = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
-
-const ITEM_URLS = {
-  home: `${BASE}/`,
-  produto: `${BASE}/produto`,
-  'radec-visao': `${BASE}/radec-visao`,
-  'radec-vibracional': `${BASE}/radec-vibracional`,
-  resultados: `${BASE}/resultados`,
-  especificacoes: `${BASE}/especificacoes`,
-  'sobre-llk': `${BASE}/sobre-llk`,
-  'contato': `${BASE}/contato`,
-  'privacidade': `${BASE}/privacidade`,
-  'termos': `${BASE}/termos`,
-};
-
-export default function Footer({ onNavigate }) {
-  const linkStyle = {
-    fontSize: '0.875rem',
-    color: 'rgba(255,255,255,0.5)',
-    background: 'none', border: 'none',
-    cursor: 'pointer', padding: 0,
-    textAlign: 'left', display: 'block',
-    transition: 'color 0.15s',
-    fontFamily: 'inherit',
-    fontWeight: 500,
-    textDecoration: 'none',
+export default function Footer({ onNavigate, onOpenQuote }) {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNav = (id) => {
-    if (onNavigate) {
-      onNavigate(id);
-    } else {
-      window.location.href = ITEM_URLS[id] || '/';
-    }
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const sectionId = href.replace('#', '');
+    onNavigate(sectionId);
   };
 
   return (
-    <footer style={{
-      background: 'var(--c-navy-deep)',
-      color: 'rgba(255,255,255,0.6)',
-      borderTop: '1px solid rgba(255,255,255,0.08)',
-    }}>
-      <div className="container" style={{ padding: '5rem 2rem 3.5rem' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '3.5rem', marginBottom: '4rem' }}>
-
-          {/* Brand Column */}
-          <div style={{ gridColumn: 'span 1' }}>
-            <a href="/" onClick={(e) => { if (onNavigate) { e.preventDefault(); onNavigate('home'); } }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: '1.5rem', display: 'block' }}>
-              <img src={getAssetUrl('assets/brand/llk_logo_b_white.svg')} alt="LLK Soluções Industriais | Innovation Starts Here" style={{ height: '40px', width: 'auto', opacity: 0.95 }} />
-            </a>
-            <p style={{ fontSize: '0.9375rem', lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', marginBottom: '1.75rem', maxWidth: '320px' }}>
-              LLK Soluções Industriais — Especialistas em visão computacional, inteligência artificial e proteção de ativos para a Indústria de Base.
+    <footer className="bg-[#072752] text-slate-300 border-t border-blue-900/80 pt-16 pb-12 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="container mx-auto px-4 md:px-8">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+          
+          {/* Column 1: Brand & Tagline */}
+          <div className="lg:col-span-2 space-y-4">
+            <img 
+              src={getAssetUrl('assets/Logotipos/white/LLK-LOGO-A-WHITE.svg')} 
+              alt="LLK Soluções Industriais" 
+              className="h-10 w-auto"
+            />
+            <p className="text-xs text-slate-300 max-w-sm leading-relaxed font-normal">
+              LLK Soluções Industriais — Especialistas em eficiência operacional, visão computacional, inteligência artificial e proteção de ativos para as Indústrias de Base.
             </p>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--c-cyan-glow)', fontFamily: 'IBM Plex Mono, monospace' }}>
+            <span className="text-xs font-semibold text-blue-200 block font-mono">
               INNOVATION STARTS HERE
             </span>
           </div>
 
-          {/* Navigation Columns */}
-          {navCols.map(col => (
-            <div key={col.title}>
-              <h4 style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
-                {col.title}
-              </h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {col.items.map(item => (
-                  <a
-                    key={item.id}
-                    href={ITEM_URLS[item.id] || '#'}
-                    onClick={(e) => {
-                      if (item.id === 'cookie-settings') {
-                        e.preventDefault();
-                        if (typeof window !== 'undefined') {
-                          window.dispatchEvent(new CustomEvent('open-cookie-preferences'));
-                        }
-                        return;
-                      }
-                      if (onNavigate) {
-                        e.preventDefault();
-                        onNavigate(item.id);
-                      }
-                    }}
-                    style={linkStyle}
-                    onMouseEnter={e => e.currentTarget.style.color = 'var(--c-cyan-glow)'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
+          {/* Column 2: Navigation */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-['Outfit']">Navegação</h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a href="#solucoes" onClick={(e) => handleNavClick(e, '#solucoes')} className="hover:text-white transition">
+                  Soluções RADEC®
+                </a>
+              </li>
+              <li>
+                <a href="#comparativo" onClick={(e) => handleNavClick(e, '#comparativo')} className="hover:text-white transition">
+                  Comparativo Técnico
+                </a>
+              </li>
+              <li>
+                <a href="#case-vale" onClick={(e) => handleNavClick(e, '#case-vale')} className="hover:text-white transition">
+                  Case VALE Cauê
+                </a>
+              </li>
+              <li>
+                <a href="#roi" onClick={(e) => handleNavClick(e, '#roi')} className="hover:text-white transition">
+                  Calculadora de ROI
+                </a>
+              </li>
+              <li>
+                <a href="#fichas-tecnicas" onClick={(e) => handleNavClick(e, '#fichas-tecnicas')} className="hover:text-white transition">
+                  Fichas Técnicas
+                </a>
+              </li>
+              <li>
+                <a href="#sobre-llk" onClick={(e) => handleNavClick(e, '#sobre-llk')} className="hover:text-white transition">
+                  Sobre a LLK
+                </a>
+              </li>
+            </ul>
+          </div>
 
-          {/* Contact Column */}
-          <div>
-            <h4 style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'white', marginBottom: '1.5rem' }}>
-              Contato & Sede
-            </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {[
-                { Icon: MapPin, text: 'Belo Horizonte / MG — BHTec' },
-                { Icon: Phone, text: '(31) 3333-3333', href: 'tel:+553133333333' },
-                { Icon: Mail, text: 'contato@llk.com.br', href: 'mailto:contato@llk.com.br' },
-                { Icon: Globe, text: 'www.llk.com.br' },
-              ].map(({ Icon, text, href }, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  <Icon size={16} color="var(--c-cyan-glow)" style={{ flexShrink: 0 }} />
-                  {href
-                    ? <a href={href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontWeight: 500 }}>{text}</a>
-                    : <span style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>{text}</span>
-                  }
-                </div>
-              ))}
-            </div>
+          {/* Column 3: Industrial Portfolio */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-['Outfit']">Outras Soluções</h4>
+            <ul className="space-y-2 text-xs">
+              <li><span className="text-white font-semibold">SHM®</span> — Integridade Estrutural</li>
+              <li><span className="text-white font-semibold">Teor Online</span> — Análise Fe/SiO₂ (60s)</li>
+              <li><span className="text-white font-semibold">V-Scan®</span> — Balança Volumétrica</li>
+              <li><span className="text-white font-semibold">V-Count®</span> — Corpos Moedores</li>
+              <li><span className="text-white font-semibold">Colorímetro®</span> — Dosagem de Reagentes</li>
+            </ul>
+          </div>
+
+          {/* Column 4: Official Contact */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider font-['Outfit']">Contato Institucional</h4>
+            <ul className="space-y-2.5 text-xs">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                <span>Belo Horizonte / MG — BHTec (Parque Tecnológico)</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-blue-400 shrink-0" />
+                <a href="tel:+553136819007" className="hover:text-white font-semibold transition">(31) 3681-9007</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-blue-400 shrink-0" />
+                <a href="mailto:contato@llk.com.br" className="hover:text-white transition">contato@llk.com.br</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Globe className="w-4 h-4 text-blue-400 shrink-0" />
+                <span>www.llk.com.br</span>
+              </li>
+            </ul>
           </div>
 
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.2)' }}>
-        <div className="container" style={{ padding: '1.5rem 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>
-            © {new Date().getFullYear()} LLK Soluções Industriais Ltda. Todos os direitos reservados. RADEC® é marca registrada.
-          </span>
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-blue-900/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <span>© {new Date().getFullYear()} LLK Soluções Industriais Ltda. Todos os direitos reservados. RADEC® é marca registrada.</span>
+
           <button
-            onClick={() => { onNavigate('hero'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            style={{
-              background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: 'var(--r-md)', padding: '0.625rem 1rem',
-              fontSize: '0.8125rem', fontWeight: 700, color: 'white',
-              cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem',
-            }}
+            onClick={scrollToTop}
+            className="px-4 py-2 rounded bg-white/10 text-white hover:bg-white/20 transition flex items-center gap-1.5 font-semibold text-xs"
           >
-            <ArrowUp size={15} />
-            Voltar ao topo
+            <span>Voltar ao Topo</span>
+            <ArrowUp className="w-4 h-4" />
           </button>
         </div>
+
       </div>
     </footer>
   );

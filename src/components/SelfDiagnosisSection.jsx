@@ -97,7 +97,6 @@ export default function SelfDiagnosisSection() {
             background: 'var(--c-gray-00)', flexWrap: 'wrap',
           }}>
             {telemetryTabs.map(t => {
-              const Icon = t.Icon;
               const isActive = activeTab === t.id;
               return (
                 <button
@@ -112,13 +111,6 @@ export default function SelfDiagnosisSection() {
                     cursor: 'pointer', transition: 'all 0.18s ease',
                   }}
                 >
-                  <div style={{
-                    width: '36px', height: '36px',
-                    background: isActive ? 'rgba(21, 87, 212, 0.1)' : 'var(--c-gray-01)',
-                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <Icon size={18} color={isActive ? 'var(--c-blue)' : 'var(--c-gray-04)'} />
-                  </div>
                   <div style={{ textAlign: 'left' }}>
                     <div style={{
                       fontFamily: 'Outfit, sans-serif', fontSize: '0.9375rem', fontWeight: 800,
@@ -163,14 +155,14 @@ export default function SelfDiagnosisSection() {
                 {current.desc}
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {current.items.map((item, i) => (
                   <div key={i} style={{
                     display: 'flex', alignItems: 'center', gap: '0.875rem',
-                    padding: '1rem 1.25rem', background: 'var(--c-gray-00)',
-                    border: '1px solid var(--c-gray-01)', borderRadius: 'var(--r-md)',
+                    padding: '0.875rem 0',
+                    borderBottom: i < current.items.length - 1 ? '1px solid var(--c-gray-01)' : 'none',
                   }}>
-                    <CheckCircle2 size={20} color="var(--c-blue)" />
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--c-blue)', flexShrink: 0 }} />
                     <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--c-gray-06)' }}>
                       {item}
                     </span>

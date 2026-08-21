@@ -1,69 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 /* ============================================
-   LLK / RADEC® — HIGH-END INDUSTRIAL DESIGN SYSTEM
-   Standard: Sandvik, Siemens, Caterpillar, Wirtgen
+   LLK / RADEC® — DESIGN SYSTEM GLOBAL
+   Manual de Marca LLK & Diretrizes do PDF (R00)
    ============================================ */
 
 :root {
-  /* Industrial Color Palette */
-  --c-navy-deep:   #061329;   /* Deep Industrial Midnight */
-  --c-navy:        #0A192F;   /* Main Navy Theme */
-  --c-navy-card:   #0E223D;   /* Dark Navy Card Container */
-  --c-slate-deep:  #0B132B;   /* Slate Deep Accent */
-  --c-slate-card:  #111C38;   /* Slate Card */
-  
-  --c-blue:        #1557D4;   /* Corporate Blue Accent */
-  --c-blue-glow:   #2563EB;   /* Active Glow Blue */
-  --c-cyan-glow:   #06B6D4;   /* Optical Beam Cyan */
-  
-  /* High-Contrast Light Neutrals */
-  --c-white:       #FFFFFF;
-  --c-gray-00:     #F8FAFC;   /* Light Industrial Section Background */
-  --c-gray-01:     #E2E8F0;   /* Crisp Borders & Dividers */
-  --c-gray-02:     #CBD5E1;   /* Input & Darker Borders */
-  --c-gray-03:     #94A3B8;   /* Secondary Subtitles */
-  --c-gray-04:     #64748B;   /* Body Aux */
-  --c-gray-05:     #334155;   /* Strong Text */
-  --c-gray-06:     #0F172A;   /* Primary Dark Titles */
+  /* Brand Colors — Manual de Marca LLK */
+  --c-navy:       #072752;   /* Azul Escuro Institucional */
+  --c-navy-mid:   #0B1C36;   /* Marinho Médio para cards em fundo escuro */
+  --c-navy-light: #122B5A;   /* Marinho Claro para destaques */
+  --c-blue:       #0356C5;   /* Azul Corporativo LLK */
+  --c-blue-dark:  #02449E;   /* Azul Escuro Hover */
 
-  /* Status Colors */
-  --c-green:       #10B981;
-  --c-green-light: #DCFCE7;
-  --c-amber:       #F59E0B;
-  --c-amber-light: #FEF3C7;
-  --c-red:         #EF4444;
-  --c-red-light:   #FEE2E2;
+  /* Neutrals — High Contrast */
+  --c-white:      #FFFFFF;
+  --c-gray-00:    #F8FAFC;   /* Background de seção clara (slate-50) */
+  --c-gray-01:    #E2E8F0;   /* Divisoras e bordas (slate-200) */
+  --c-gray-02:    #CBD5E1;   /* Bordas secundárias */
+  --c-gray-03:    #94A3B8;   /* Texto secundário desmaiado */
+  --c-gray-04:    #64748B;   /* Texto auxiliar (slate-500) */
+  --c-gray-05:    #334155;   /* Corpo de texto escuro (slate-700) */
+  --c-gray-06:    #0F172A;   /* Título escuro (slate-900) */
 
-  /* Typography Scale - Compact Industrial Proportion */
-  --f-display:     clamp(2.25rem, 4.2vw, 3.5rem);
-  --f-h1:          clamp(1.75rem, 3.2vw, 2.5rem);
-  --f-h2:          clamp(1.375rem, 2.2vw, 1.875rem);
-  --f-h3:          clamp(1.0625rem, 1.6vw, 1.25rem);
-  --f-body:        0.9375rem;
-  --f-small:       0.84rem;
-  --f-xs:          0.75rem;
+  /* Semantic */
+  --c-green:      #10B981;
+  --c-green-light:#D1FAE5;
+  --c-amber:      #F59E0B;
+  --c-amber-light:#FEF3C7;
+  --c-red:        #EF4444;
+  --c-red-light:  #FEE2E2;
 
-  /* Spacing - Compact Padding */
-  --section-y:     3.75rem;
-  --container-x:   1.5rem;
+  /* Typography Scale */
+  --f-display:    clamp(2.25rem, 4.5vw, 3.75rem);
+  --f-h1:         clamp(1.875rem, 3.5vw, 2.75rem);
+  --f-h2:         clamp(1.5rem, 2.5vw, 2.125rem);
+  --f-h3:         clamp(1.125rem, 1.8vw, 1.375rem);
+  --f-body:       1rem;
+  --f-small:      0.875rem;
+  --f-xs:         0.75rem;
+
+  /* Spacing */
+  --section-y:    4.5rem;
+  --container-x:  1.5rem;
 
   /* Radius */
   --r-sm:  4px;
   --r-md:  8px;
   --r-lg:  12px;
-  --r-xl:  18px;
+  --r-xl:  16px;
 
-  /* Elevated Shadows */
-  --shadow-sm:   0 2px 4px rgba(6, 19, 41, 0.04), 0 1px 2px rgba(6, 19, 41, 0.03);
-  --shadow-md:   0 8px 24px rgba(6, 19, 41, 0.08), 0 2px 6px rgba(6, 19, 41, 0.04);
-  --shadow-lg:   0 16px 40px rgba(6, 19, 41, 0.12), 0 4px 12px rgba(6, 19, 41, 0.06);
-  --shadow-glow: 0 0 25px rgba(37, 99, 235, 0.25);
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(7, 39, 82, 0.05), 0 1px 2px rgba(7, 39, 82, 0.03);
+  --shadow-md:  0 4px 14px rgba(7, 39, 82, 0.08), 0 2px 4px rgba(7, 39, 82, 0.04);
+  --shadow-lg:  0 10px 30px rgba(7, 39, 82, 0.12), 0 4px 8px rgba(7, 39, 82, 0.06);
 }
 
 /* ============================================
-   BASE RESET & TYPOGRAPHY
+   BASE RESET & GLOBAL TYPOGRAPHY
    ============================================ */
 
 *, *::before, *::after {
@@ -74,30 +69,29 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
   font-weight: 400;
   color: var(--c-gray-05);
-  background-color: var(--c-navy-deep);
+  background-color: var(--c-white);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
-  letter-spacing: -0.025em;
-  line-height: 1.18;
-  color: var(--c-gray-06);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--c-navy);
   font-weight: 700;
 }
 
 p {
-  color: var(--c-gray-04);
-  line-height: 1.75;
+  color: var(--c-gray-05);
+  line-height: 1.7;
 }
 
 img, svg {
@@ -111,237 +105,261 @@ a {
 }
 
 /* ============================================
-   EXPANDED FULL-WIDTH CONTAINER SYSTEM
+   HERO TECHNICAL LIGHT BACKGROUND GRID
+   ============================================ */
+
+.hero-technical-grid {
+  background-color: #FAFCFF;
+  background-image: 
+    linear-gradient(to right, rgba(3, 86, 197, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(3, 86, 197, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ============================================
+   LAYOUT UTILITIES & CONTAINER
    ============================================ */
 
 .container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--container-x);
   padding-right: var(--container-x);
 }
 
-/* Full-bleed Section Wrappers */
-.section-wrapper-navy {
-  background-color: var(--c-navy);
-  color: white;
-  padding: var(--section-y) 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+.section {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 
-.section-wrapper-slate {
-  background-color: var(--c-slate-deep);
-  color: white;
-  padding: var(--section-y) 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.section-wrapper-light {
-  background-color: var(--c-gray-00);
-  color: var(--c-gray-06);
-  padding: var(--section-y) 0;
-  border-bottom: 1px solid var(--c-gray-01);
-}
-
-.section-wrapper-white {
-  background-color: var(--c-white);
-  color: var(--c-gray-06);
-  padding: var(--section-y) 0;
-  border-bottom: 1px solid var(--c-gray-01);
-}
-
-/* ============================================
-   TYPOGRAPHY UTILITIES
-   ============================================ */
-
+/* Eyebrow tag */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: 'Inter', sans-serif;
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--c-blue);
-  background: rgba(21, 87, 212, 0.08);
-  border: 1px solid rgba(21, 87, 212, 0.2);
+  background: rgba(3, 86, 197, 0.08);
+  border: 1px solid rgba(3, 86, 197, 0.2);
   padding: 0.35rem 0.85rem;
-  border-radius: 100px;
-  margin-bottom: 1.25rem;
+  border-radius: var(--r-md);
+  margin-bottom: 1rem;
 }
 
 .eyebrow-dark {
-  color: var(--c-cyan-glow);
-  background: rgba(6, 182, 212, 0.1);
-  border-color: rgba(6, 182, 212, 0.25);
+  color: var(--c-white);
+  background: var(--c-blue);
+  border: none;
+}
+
+.eyebrow-white {
+  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .title-display {
   font-size: var(--f-display);
   font-weight: 800;
-  line-height: 1.02;
+  line-height: 1.1;
   letter-spacing: -0.03em;
 }
 
 .title-h1 {
   font-size: var(--f-h1);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .title-h2 {
   font-size: var(--f-h2);
   font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 .title-h3 {
   font-size: var(--f-h3);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .lead {
-  font-size: 1.1875rem;
+  font-size: 1.125rem;
   font-weight: 400;
-  color: var(--c-gray-04);
+  color: var(--c-gray-05);
   line-height: 1.75;
 }
 
-.lead-white {
-  color: rgba(255, 255, 255, 0.75);
-}
-
 /* ============================================
-   BUTTON & INTERACTION SYSTEM
+   BUTTON SYSTEM
    ============================================ */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.625rem;
-  font-family: 'Inter', sans-serif;
+  gap: 0.5rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.9375rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.2;
   border: none;
   border-radius: var(--r-md);
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease-in-out;
   white-space: nowrap;
 }
 
 .btn-primary {
   background: var(--c-blue);
-  color: white;
-  padding: 0.9375rem 1.875rem;
-  box-shadow: 0 4px 14px rgba(21, 87, 212, 0.35);
+  color: var(--c-white);
+  padding: 0.875rem 1.75rem;
+  box-shadow: 0 4px 12px rgba(3, 86, 197, 0.25);
 }
 
 .btn-primary:hover {
-  background: var(--c-blue-glow);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+  background: var(--c-blue-dark);
+  box-shadow: 0 6px 16px rgba(3, 86, 197, 0.35);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.07);
-  color: white;
-  padding: 0.9375rem 1.875rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
+  background: var(--c-navy);
+  color: var(--c-white);
+  padding: 0.875rem 1.75rem;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
+  background: var(--c-navy-mid);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--c-navy);
+  padding: 0.875rem 1.75rem;
+  border: 1.5px solid var(--c-gray-02);
+}
+
+.btn-outline:hover {
+  background: var(--c-gray-00);
+  border-color: var(--c-blue);
+  color: var(--c-blue);
+  transform: translateY(-1px);
 }
 
 .btn-sm {
-  font-size: 0.875rem;
-  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  padding: 0.6rem 1.125rem;
 }
 
 .btn-lg {
   font-size: 1.0625rem;
-  padding: 1.125rem 2.25rem;
+  padding: 1rem 2rem;
 }
 
 /* ============================================
-   CARD SYSTEM WITH GLASSMORPHISM & 3D HOVER
+   CARDS
    ============================================ */
 
-.card-light {
+.card {
   background: var(--c-white);
   border: 1px solid var(--c-gray-01);
   border-radius: var(--r-xl);
-  padding: 2.25rem;
-  box-shadow: var(--shadow-md);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease-in-out;
 }
 
-.card-light:hover {
-  box-shadow: var(--shadow-lg);
-  border-color: var(--c-blue);
-  transform: translateY(-3px);
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-gray-02);
 }
 
 .card-dark {
-  background: var(--c-navy-card);
+  background: var(--c-navy-mid);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--r-xl);
-  padding: 2.25rem;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-dark:hover {
-  border-color: rgba(37, 99, 235, 0.5);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), var(--shadow-glow);
-  transform: translateY(-3px);
+  padding: 2rem;
+  color: var(--c-white);
 }
 
 /* ============================================
-   STEP & FLOW GRAPHICS
+   TABLES
    ============================================ */
 
-.step-card-active {
-  background: var(--c-blue) !important;
-  color: white !important;
-  border-color: var(--c-blue-glow) !important;
-  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
 }
 
-.step-badge {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 700;
+.data-table th {
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  padding: 0.25rem 0.625rem;
-  border-radius: var(--r-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-navy);
+  background: var(--c-gray-00);
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--c-gray-01);
+  text-align: left;
+}
+
+.data-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--c-gray-01);
+  color: var(--c-gray-05);
 }
 
 /* ============================================
-   ANIMATIONS & SCROLLBAR
+   FORMS
+   ============================================ */
+
+.form-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--c-navy);
+  margin-bottom: 0.4rem;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--c-gray-00);
+  border: 1.5px solid var(--c-gray-01);
+  border-radius: var(--r-md);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--c-gray-06);
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  background: var(--c-white);
+  border-color: var(--c-blue);
+  box-shadow: 0 0 0 3px rgba(3, 86, 197, 0.12);
+}
+
+/* ============================================
+   SCROLLBAR
    ============================================ */
 
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--c-navy-deep); }
-::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--c-blue); }
+::-webkit-scrollbar-track { background: var(--c-gray-00); }
+::-webkit-scrollbar-thumb { background: var(--c-gray-02); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-navy); }
 
 ::selection {
   background: var(--c-blue);
-  color: white;
+  color: var(--c-white);
 }
-

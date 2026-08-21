@@ -27,57 +27,45 @@ export default function Architecture40() {
           </p>
         </div>
 
-        {/* Diagram Graphic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16 text-center">
+        {/* Connected Industrial Flow Line (No Boxed Glass Cards / No Icon Boxes) */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16 text-left">
           
           {/* Step 1: Field Sensors */}
-          <div className="glass-panel p-6 rounded-2xl border border-blue-500/20 space-y-3 relative">
-            <div className="w-12 h-12 rounded-xl bg-[#0356c5]/30 text-blue-400 mx-auto flex items-center justify-center font-bold">
-              <Radio className="w-6 h-6" />
-            </div>
-            <span className="text-xs font-bold text-blue-300 font-mono block">PASSO 01</span>
-            <h3 className="text-base font-bold text-white">Sensores & Câmeras</h3>
-            <p className="text-slate-300 text-xs">Câmeras IP67 Face/Contraface ou Sensores de Vibração nos rolos.</p>
+          <div className="border-t-2 border-blue-500 pt-5 space-y-2 relative">
+            <span className="text-xs font-bold text-blue-400 font-mono block">01 / CAPTAÇÃO</span>
+            <h3 className="text-lg font-bold text-white font-['Outfit']">Sensores & Câmeras</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Câmeras IP67 Face/Contraface ou Sensores de Vibração nos rolos.</p>
           </div>
 
           {/* Step 2: Processing Unit */}
-          <div className="glass-panel p-6 rounded-2xl border border-blue-500/20 space-y-3 relative">
-            <div className="w-12 h-12 rounded-xl bg-[#0356c5]/30 text-cyan-400 mx-auto flex items-center justify-center font-bold">
-              <Cpu className="w-6 h-6" />
-            </div>
-            <span className="text-xs font-bold text-cyan-300 font-mono block">PASSO 02</span>
-            <h3 className="text-base font-bold text-white">Unidade de Processamento</h3>
-            <p className="text-slate-300 text-xs">Video Analytics com IA ou Eletrônica de Vibração em tempo real.</p>
+          <div className="border-t border-slate-700/80 pt-5 space-y-2 relative">
+            <span className="text-xs font-bold text-cyan-400 font-mono block">02 / PROCESSAMENTO</span>
+            <h3 className="text-lg font-bold text-white font-['Outfit']">Unidade Local</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Video Analytics com IA ou Eletrônica de Vibração em tempo real.</p>
           </div>
 
           {/* Step 3: Industrial Switch */}
-          <div className="glass-panel p-6 rounded-2xl border border-blue-500/20 space-y-3 relative">
-            <div className="w-12 h-12 rounded-xl bg-[#0356c5]/30 text-emerald-400 mx-auto flex items-center justify-center font-bold">
-              <Server className="w-6 h-6" />
-            </div>
-            <span className="text-xs font-bold text-emerald-300 font-mono block">PASSO 03</span>
-            <h3 className="text-base font-bold text-white">POE Switch / Modbus</h3>
-            <p className="text-slate-300 text-xs">Roteamento rápido via POE com alta imunidade a ruídos industriais.</p>
+          <div className="border-t border-slate-700/80 pt-5 space-y-2 relative">
+            <span className="text-xs font-bold text-emerald-400 font-mono block">03 / COMUNICAÇÃO</span>
+            <h3 className="text-lg font-bold text-white font-['Outfit']">POE Switch / Modbus</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Roteamento rápido via POE com alta imunidade a ruídos industriais.</p>
           </div>
 
           {/* Step 4: PLC & SCADA */}
-          <div className="glass-panel p-6 rounded-2xl border border-blue-500/20 space-y-3 relative">
-            <div className="w-12 h-12 rounded-xl bg-[#0356c5]/30 text-amber-400 mx-auto flex items-center justify-center font-bold">
-              <Database className="w-6 h-6" />
-            </div>
-            <span className="text-xs font-bold text-amber-300 font-mono block">PASSO 04</span>
-            <h3 className="text-base font-bold text-white">CLP & Supervisório</h3>
-            <p className="text-slate-300 text-xs">Desarme automático de relé e registro completo de histórico de alarme.</p>
+          <div className="border-t border-slate-700/80 pt-5 space-y-2 relative">
+            <span className="text-xs font-bold text-amber-400 font-mono block">04 / AUTOMAÇÃO</span>
+            <h3 className="text-lg font-bold text-white font-['Outfit']">CLP & Supervisório</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">Desarme automático de relé e registro completo de histórico de alarme.</p>
           </div>
 
         </div>
 
-        {/* Protocol Details Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Protocol Details - Fluid Open Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8 border-t border-slate-800">
           {protocols.map((proto, idx) => (
-            <div key={idx} className="bg-[#07111e] p-5 rounded-xl border border-blue-900/50 space-y-2">
-              <span className="text-sm font-bold text-blue-300 block">{proto.name}</span>
-              <p className="text-xs text-slate-400 leading-relaxed">{proto.desc}</p>
+            <div key={idx} className="space-y-1.5">
+              <span className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider block">{proto.name}</span>
+              <p className="text-xs text-slate-300 leading-relaxed">{proto.desc}</p>
             </div>
           ))}
         </div>

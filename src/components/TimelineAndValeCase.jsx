@@ -1,440 +1,313 @@
-import React, { useState } from 'react';
-import { Clock, DollarSign, ShieldCheck, TrendingUp, Search, AlertTriangle, Shield, Cpu, Users, Target, Info, CheckCircle2, ArrowRight, Zap } from 'lucide-react';
+import React from 'react';
+import { 
+  TrendingUp, ShieldCheck, CheckCircle2, Clock, DollarSign, 
+  Search, Cpu, Shield, Target, Users, TrendingDown, Info 
+} from 'lucide-react';
 import { getAssetUrl } from '../utils/assets';
 
-const timelineSteps = [
-  { n: '01', title: 'Desenvolvimento com a Vale', desc: 'Parceria de P&D iniciada no ecossistema Mining Hub com foco em detecção precoce de falhas.' },
-  { n: '02', title: 'Avaliação técnica', desc: 'Validação de algoritmos em bancada laboratorial com dados ópticos e espectrais reais.' },
-  { n: '03', title: 'Testes operacionais', desc: 'Protótipos instalados em ambiente severo sob poeira em suspensão e alta vibração.' },
-  { n: '04', title: 'Testes em correia real', desc: 'Aferição de acurácia com falhas induzidas em transportadores de correia de grande porte.' },
-  { n: '05', title: 'Integração com automação', desc: 'Conexão com CLPs da planta via protocolo Modbus TCP e sinais de relé digital de segurança.' },
-  { n: '06', title: 'Operação assistida', desc: 'Monitoramento contínuo em tempo real sem trip para validação estatística de acurácia.' },
-  { n: '07', title: 'Intertravamento', desc: 'Ativação do desarme automático de segurança direto na lógica de controle do motor principal.' },
-  { n: '08', title: 'Eventos reais em operação', desc: 'Detecção de rasgos reais e retorno financeiro comprovado em lavra contínua.', isCurrent: true },
-];
-
-const eventSteps = [
-  { n: '01', title: 'Alteração na borda', desc: 'Sistema identifica alteração geométrica na borda da correia via sensores ópticos.', Icon: Search, status: 'Alerta Inicial', color: '#38BDF8' },
-  { n: '02', title: 'Alarme gerado', desc: 'Sistema gera alarme pré-configurado e notifica a sala de controle.', Icon: AlertTriangle, status: 'Notificação SCADA', color: '#F59E0B' },
-  { n: '03', title: 'Nível de proteção', desc: 'Condição de avanço atinge o nível limite configurado para atuação.', Icon: Shield, status: 'Nível 2 Atingido', color: '#F97316' },
-  { n: '04', title: 'Parada automática', desc: 'Intertravamento acionado pelo CLP automaticamente em menos de 1 segundo.', Icon: Cpu, status: 'Trip CLP Ativado', color: '#EF4444' },
-  { n: '05', title: 'Inspeção em campo', desc: 'Equipe inspeciona a correia com transportador parado com total segurança.', Icon: Users, status: 'Inspeção Física', color: '#A855F7' },
-  { n: '06', title: 'Rasgo confirmado', desc: 'Rasgo na borda confirmado durante verificação presencial pela manutenção.', Icon: Target, status: 'Diagnóstico OK', color: '#EC4899' },
-  { n: '07', title: 'Correia reparada', desc: 'Correia reparada rapidamente e operação retomada com segurança absoluta.', Icon: ShieldCheck, status: 'Operação Normal', color: '#10B981' },
-];
-
 export default function TimelineAndValeCase({ onOpenQuote }) {
-  const [activeStep, setActiveStep] = useState(3); // Default step 04 (Parada automática)
-  const currentEvent = eventSteps[activeStep];
+  const timelineSteps = [
+    { title: 'Desenvolvimento com a Vale', desc: 'Parceria de P&D iniciada no ecossistema Mining Hub' },
+    { title: 'Avaliação técnica', desc: 'Validação de algoritmos em bancada laboratorial' },
+    { title: 'Testes operacionais', desc: 'Primeiros protótipos instalados em ambiente severo' },
+    { title: 'Testes controlados em correia', desc: 'Aferição de acurácia com falhas induzidas em ambiente seguro' },
+    { title: 'Integração com automação', desc: 'Conexão direta com os CLPs da planta via Modbus TCP' },
+    { title: 'Operação assistida', desc: 'Acompanhamento em tempo real sem trip para validação' },
+    { title: 'Intertravamento', desc: 'Ativação do desarme automático de segurança' },
+    { title: 'Eventos reais em operação', desc: 'Detecção de rasgos reais e economia de milhões em campo' }
+  ];
+
+  const eventSteps = [
+    {
+      step: 1,
+      title: 'Alteração na borda identificada',
+      desc: 'O sistema identifica uma alteração geométrica na borda da correia.',
+      icon: Search,
+      tag: 'RADEC® Visão'
+    },
+    {
+      step: 2,
+      title: 'Alarme',
+      desc: 'O sistema gera alarme conforme a condição detectada.',
+      icon: TrendingUp,
+      tag: 'Alerta Nível 1'
+    },
+    {
+      step: 3,
+      title: 'Nível configurado de proteção',
+      desc: 'A condição atinge o nível configurado para atuação de proteção.',
+      icon: Shield,
+      tag: 'Proteção Ativada'
+    },
+    {
+      step: 4,
+      title: 'Parada automática pelo controle',
+      desc: 'O intertravamento é acionado e o transportador é parado pelo CLP.',
+      icon: Cpu,
+      tag: 'Intertravamento'
+    },
+    {
+      step: 5,
+      title: 'Inspeção em campo',
+      desc: 'A equipe de manutenção inspeciona a correia com o transportador parado.',
+      icon: Users,
+      tag: 'Segurança Operacional'
+    },
+    {
+      step: 6,
+      title: 'Rasgo confirmado',
+      desc: 'O rasgo na borda é confirmado durante a inspeção.',
+      icon: Target,
+      tag: 'Dano Contido'
+    },
+    {
+      step: 7,
+      title: 'Correia reparada',
+      desc: 'A correia é reparada e o transportador retorna à operação com segurança.',
+      icon: CheckCircle2,
+      tag: 'Operação Segura'
+    }
+  ];
 
   return (
-    <div id="case-vale">
-      {/* ======== SECTION 1: TIMELINE VALE (FULL-BLEED LIGHT) ======== */}
-      <section className="section-wrapper-light">
-        <div className="container">
-          <div style={{ maxWidth: '780px', marginBottom: '3.5rem' }}>
-            <div className="eyebrow">
-              <Zap size={14} />
-              Da Pesquisa à Confiabilidade Industrial
+    <section id="case-vale" className="scroll-mt-24 py-16 md:py-20 bg-white text-slate-800 border-b border-slate-200 font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="container mx-auto px-4 md:px-8">
+        
+        {/* Section 1 Header: Timeline (Pergunta 6 do PDF) */}
+        <div className="max-w-3xl mx-auto text-center mb-16 space-y-3">
+          <span className="eyebrow">
+            Da Pesquisa à Operação
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#072752] font-['Outfit']">
+            Desenvolvido para sair do laboratório e operar na mineração
+          </h2>
+          <p className="text-slate-600 text-base md:text-lg">
+            Um histórico de validação rigorosa com a Vale para atingir confiabilidade industrial absoluta.
+          </p>
+        </div>
+
+        {/* Timeline Horizontal / Grid Steps */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+          {timelineSteps.map((t, idx) => (
+            <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 relative shadow-xs">
+              <div className="flex items-center justify-between">
+                <span className="w-7 h-7 rounded-lg bg-[#072752] text-white text-xs font-bold font-mono flex items-center justify-center">
+                  0{idx + 1}
+                </span>
+                {idx === 7 && (
+                  <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-md">
+                    Fase Atual
+                  </span>
+                )}
+              </div>
+              <h4 className="text-sm font-bold text-[#072752] font-['Outfit']">{t.title}</h4>
+              <p className="text-xs text-slate-600 leading-relaxed font-normal">{t.desc}</p>
             </div>
-            <h2 className="title-h1" style={{ marginBottom: '1.25rem', color: 'var(--c-gray-06)' }}>
-              Desenvolvido para sair do laboratório e operar na mineração severa
-            </h2>
-            <p className="lead" style={{ fontSize: '1.125rem', color: 'var(--c-gray-04)' }}>
-              Um histórico rigoroso de 8 etapas de validação em conjunto com a Vale para atingir confiabilidade industrial absoluta.
+          ))}
+        </div>
+
+        {/* Section 2: Main Case Study Vale Mina de Cauê */}
+        <div className="border-t border-slate-200 pt-16">
+          
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-2">
+            <span className="eyebrow">
+              Prova Comercial Definitiva
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold text-[#072752] font-['Outfit']">
+              Resultados comprovados em operação
+            </h3>
+            <p className="text-slate-600 text-base font-semibold">
+              Vale | Mina de Cauê — Itabira/MG
             </p>
           </div>
 
-          {/* 8-Step Clean Grid Cards */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.25rem',
-            marginBottom: '1rem',
-          }}>
-            {timelineSteps.map((t, i) => (
-              <div
-                key={i}
-                className="card-light"
-                style={{
-                  padding: '1.75rem 1.5rem',
-                  borderTop: t.isCurrent ? '3px solid var(--c-blue)' : '1px solid var(--c-gray-01)',
-                  background: 'var(--c-white)',
-                  display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                    marginBottom: '1.25rem',
-                  }}>
-                    <span className="step-badge" style={{
-                      background: t.isCurrent ? 'rgba(21, 87, 212, 0.1)' : 'var(--c-gray-00)',
-                      color: t.isCurrent ? 'var(--c-blue)' : 'var(--c-gray-04)',
-                      border: t.isCurrent ? '1px solid rgba(21, 87, 212, 0.3)' : '1px solid var(--c-gray-01)',
-                      fontFamily: 'IBM Plex Mono, monospace', fontWeight: 800,
-                    }}>
-                      PASSO {t.n} {t.isCurrent && '— ATUAL'}
-                    </span>
-                    {t.isCurrent && <CheckCircle2 size={16} color="var(--c-blue)" />}
-                  </div>
-
-                  <h4 style={{
-                    fontFamily: 'Outfit, sans-serif',
-                    fontSize: '1.125rem', fontWeight: 800,
-                    color: 'var(--c-navy-deep)', marginBottom: '0.625rem',
-                    lineHeight: 1.3,
-                  }}>
-                    {t.title}
-                  </h4>
-
-                  <p style={{ fontSize: '0.875rem', color: 'var(--c-gray-04)', lineHeight: 1.65 }}>
-                    {t.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ======== SECTION 2: COMPARATIVE PERFORMANCE (BEFORE / AFTER) ======== */}
-      <section className="section-wrapper-white">
-        <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '720px', margin: '0 auto 3.5rem' }}>
-            <div className="eyebrow" style={{ margin: '0 auto 1.25rem' }}>Prova Comercial Definitiva</div>
-            <h2 className="title-h1" style={{ marginBottom: '1rem' }}>
-              Resultados comprovados em operação contínua
-            </h2>
-            <p style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--c-blue)' }}>
-              Vale | Mina de Cauê — Itabira / MG
-            </p>
-          </div>
-
-          {/* Before vs After Cards */}
-          <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem', marginBottom: '4rem',
-          }}>
-            {/* BEFORE */}
-            <div style={{
-              background: '#FFF5F5', border: '1px solid #FECACA',
-              borderRadius: 'var(--r-xl)', padding: '2.5rem',
-              boxShadow: '0 8px 24px rgba(220, 38, 38, 0.06)',
-            }}>
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem',
-              }}>
-                <span style={{
-                  fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em',
-                  textTransform: 'uppercase', color: '#991B1B',
-                  background: '#FEE2E2', padding: '0.4rem 0.85rem', borderRadius: '6px',
-                }}>
-                  Antes do RADEC®
+          {/* Real Mine Photo + Case Highlights */}
+          <div className="mb-12 rounded-2xl overflow-hidden border border-slate-200 shadow-lg relative aspect-21/9 hidden md:block">
+            <img 
+              src={getAssetUrl('assets/photos/vale_caue_mine.jpg')} 
+              alt="Mina de Cauê Vale Itabira MG" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#072752]/90 via-[#072752]/60 to-transparent p-8 flex items-center">
+              <div className="max-w-xl text-white space-y-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-emerald-400 bg-emerald-950/80 px-3 py-1 rounded border border-emerald-700">
+                  Operação em Campo Homologada
                 </span>
-                <span style={{ fontSize: '0.8125rem', color: '#7F1D1D', fontFamily: 'IBM Plex Mono, monospace', fontWeight: 600 }}>
-                  out/2021 a set/2024
-                </span>
-              </div>
-
-              <h4 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
-                color: '#7F1D1D', marginBottom: '1.5rem', lineHeight: 1.3,
-              }}>
-                Operação Sem Intertravamento Automático
-              </h4>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{
-                  background: 'white', border: '1px solid #FECACA',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                  display: 'flex', alignItems: 'center', gap: '1.25rem',
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', background: '#FEE2E2',
-                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', flexShrink: 0,
-                  }}>
-                    <Clock size={22} color="#DC2626" />
-                  </div>
-                  <div>
-                    <div style={{
-                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
-                      color: '#991B1B', letterSpacing: '-0.02em', lineHeight: 1.1,
-                    }}>
-                      +40 horas
-                    </div>
-                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
-                      de paradas não programadas por danos de rasgo
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{
-                  background: 'white', border: '1px solid #FECACA',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                  display: 'flex', alignItems: 'center', gap: '1.25rem',
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', background: '#FEE2E2',
-                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', flexShrink: 0,
-                  }}>
-                    <DollarSign size={22} color="#DC2626" />
-                  </div>
-                  <div>
-                    <div style={{
-                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
-                      color: '#991B1B', letterSpacing: '-0.02em', lineHeight: 1.1,
-                    }}>
-                      R$ 17 milhões
-                    </div>
-                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
-                      de prejuízo financeiro estimado em avarias acumuladas
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* AFTER */}
-            <div style={{
-              background: '#F0FDF4', border: '1px solid #BBF7D0',
-              borderRadius: 'var(--r-xl)', padding: '2.5rem',
-              boxShadow: '0 8px 24px rgba(22, 163, 74, 0.08)',
-            }}>
-              <div style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem',
-              }}>
-                <span style={{
-                  fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em',
-                  textTransform: 'uppercase', color: '#14532D',
-                  background: '#DCFCE7', padding: '0.4rem 0.85rem', borderRadius: '6px',
-                }}>
-                  Depois do RADEC® Intertravado
-                </span>
-                <span style={{ fontSize: '0.8125rem', color: '#14532D', fontFamily: 'IBM Plex Mono, monospace', fontWeight: 600 }}>
-                  out/2024 a abr/2026
-                </span>
-              </div>
-
-              <h4 style={{
-                fontFamily: 'Outfit, sans-serif', fontSize: '1.25rem', fontWeight: 800,
-                color: '#14532D', marginBottom: '1.5rem', lineHeight: 1.3,
-              }}>
-                Proteção Ativa Intertravada ao Sistema de Controle
-              </h4>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{
-                  background: 'white', border: '1px solid #BBF7D0',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                  display: 'flex', alignItems: 'center', gap: '1.25rem',
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', background: '#DCFCE7',
-                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', flexShrink: 0,
-                  }}>
-                    <ShieldCheck size={22} color="#16A34A" />
-                  </div>
-                  <div>
-                    <div style={{
-                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
-                      color: '#14532D', letterSpacing: '-0.02em', lineHeight: 1.1,
-                    }}>
-                      +45 horas
-                    </div>
-                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
-                      de paradas não programadas evitadas com desarme preventivo
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{
-                  background: 'white', border: '1px solid #BBF7D0',
-                  borderRadius: 'var(--r-lg)', padding: '1.5rem',
-                  display: 'flex', alignItems: 'center', gap: '1.25rem',
-                }}>
-                  <div style={{
-                    width: '48px', height: '48px', background: '#DCFCE7',
-                    borderRadius: 'var(--r-md)', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', flexShrink: 0,
-                  }}>
-                    <TrendingUp size={22} color="#16A34A" />
-                  </div>
-                  <div>
-                    <div style={{
-                      fontFamily: 'Outfit, sans-serif', fontSize: '1.625rem', fontWeight: 800,
-                      color: '#14532D', letterSpacing: '-0.02em', lineHeight: 1.1,
-                    }}>
-                      R$ 15 milhões
-                    </div>
-                    <div style={{ fontSize: '0.875rem', color: '#6B7280', marginTop: '0.25rem' }}>
-                      de retorno financeiro direto por preservação da correia
-                    </div>
-                  </div>
-                </div>
+                <h4 className="text-2xl font-bold font-['Outfit']">
+                  Mina de Cauê — Itabira/MG
+                </h4>
+                <p className="text-slate-200 text-xs md:text-sm leading-relaxed">
+                  Aplicação contínua da linha RADEC® com intertravamento ao sistema de controle da planta, evitando danos severos por desgarre de lona.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ======== SECTION 3: 7-STEP FIELD EVENT INFOGRAPHIC (IMAGE 1 REDESIGN) ======== */}
-      <section className="section-wrapper-navy">
-        <div className="container">
-          <div style={{
-            background: 'var(--c-navy-card)',
-            borderRadius: 'var(--r-xl)',
-            padding: '3rem',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
-          }}>
-            {/* Header Header */}
-            <div style={{
-              display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between',
-              gap: '1.5rem', marginBottom: '2.5rem', flexWrap: 'wrap',
-            }}>
+          {/* Before vs After Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16">
+            
+            {/* Before RADEC */}
+            <div className="lg:col-span-6 bg-rose-50/70 p-6 md:p-8 rounded-2xl border border-rose-200 flex flex-col justify-between space-y-6">
               <div>
-                <div className="eyebrow eyebrow-dark">Documentação de Campo em Operação Real</div>
-                <h3 style={{
-                  fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(1.5rem, 3vw, 2.125rem)',
-                  fontWeight: 800, color: 'white', letterSpacing: '-0.025em',
-                }}>
-                  Um evento real em operação — Vale | Mina de Cauê, Itabira/MG
-                </h3>
-              </div>
-              <div style={{
-                background: 'var(--c-blue)', color: 'white',
-                padding: '0.625rem 1.25rem', borderRadius: 'var(--r-md)',
-                fontSize: '0.8125rem', fontWeight: 700, letterSpacing: '0.08em',
-                textTransform: 'uppercase', boxShadow: '0 4px 14px rgba(21, 87, 212, 0.4)',
-              }}>
-                RADEC® Visão Intertravado
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-rose-800 bg-rose-100 px-3 py-1 rounded-md">
+                    ANTES DO RADEC®
+                  </span>
+                  <span className="text-xs font-mono font-bold text-rose-700">out/2021 a set/2024</span>
+                </div>
+
+                <h4 className="text-lg font-bold text-rose-950 mb-4">
+                  Operação Sem Intertravamento Automático
+                </h4>
+
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-rose-200 shadow-xs">
+                    <Clock className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-2xl font-bold text-rose-900 block font-['Outfit']">+40 horas</span>
+                      <span className="text-xs font-semibold text-slate-700">de paradas não programadas por danos de rasgo</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-rose-200 shadow-xs">
+                    <DollarSign className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-2xl font-bold text-rose-900 block font-['Outfit']">R$ 17 milhões</span>
+                      <span className="text-xs font-semibold text-slate-700">de prejuízo financeiro estimado com trocas e lucros cessantes</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Interactive Step Navigator Bar (7 steps) */}
-            <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)',
-              gap: '0.5rem', marginBottom: '2.5rem',
-            }} className="event-steps-grid">
-              {eventSteps.map((ev, i) => {
-                const Icon = ev.Icon;
-                const isActive = activeStep === i;
+            {/* After RADEC */}
+            <div className="lg:col-span-6 bg-emerald-50/70 p-6 md:p-8 rounded-2xl border border-emerald-300 flex flex-col justify-between space-y-6">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3 py-1 rounded-md">
+                    DEPOIS DO RADEC® INTERTRAVADO
+                  </span>
+                  <span className="text-xs font-mono font-bold text-emerald-700">out/2024 a abr/2026</span>
+                </div>
 
+                <h4 className="text-lg font-bold text-emerald-950 mb-4">
+                  Proteção Ativa Intertravada ao Sistema de Controle
+                </h4>
+
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-emerald-200 shadow-xs">
+                    <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-2xl font-bold text-emerald-900 block font-['Outfit']">+45 horas</span>
+                      <span className="text-xs font-semibold text-slate-700">de paradas não programadas totalmente evitadas em campo</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 bg-white p-4 rounded-xl border border-emerald-200 shadow-xs">
+                    <TrendingUp className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-2xl font-bold text-emerald-900 block font-['Outfit']">R$ 15 milhões</span>
+                      <span className="text-xs font-semibold text-slate-700">de retorno financeiro estimado por atuações preventivas</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Section 3: 7 Steps Infographic - Um Evento Real em Operação */}
+          <div className="p-6 md:p-8 rounded-2xl bg-[#072752] text-white border border-slate-800 shadow-md">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-700">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                  Documentação de Campo
+                </span>
+                <h4 className="text-2xl md:text-3xl font-bold font-['Outfit'] text-white mt-1">
+                  Um evento real em operação — Vale | Mina de Cauê – Itabira/MG
+                </h4>
+              </div>
+              <span className="text-xs font-bold bg-[#0356c5] text-white px-3 py-1.5 rounded-md shrink-0">
+                Evento Real com RADEC® Visão
+              </span>
+            </div>
+
+            {/* 7 Steps Horizontal Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 mb-10">
+              {eventSteps.map((ev, idx) => {
+                const EvIcon = ev.icon;
                 return (
-                  <button
-                    key={i}
-                    onClick={() => setActiveStep(i)}
-                    style={{
-                      background: isActive ? 'var(--c-blue)' : 'rgba(255, 255, 255, 0.04)',
-                      border: isActive ? '1.5px solid var(--c-blue-glow)' : '1px solid rgba(255, 255, 255, 0.08)',
-                      borderRadius: 'var(--r-md)',
-                      padding: '1.25rem 1rem',
-                      textAlign: 'left',
-                      cursor: 'pointer',
-                      transition: 'all 0.22s ease',
-                      boxShadow: isActive ? '0 10px 25px rgba(37, 99, 235, 0.35)' : 'none',
-                    }}
-                  >
-                    <div style={{
-                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      marginBottom: '0.75rem',
-                    }}>
-                      <span style={{
-                        fontFamily: 'IBM Plex Mono, monospace', fontSize: '0.75rem',
-                        fontWeight: 700, color: isActive ? 'white' : 'rgba(255,255,255,0.4)',
-                      }}>
-                        {ev.n}
-                      </span>
-                      <Icon size={16} color={isActive ? 'white' : ev.color} />
+                  <div key={idx} className="bg-[#0b1c36] p-4 rounded-xl border border-slate-700/80 flex flex-col justify-between space-y-3">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="w-5 h-5 rounded bg-[#0356c5] text-white text-[11px] font-bold font-mono flex items-center justify-center">
+                          {ev.step}
+                        </span>
+                        <EvIcon className="w-4 h-4 text-slate-300" />
+                      </div>
+                      <h5 className="text-xs font-bold text-white leading-snug">{ev.title}</h5>
+                      <p className="text-[11px] text-slate-300 mt-1.5 leading-relaxed font-normal">{ev.desc}</p>
                     </div>
-
-                    <div style={{
-                      fontFamily: 'Outfit, sans-serif', fontSize: '0.875rem', fontWeight: 700,
-                      color: 'white', lineHeight: 1.25, marginBottom: '0.35rem',
-                    }}>
-                      {ev.title}
-                    </div>
-
-                    <div style={{
-                      fontSize: '0.6875rem', color: isActive ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.45)',
-                      lineHeight: 1.4,
-                    }}>
-                      {ev.desc}
-                    </div>
-                  </button>
+                    <span className="text-[9px] font-bold uppercase px-2 py-0.5 bg-[#072752] text-slate-200 rounded border border-slate-700 block text-center">
+                      {ev.tag}
+                    </span>
+                  </div>
                 );
               })}
             </div>
 
-            {/* Active Step Visual Detail Display */}
-            <div style={{
-              background: 'rgba(0, 0, 0, 0.3)', border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: 'var(--r-lg)', padding: '2rem',
-              display: 'grid', gridTemplateColumns: '1fr auto', gap: '2rem', alignItems: 'center',
-              marginBottom: '1.5rem',
-            }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                  <span style={{
-                    background: currentEvent.color, color: 'white',
-                    fontSize: '0.6875rem', fontWeight: 800, padding: '0.3rem 0.75rem', borderRadius: '4px',
-                    textTransform: 'uppercase', letterSpacing: '0.06em',
-                  }}>
-                    {currentEvent.status}
-                  </span>
-                  <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)', fontFamily: 'IBM Plex Mono, monospace' }}>
-                    Etapa {currentEvent.n} de 07
-                  </span>
+            {/* Impact Highlights Bar */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-6 border-t border-slate-700 text-xs">
+              <div className="bg-[#0b1c36] p-3 rounded-lg border border-slate-700/60 flex items-start gap-2">
+                <Shield className="w-4 h-4 text-[#0356c5] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-white block font-bold">Proteção na prática:</strong>
+                  <span className="text-slate-300 text-[11px] font-normal">Aciona nível configurado e atua automaticamente no sistema de controle.</span>
                 </div>
-
-                <h4 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.375rem', fontWeight: 800, color: 'white', marginBottom: '0.5rem' }}>
-                  {currentEvent.title}
-                </h4>
-
-                <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.6, maxWidth: '780px' }}>
-                  {currentEvent.desc}
-                </p>
               </div>
 
-              <button
-                onClick={onOpenQuote}
-                className="btn btn-primary"
-                style={{ flexShrink: 0 }}
-              >
-                Solicitar Diagnóstico Técnico
-                <ArrowRight size={16} />
-              </button>
+              <div className="bg-[#0b1c36] p-3 rounded-lg border border-slate-700/60 flex items-start gap-2">
+                <Target className="w-4 h-4 text-[#0356c5] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-white block font-bold">Detecção antecipada:</strong>
+                  <span className="text-slate-300 text-[11px] font-normal">Identifica a alteração geométrica antes da evolução da falha.</span>
+                </div>
+              </div>
+
+              <div className="bg-[#0b1c36] p-3 rounded-lg border border-slate-700/60 flex items-start gap-2">
+                <Cpu className="w-4 h-4 text-[#0356c5] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-white block font-bold">Atuação automática:</strong>
+                  <span className="text-slate-300 text-[11px] font-normal">Parada ativada sem dependência da intervenção humana.</span>
+                </div>
+              </div>
+
+              <div className="bg-[#0b1c36] p-3 rounded-lg border border-slate-700/60 flex items-start gap-2">
+                <Users className="w-4 h-4 text-[#0356c5] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-white block font-bold">Segurança da equipe:</strong>
+                  <span className="text-slate-300 text-[11px] font-normal">Inspeção realizada com a correia totalmente parada.</span>
+                </div>
+              </div>
+
+              <div className="bg-[#0b1c36] p-3 rounded-lg border border-slate-700/60 flex items-start gap-2">
+                <TrendingDown className="w-4 h-4 text-[#0356c5] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-white block font-bold">Redução de prejuízos:</strong>
+                  <span className="text-slate-300 text-[11px] font-normal">Evita desgarre total e paradas de longos dias.</span>
+                </div>
+              </div>
             </div>
 
-            {/* Caption Note */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-              <Info size={15} color="rgba(255,255,255,0.4)" />
-              <span style={{ fontSize: '0.8125rem', color: 'rgba(255,255,255,0.5)' }}>
-                Evento real ocorrido na Mina de Cauê – Itabira/MG, com o RADEC® Visão intertravado ao sistema de controle da Vale.
-              </span>
-            </div>
+            <p className="text-[11px] text-slate-400 text-center mt-6 flex items-center justify-center gap-1.5 font-medium">
+              <Info className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <span>Esquema de comunicação do caso. Evento real ocorrido na Mina de Cauê – Itabira/MG, com o RADEC® Visão intertravado ao sistema de controle da Vale.</span>
+            </p>
           </div>
+
         </div>
 
-        <style>{`
-          @media (max-width: 1024px) {
-            .event-steps-grid {
-              grid-template-columns: repeat(2, 1fr) !important;
-            }
-          }
-          @media (max-width: 640px) {
-            .event-steps-grid {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
-
